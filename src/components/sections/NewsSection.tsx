@@ -109,7 +109,7 @@ export default function NewsSection() {
                 transform: `translateX(-${currentSlide * (320 + 24)}px)`,
               }}
             >
-              {displayItems.map((item, index) => (
+              {displayItems.map((item) => (
                 <div key={item.id} className="flex-shrink-0">
                   <NewsCard item={item} />
                 </div>
