@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import clsx from 'clsx'
@@ -7,9 +8,8 @@ import clsx from 'clsx'
 const navItems = [
   { href: '/', label: 'Inicio' },
   { href: '/about', label: 'Nosotros' },
-  { href: '/contact', label: 'Contacto' },
-  { href: '/real-state', label: 'Bienes Raíces' },
   { href: '/services', label: 'Servicios' },
+  { href: '/real-state', label: 'Bienes Raíces' },
 ]
 
 export default function Header() {
@@ -17,53 +17,121 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">Mi Sitio</h1>
-
-        <button
-          className="md:hidden flex flex-col gap-1"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Abrir menú"
-        >
-          <span className="w-6 h-0.5 bg-black"></span>
-          <span className="w-6 h-0.5 bg-black"></span>
-          <span className="w-6 h-0.5 bg-black"></span>
-        </button>
-
-        <nav className="hidden md:flex gap-6">
-          {navItems.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={clsx(
-                'text-gray-600 hover:text-black transition',
-                pathname === href && 'font-semibold text-black underline'
-              )}
-            >
-              {label}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
+            <Link href="/" className="flex items-center space-x-2">
+              <Image
+                src="/images/Logo AR COMPANY.png"
+                alt="Logo"
+                width={90}
+                height={90}
+                className="rounded"
+              />
+              {/* <div className="hidden sm:block">
+                <Image
+                 src="/images/Logo COMPANY.png"
+                  alt="Logo"
+                  width={110}
+                  height={110}
+                  className="rounded"
+                />
+                <Image
+                 src="/images/Logo BYJ.png"
+                  alt="Logo"
+                  width={200}
+                  height={100}
+                  className="rounded"
+                />
+              </div> */}
             </Link>
-          ))}
-        </nav>
+          </div>
+
+          {/* Navigation - Desktop */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {navItems.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={clsx(
+                  'text-normal font-medium transition-colors duration-200 hover:text-amber-300',
+                  pathname === href 
+                    ? 'text-amber-300' 
+                    : 'text-gray-100'
+                )}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Contact Button & Mobile Menu Button */}
+          <div className="flex items-center space-x-4">
+            {/* Contact Button */}
+            <Link
+              href="/contact"
+              className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 px-4 py-2 rounded-md text-sm font-semibold transition-colors duration-200 hidden sm:inline-flex items-center"
+            >
+              Contacto
+            </Link>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-slate-800 transition-colors duration-200"
+              aria-label="Abrir menú"
+            >
+              <svg
+                className={clsx('h-6 w-6 transition-transform duration-300', isOpen && 'rotate-90')}
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className={clsx(
+          'md:hidden transition-all duration-300 ease-in-out overflow-hidden',
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        )}>
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-slate-800 rounded-lg mt-2 mb-2">
+            {navItems.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setIsOpen(false)}
+                className={clsx(
+                  'block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200',
+                  pathname === href
+                    ? 'bg-amber-500 text-slate-900'
+                    : 'text-gray-300 hover:text-white hover:bg-slate-700'
+                )}
+              >
+                {label}
+              </Link>
+            ))}
+            {/* Mobile Contact Button */}
+            <Link
+              href="/contact"
+              onClick={() => setIsOpen(false)}
+              className="block w-full text-center bg-amber-500 hover:bg-amber-600 text-slate-900 px-3 py-2 rounded-md text-sm font-semibold mt-4 transition-colors duration-200"
+            >
+              Contacto
+            </Link>
+          </div>
+        </div>
       </div>
-
-      {isOpen && (
-        <nav className="md:hidden px-4 pb-4 flex flex-col gap-3">
-          {navItems.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              onClick={() => setIsOpen(false)} 
-              className={clsx(
-                'text-gray-700 hover:text-black transition',
-                pathname === href && 'font-semibold text-black underline'
-              )}
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-      )}
     </header>
   )
 }

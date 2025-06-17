@@ -1,18 +1,21 @@
 import './globals.css'
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'  // Importa el Footer
 import { ReactNode } from 'react'
 
+
 export const metadata = {
-  title: 'Mi Sitio',
-  description: 'Una página con Next.js y Tailwind',
+  title: 'AR Company',
+  description: 'Firma legal especializada en servicios jurídicos integrales',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es">
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen bg-white">
         <Header />
-        <main className="flex-grow container mx-auto">{children}</main>
+        <main className="pt-16">{children}</main>
+        <Footer />  
       </body>
     </html>
   )
