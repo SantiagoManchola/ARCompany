@@ -8,11 +8,11 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-2">
         <div className="py-10 border-b border-gray-700/90 ">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
             <div className="lg:col-span-1 space-y-6">
-              <div className="flex items-center space-x-0">
+              <div className="flex justify-center space-x-0">
                 <Image
                   src="/images/Logo AR COMPANY.png"
                   alt="AR Company Logo"
@@ -20,7 +20,7 @@ export default function Footer() {
                   height={80}
                   className="rounded-lg"
                 />
-                <div className="hidden sm:block">
+                <div className="">
                   <Image
                     src="/images/Logo BYJ.png"
                     alt="Logo"
@@ -30,13 +30,10 @@ export default function Footer() {
                   />
                 </div>
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                Firma legal especializada en brindar servicios jurídicos
-                integrales con más de 5 años de experiencia y un 98% de casos
-                exitosos.
-              </p>
 
-              <div className="flex space-x-4">
+
+              {/* Iconos Redes Sociales */}
+              <div className="flex justify-center space-x-4">
                 <a
                   href="#"
                   className="w-10 h-10 bg-gray-800 hover:bg-amber-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group"

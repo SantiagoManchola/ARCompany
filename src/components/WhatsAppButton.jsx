@@ -85,7 +85,7 @@ export default function WhatsAppButton() {
           style={{ transformOrigin: "bottom right" }}
         >
           ¡Contáctanos por WhatsApp!
-          <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800" />
+          <div className="absolute top-full right-7 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800" />
         </div>
       </div>
 

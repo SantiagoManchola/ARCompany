@@ -1,14 +1,25 @@
 "use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { NewsItem } from "@/data/news";
 
-export default function NewsCard({ item }: { item: NewsItem }) {
+interface NewsCardProps {
+  item: NewsItem;
+  width: number;
+  height: number;
+}
+
+export default function NewsCard({ item, width, height }: NewsCardProps) {
   return (
     <Link 
       href={item.link} 
-      className="block rounded-2xl overflow-hidden group relative transform transition-all duration-500 hover:scale-105 hover:shadow-2xl h-80 flex-shrink-0 w-80 top-3 left-2"
+      className="block rounded-2xl overflow-hidden group relative transform transition-all duration-500 hover:scale-105 hover:shadow-2xl flex-shrink-0"
+      style={{ 
+        width: `${width}px`, 
+        height: `${height}px`,
+        top: '12px',
+        left: '8px'
+      }}
     >
       {/* Imagen con mejor handling */}
       <div className="relative w-full h-full overflow-hidden">
@@ -17,7 +28,7 @@ export default function NewsCard({ item }: { item: NewsItem }) {
           alt={item.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-100"
-          sizes="320px"
+          sizes={`${width}px`}
         />
         
         {/* Gradiente mejorado */}
@@ -41,7 +52,7 @@ export default function NewsCard({ item }: { item: NewsItem }) {
         </h3>
       </div>
         
-        {/* Description */}
+      {/* Description */}
       <div className="absolute bottom-0 left-0 -right-0 p-5 text-white">  
         <p className="text-gray-200 text-[13px] leading-normal opacity-0 group-hover:opacity-100 transform translate-y-0 group-hover:translate-y-0 transition-all duration-300 delay-100">
           {item.description}
@@ -57,7 +68,7 @@ export default function NewsCard({ item }: { item: NewsItem }) {
       </div>
       
       {/* Hover border effect */}
-      <div className="absolute inset-1 border-2  group-hover:border-amber-400  rounded-2xl transition-colors duration-300 pointer-events-none"></div>
+      <div className="absolute inset-1 border-2 group-hover:border-amber-400 rounded-2xl transition-colors duration-300 pointer-events-none"></div>
     </Link>
   );
 }

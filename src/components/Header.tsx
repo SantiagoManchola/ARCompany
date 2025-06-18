@@ -19,17 +19,33 @@ export default function Header() {
   return (
     <header className="sticky top-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 shadow-lg h-[10vh] min-h-[80px]">
       <div className="max-w-7xl mx-auto h-full">
-        <div className="flex justify-between items-center h-full px-4">
+        <div className="flex justify-between items-center h-full px-1">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               <Image
                 src="/images/Logo AR COMPANY.png"
                 alt="Logo"
-                width={70}
-                height={70}
+                width={80}
+                height={80}
                 className="rounded"
               />
+              <div className=" ">
+                {/* <Image
+                 src="/images/Logo COMPANY.png"
+                  alt="Logo"
+                  width={110}
+                  height={110}
+                  className="rounded"
+                /> */}
+                <Image
+                 src="/images/Logo BYJ.png"
+                  alt="Logo"
+                  width={200}
+                  height={100}
+                  className="rounded"
+                />
+              </div>
             </Link>
           </div>
 
@@ -50,7 +66,8 @@ export default function Header() {
           </nav>
 
           {/* Contact Button & Mobile Menu Button */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
+            
             {/* Contact Button */}
             <Link
               href="/contact"
