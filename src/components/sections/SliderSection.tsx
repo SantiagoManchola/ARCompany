@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function SliderSection() {
   return (
-    <section className="relative h-190">
+    <section className="relative h-[90vh] min-h-[600px]">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         autoplay={{
@@ -43,11 +43,11 @@ export default function SliderSection() {
               <div className="absolute inset-0 bg-black/50" />
 
               {/* Content */}
-              <div className="relative z-10 flex items-center justify-center h-full">
-                <div className="text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="relative z-10 flex items-center justify-center h-full px-4">
+                <div className="text-center max-w-4xl mx-auto">
                   {/* Subtitle */}
                   <div
-                    className="text-gray-200 text-lg md:text-xl mb-6 font-medium animate-fade-in-up"
+                    className="text-gray-200 text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-medium animate-fade-in-up"
                     style={{ animationDelay: "0.2s" }}
                   >
                     {slide.subtitle}
@@ -55,7 +55,7 @@ export default function SliderSection() {
 
                   {/* Main Title */}
                   <h1
-                    className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight animate-fade-in-up"
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight animate-fade-in-up"
                     style={{ animationDelay: "0.4s" }}
                   >
                     {slide.title.split(" ").map((word, i) => (
@@ -70,7 +70,7 @@ export default function SliderSection() {
 
                   {/* Description */}
                   <p
-                    className="text-gray-200 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in-up"
+                    className="text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in-up"
                     style={{ animationDelay: "0.6s" }}
                   >
                     {slide.description}
@@ -83,11 +83,11 @@ export default function SliderSection() {
                   >
                     <Link
                       href={slide.ctaLink}
-                      className="inline-flex items-center bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                      className="inline-flex items-center bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg text-base sm:text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
                     >
                       {slide.ctaText}
                       <svg
-                        className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1"
+                        className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -141,6 +141,15 @@ export default function SliderSection() {
         .animate-fade-in-up {
           animation: fade-in-up 0.8s ease-out forwards;
           opacity: 0;
+        }
+
+        /* Asegurar que el slider se vea bien en pantallas muy pequeñas */
+        @media (max-height: 600px) {
+          .text-3xl { font-size: 1.5rem; }
+          .text-4xl { font-size: 1.75rem; }
+          .text-5xl { font-size: 2rem; }
+          .mb-8 { margin-bottom: 1rem; }
+          .mb-12 { margin-bottom: 1.5rem; }
         }
       `}</style>
     </section>

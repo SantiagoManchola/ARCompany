@@ -17,35 +17,19 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 shadow-lg py-4">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
-        <div className="flex justify-between items-center h-16">
+    <header className="sticky top-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 shadow-lg h-[10vh] min-h-[80px]">
+      <div className="max-w-7xl mx-auto h-full">
+        <div className="flex justify-between items-center h-full px-4">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               <Image
                 src="/images/Logo AR COMPANY.png"
                 alt="Logo"
-                width={90}
-                height={90}
+                width={70}
+                height={70}
                 className="rounded"
               />
-              {/* <div className="hidden sm:block">
-                <Image
-                 src="/images/Logo COMPANY.png"
-                  alt="Logo"
-                  width={110}
-                  height={110}
-                  className="rounded"
-                />
-                <Image
-                 src="/images/Logo BYJ.png"
-                  alt="Logo"
-                  width={200}
-                  height={100}
-                  className="rounded"
-                />
-              </div> */}
             </Link>
           </div>
 
