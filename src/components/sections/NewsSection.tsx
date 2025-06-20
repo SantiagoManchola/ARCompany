@@ -58,13 +58,13 @@ export default function NewsSection() {
   const getCardDimensions = () => {
     if (slidesToShow === 1) {
       // Mobile: tarjeta mucho más pequeña para que quepa bien
-      return { width: 250, height: 250, gap: 12 };
+      return { width: 250, height: 250, gap: 2 };
     } else if (slidesToShow === 2) {
       // Tablet: tarjeta mediana
-      return { width: 300, height: 300, gap: 20 };
+      return { width: 300, height: 300, gap: 2 };
     } else {
       // Desktop: tarjeta grande
-      return { width: 340, height: 320, gap: 0 };
+      return { width: 340, height: 320, gap: 2 };
     }
   };
 
@@ -105,7 +105,7 @@ export default function NewsSection() {
               <button
                 onClick={prevSlide}
                 disabled={currentSlide === 0}
-                className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white backdrop-blur-sm hover:bg-white text-black hover:text-amber-600 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group ${
+                className={`absolute left-1 top-2/5 -translate-y-1/4 z-10 bg-white backdrop-blur-sm hover:bg-white text-black hover:text-amber-600 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group ${
                   currentSlide === 0 ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
                 }`}
               >
@@ -127,7 +127,7 @@ export default function NewsSection() {
               <button
                 onClick={nextSlide}
                 disabled={currentSlide === maxSlides}
-                className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white backdrop-blur-sm hover:bg-white text-black hover:text-amber-600 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group ${
+                className={`absolute right-1 top-2/5 -translate-y-1/4 z-10 bg-white backdrop-blur-sm hover:bg-white text-black hover:text-amber-600 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group ${
                   currentSlide === maxSlides ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
                 }`}
               >
@@ -163,7 +163,7 @@ export default function NewsSection() {
               >
                 <div
                   ref={sliderRef}
-                  className="flex transition-transform duration-500 ease-in-out h-86"
+                  className="flex transition-transform duration-500 ease-in-out sm:h-80 md:h-80 lg:h-86 h-67 "
                   style={{
                     transform: `translateX(-${currentSlide * totalCardWidth}px)`,
                     gap: `${gap}px`,

@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function SliderSection() {
   return (
-    <section className="relative h-[90vh] min-h-[600px]">
+    <section className="relative h-[90vh]  min-h-[600px]">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         autoplay={{

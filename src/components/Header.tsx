@@ -22,7 +22,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-full px-1">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-0">
               <Image
                 src="/images/Logo AR COMPANY.png"
                 alt="Logo"
@@ -66,7 +66,7 @@ export default function Header() {
           </nav>
 
           {/* Contact Button & Mobile Menu Button */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-0">
             
             {/* Contact Button */}
             <Link

@@ -21,8 +21,8 @@ export default function InfoSection() {
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
               Traditional payroll cant
               <span className="relative">
-                <span className="text-amber-400"> keep up</span>
-                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-400 rounded-full"></div>
+                <span className="bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text"> keep up</span>
+                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
               </span>{" "}
               with your needs
             </h1>
@@ -40,19 +40,19 @@ export default function InfoSection() {
             {/* Stats */}
             <div className="flex gap-15 py-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-amber-400">500+</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">500+</div>
                 <div className="text-sm text-gray-500 font-medium">
                   Cases Won
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-amber-400">5+</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">5+</div>
                 <div className="text-sm text-gray-500 font-medium">
                   Years Experience
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-amber-400">98%</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">98%</div>
                 <div className="text-sm text-gray-500 font-medium">
                   Success Rate
                 </div>

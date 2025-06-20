@@ -6,14 +6,11 @@ export default function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Tu número de WhatsApp (cambia por el tuyo)
-  const phoneNumber = "573001234567"; // Formato: código país + número sin espacios ni símbolos
+  const phoneNumber = "573024235453"; 
   const message = "¡Hola! Me interesa conocer más sobre sus servicios legales.";
   
-  // Construir URL de WhatsApp
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-  // Mostrar el botón después de un pequeño delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -30,7 +27,7 @@ export default function WhatsAppButton() {
     <>
       {/* Botón Principal */}
       <div
-        className={`fixed bottom-6 right-6 z-50 transition-all duration-500 transform ${
+        className={`fixed bottom-7 right-8 z-50 transition-all duration-500 transform ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0"
         }`}
       >
