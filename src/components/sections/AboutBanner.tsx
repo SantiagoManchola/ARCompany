@@ -9,7 +9,7 @@ export default function BannerSection() {
           backgroundImage: "url('/images/BG Banner.jpg')",
         }}
       >
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
       <div className="relative z-10 flex items-center justify-center h-full px-4">
