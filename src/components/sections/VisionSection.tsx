@@ -10,7 +10,7 @@ export default function VisionSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-100"
         style={{
-          backgroundImage: "url('images/law.jpg')",
+          backgroundImage: "url('images/Law.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-[#111C32] opacity-80"></div>
@@ -61,7 +61,7 @@ export default function VisionSection() {
               <div className="absolute -inset-4 bg-amber-400/30 rounded-3xl blur opacity-50 group-hover:opacity-80 transition-opacity duration-300"></div>
               <div className="relative">
                 <Image
-                  src="/images/abogados.jpg"
+                  src="/images/Abogados.jpg"
                   alt="Imagen visión"
                   width={600}
                   height={400}
