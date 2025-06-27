@@ -62,7 +62,7 @@ export default function VisionSection() {
               <div className="relative">
                 <Image
                   src="/images/abogados.jpg"
-                  alt="Visión de futuro"
+                  alt="Imagen visión"
                   width={600}
                   height={400}
                   className="rounded-2xl shadow-2x"
