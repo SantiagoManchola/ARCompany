@@ -48,7 +48,7 @@ export default function MissionSection() {
             <div className="relative group">
               <Image
                 src="/images/Lawyer.png"
-                alt="Nuestro equipo trabajando"
+                alt="Nuestro equipo"
                 width={600}
                 height={400}
               />
