@@ -72,7 +72,7 @@ export default function InfoSection() {
 
               <Link
                 href="/about"
-                className="group border-2 border-gray-300 hover:border-amber-400 text-gray-700 hover:text-amber-500 font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-amber-50"
+                className="group border-2 border-gray-300 hover:border-amber-400 text-gray-700 hover:text-amber-500 font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-amber-50/40"
               >
                 <span className="flex items-center gap-2">
                   Learn more
@@ -107,21 +107,6 @@ export default function InfoSection() {
                 height={400}
                 className="rounded-2xl shadow-2xl transition-transform duration-500 group-hover:scale-105 object-cover"
               />
-
-              {/* Floating badge 
-                <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-4 border border-gray-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-800">Trusted by 1000+</div>
-                      <div className="text-sm text-gray-500">Happy clients</div>
-                    </div>
-                  </div>
-                </div>*/}
             </div>
           </div>
         </div>

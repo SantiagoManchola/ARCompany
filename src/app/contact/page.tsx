@@ -1,3 +1,11 @@
+import ContactBanner from "@/components/sections/ContactBanner"
+import ContactSection from "@/components/sections/ContactSection";
+
 export default function Contact() {
-  return <h2 className="text-2xl font-semibold"> Contacto </h2>
+  return (
+  <div>
+    <ContactBanner />
+    <ContactSection />
+  </div>
+  );
 }
