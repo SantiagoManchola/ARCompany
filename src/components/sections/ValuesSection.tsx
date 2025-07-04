@@ -35,7 +35,7 @@ export default function ValuesSection() {
     <section className="relative py-20 overflow-hidden">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-blue-50"></div>
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-2">
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 text-amber-500 text-sm font-medium mb-4">

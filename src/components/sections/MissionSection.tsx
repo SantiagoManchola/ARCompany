@@ -11,7 +11,7 @@ export default function MissionSection() {
         <div className="flex flex-col lg:flex-row items-center gap-16 px-6 sm:px-10">
           
           {/* Content Column */}
-          <div className="lg:w-1/2 space-y-8 order-1 lg:order-2">
+          <div className="lg:w-1/2 space-y-8 order-1 lg:order-2 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 text-amber-500 text-sm font-medium mb-4">
               <div className="w-8 h-px bg-amber-400"></div>
               <span className="uppercase tracking-wider">Nuestra Misión</span>
@@ -27,7 +27,7 @@ export default function MissionSection() {
               a través de la excelencia
             </h2>
             
-            <div className="space-y-6">
+            <div className="space-y-6 text-left">
               <p className="text-lg text-gray-600 leading-relaxed">
                 Nuestra misión es proporcionar servicios jurídicos de la más alta calidad, 
                 con un enfoque personalizado y comprometido con los resultados de nuestros 
