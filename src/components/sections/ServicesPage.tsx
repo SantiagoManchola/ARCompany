@@ -31,7 +31,7 @@ export default function ServicesPageSection() {
           </h1>
           
           <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-            Nuestro equipo está comprometido con la excelencia y resultados efectivos.
+            Nuestro equipo está comprometido con la excelencia y resultados efectivos
           </p>
         </div>
 
