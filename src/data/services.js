@@ -1,26 +1,20 @@
 export const servicesData = [
   {
     icon: "/images/Icono.png", 
-    title: "Top specialists",
-    description: "Lorem ipsum nostrud voluptate ad ipsum deserunt cillum culpa consectetur",
-    href: "/services/specialists"
+    title: "Propiedad Horizontal",
+    description: "Asesoría integral en administración de edificios, copropiedades y resolución de conflictos entre propietarios.",
+    href: "/services/propiedad-horizontal"
   },
   {
     icon: "/images/Icono.png", 
-    title: "Focus on the result",
-    description: "Lorem ipsum nostrud voluptate ad ipsum deserunt cillum culpa consectetur",
-    href: "/services/results"
+    title: "Revisoría Fiscal y Contabilidad",
+    description: "Servicios profesionales de revisoría fiscal, auditoría contable y cumplimiento normativo para empresas.",
+    href: "/services/revisoria-fiscal"
   },
   {
     icon: "/images/Icono.png", 
-    title: "Low fees",
-    description: "Lorem ipsum nostrud voluptate ad ipsum deserunt cillum culpa consectetur",
-    href: "/services/pricing"
-  },
-  {
-    icon: "/images/Icono.png", 
-    title: "Quick changes",
-    description: "Lorem ipsum nostrud voluptate ad ipsum deserunt cillum culpa consectetur",
-    href: "/services/quick-service"
+    title: "Asesoría Jurídica Especializada",
+    description: "Representación legal experta en derecho público y privado, con enfoque en soluciones efectivas.",
+    href: "/services/asesoria-juridica"
   }
 ];

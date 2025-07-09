@@ -1,3 +1,11 @@
+import ServicesBanner from "@/components/sections/ServicesBanner";
+import ServicesPage from "@/components/sections/ServicesPage";
+
 export default function Services() {
-  return <h2 className="text-2xl font-semibold">Servicios</h2>
+  return (
+  <div>
+    <ServicesBanner />
+    <ServicesPage />
+  </div>
+  );
 }
