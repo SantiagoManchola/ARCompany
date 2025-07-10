@@ -7,18 +7,15 @@ export default function InfoSection() {
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-10 right-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
-      <div
-        className="absolute -bottom-30 -left-10 w-72 h-72 bg-amber-100 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"
-        style={{ animationDelay: "2s" }}
-      ></div>
-
       <div className="relative max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           {/* Columna de texto */}
           <div className="lg:w-1/2 space-y-8">
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+            <h1 
+              className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
+              data-aos="fade-down-right"
+              data-aos-duration="1000"
+            >
               Traditional payroll cant
               <span className="relative">
                 <span className="bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text"> keep up</span>
@@ -27,7 +24,11 @@ export default function InfoSection() {
               with your needs
             </h1>
 
-            <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
+            <p 
+              className="text-xl text-gray-600 leading-relaxed max-w-lg"
+              data-aos="fade-right"
+              data-aos-delay="200"
+            >
               End the game of payroll whack-a-mole with the ability to pay your
               team
               <span className="font-semibold text-gray-800">
@@ -38,7 +39,11 @@ export default function InfoSection() {
             </p>
 
             {/* Stats */}
-            <div className="flex gap-15 py-6">
+            <div 
+              className="flex gap-15 py-6"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
               <div className="text-center">
                 <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">500+</div>
                 <div className="text-sm text-gray-500 font-medium">
@@ -60,14 +65,17 @@ export default function InfoSection() {
             </div>
 
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div 
+              className="flex flex-col sm:flex-row gap-4"
+              data-aos="fade-up"
+              data-aos-delay="600"
+            >
               <Link
                 href="/contact"
                 className="group relative bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-600 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
               >
                 <span className="relative z-10">See how it works</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                {/* <div className="absolute inset-0 bg-black/25 rounded-xl opacity-0 group-hover:opacity-0 animate-pulse"></div> */}
               </Link>
 
               <Link
@@ -95,7 +103,12 @@ export default function InfoSection() {
           </div>
 
           {/* Columna de imagen */}
-          <div className="lg:w-1/2 relative">
+          <div 
+            className="lg:w-1/2 relative"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+            data-aos-delay="300"
+          >
             {/* Decorative frame */}
             <div className="absolute -inset-4 bg-gradient-to-r from-amber-300 to-amber-300 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
 

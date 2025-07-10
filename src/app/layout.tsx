@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { ReactNode } from "react";
+import AOSInit from "@/components/AOSInit";
 
 export const metadata = {
   title: "AR Company",
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es">
       <body className="min-h-screen bg-white">
+        <AOSInit />
         <Header />
         <main>{children}</main>
         <Footer />
