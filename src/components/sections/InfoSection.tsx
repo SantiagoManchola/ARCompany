@@ -13,13 +13,13 @@ export default function InfoSection() {
           <div className="lg:w-1/2 space-y-8">
             <h1 
               className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
-              data-aos="fade-down-right"
+              data-aos="fade-down"
               data-aos-duration="1000"
             >
               Traditional payroll cant
               <span className="relative">
                 <span className="bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text"> keep up</span>
-                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+                <div className="absolute -bottom-2 left-2 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
               </span>{" "}
               with your needs
             </h1>
@@ -41,8 +41,8 @@ export default function InfoSection() {
             {/* Stats */}
             <div 
               className="flex gap-15 py-6"
-              data-aos="fade-up"
-              data-aos-delay="400"
+              data-aos="zoom-in"
+              data-aos-delay="0"
             >
               <div className="text-center">
                 <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">500+</div>
@@ -68,7 +68,8 @@ export default function InfoSection() {
             <div 
               className="flex flex-col sm:flex-row gap-4"
               data-aos="fade-up"
-              data-aos-delay="600"
+              data-aos-delay="0"
+              data-aos-offset="100"
             >
               <Link
                 href="/contact"
@@ -105,11 +106,10 @@ export default function InfoSection() {
           {/* Columna de imagen */}
           <div 
             className="lg:w-1/2 relative"
-            data-aos="fade-left"
+            data-aos="flip-left"
             data-aos-duration="1000"
             data-aos-delay="300"
           >
-            {/* Decorative frame */}
             <div className="absolute -inset-4 bg-gradient-to-r from-amber-300 to-amber-300 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
 
             <div className="relative group">

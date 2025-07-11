@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function SliderSection() {
   return (
-    <section className="relative h-[90vh]  min-h-[600px]">
+    <section className="relative h-[90vh] min-h-[600px]">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         autoplay={{
@@ -47,16 +47,20 @@ export default function SliderSection() {
                 <div className="text-center max-w-4xl mx-auto">
                   {/* Subtitle */}
                   <div
-                    className="text-gray-200 text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-medium animate-fade-in-up"
-                    style={{ animationDelay: "0.2s" }}
+                    className="text-gray-200 text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-medium"
+                    data-aos="fade-down"
+                    data-aos-duration="800"
+                    data-aos-delay="200"
                   >
                     {slide.subtitle}
                   </div>
 
                   {/* Main Title */}
                   <h1
-                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight animate-fade-in-up"
-                    style={{ animationDelay: "0.4s" }}
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    data-aos-delay="400"
                   >
                     {slide.title.split(" ").map((word, i) => (
                       <span
@@ -70,16 +74,19 @@ export default function SliderSection() {
 
                   {/* Description */}
                   <p
-                    className="text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in-up"
-                    style={{ animationDelay: "0.6s" }}
+                    className="text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed"
+                    data-aos="fade-up"
+                    data-aos-duration="800"
+                    data-aos-delay="600"
                   >
                     {slide.description}
                   </p>
 
                   {/* CTA Button */}
                   <div
-                    className="animate-fade-in-up"
-                    style={{ animationDelay: "0.8s" }}
+                    data-aos="zoom-in"
+                    data-aos-duration="600"
+                    data-aos-delay="800"
                   >
                     <Link
                       href={slide.ctaLink}
@@ -125,22 +132,6 @@ export default function SliderSection() {
         .swiper-pagination-bullet-active {
           background: rgb(245, 179, 11) !important;
           transform: scale(1.2) !important;
-        }
-
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-          opacity: 0;
         }
 
         /* Asegurar que el slider se vea bien en pantallas muy pequeñas */

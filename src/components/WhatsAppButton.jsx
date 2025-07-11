@@ -54,7 +54,7 @@ export default function WhatsAppButton() {
             onClick={handleClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className={`relative bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-4 rounded-full shadow-2xl transition-all duration-300 transform ${
+            className={`relative bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-4 rounded-full shadow-2xl transition-all duration-300 transform cursor-pointer ${
               isHovered ? "scale-110 shadow-green-500/50" : "scale-100"
             } hover:shadow-green-500/30 active:scale-95`}
             aria-label="Contactar por WhatsApp"

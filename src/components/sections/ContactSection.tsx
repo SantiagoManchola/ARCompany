@@ -92,8 +92,7 @@ export default function ContactSection() {
                   <h3 className="font-semibold text-gray-900 mb-1">Teléfono/WhatsApp</h3>
                   <p className="text-gray-600">+57 (XXX) XXX-XXXX</p>
                 </div>
-                {/* Hover accent line - Left */}
-                <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+                <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
               </div>
               
               <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
@@ -106,8 +105,7 @@ export default function ContactSection() {
                   <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
                   <p className="text-gray-600">info@arcompany.com</p>
                 </div>
-                {/* Hover accent line - Left */}
-                <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+                <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
               </div>
               
               <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
@@ -122,13 +120,12 @@ export default function ContactSection() {
                   <p className="text-gray-600">Carrera 4 No. 10-38 oficina 201 Edificio Vela</p>
                   
                 </div>
-                {/* Hover accent line - Left */}
-                <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+                <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
               </div>
             </div>
 
             {/* Additional Info */}
-            <div className="group relative bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mt-8 overflow-hidden">
+            <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 p-6 mt-8 overflow-hidden">
               <h3 className="text-gray-900 font-semibold mb-3">Horarios de Atención</h3>
               <div className="space-y-2 text-gray-600 text-sm">
                 <div className="flex justify-between">
@@ -144,8 +141,7 @@ export default function ContactSection() {
                   <span>Cerrado</span>
                 </div>
               </div>
-              {/* Hover accent line - Left */}
-              <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+              <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
             </div>
           </div>
           
@@ -261,7 +257,7 @@ export default function ContactSection() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="group w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 disabled:from-amber-300 disabled:to-amber-400 text-slate-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl disabled:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                      className="group w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 disabled:from-amber-300 disabled:to-amber-400 text-slate-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl disabled:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-3 cursor-pointer"
                     >
                       {isSubmitting ? (
                         <>
