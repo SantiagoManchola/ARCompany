@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation';
-import servicios from '@/data/servicios.json';
+import { notFound } from "next/navigation";
+import servicios from "@/data/servicios.json";
 
 export async function generateStaticParams() {
   return servicios.map((servicio) => ({
@@ -7,7 +7,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ServicioPage({ params }: { params: { slug: string } }) {
+export default async function ServicioPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const servicio = servicios.find((s) => s.slug === slug);
 
@@ -58,13 +62,14 @@ export default async function ServicioPage({ params }: { params: { slug: string 
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-1">
           <div className="flex flex-col lg:flex-row items-start gap-8 sm:gap-12 lg:gap-16">
-            
             {/* Columna izquierda - Descripción */}
             <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8">
               {/* Subtítulo */}
               <div className="flex items-center justify-center lg:justify-start gap-2 text-amber-500 text-sm font-medium mb-4">
                 <div className="w-6 sm:w-8 h-px bg-amber-400"></div>
-                <span className="uppercase tracking-wider text-xs sm:text-sm">¿En qué consiste?</span>
+                <span className="uppercase tracking-wider text-xs sm:text-sm">
+                  ¿En qué consiste?
+                </span>
                 <div className="w-6 sm:w-8 h-px bg-amber-400"></div>
               </div>
 
@@ -72,7 +77,7 @@ export default async function ServicioPage({ params }: { params: { slug: string 
               <h2 className="text-4xl sm:text-4xl lg:text-5xl xl:text-5xl font-bold text-gray-900 leading-tight text-center lg:text-left">
                 {servicio.nombre}
               </h2>
-              
+
               {/* Descripción detallada */}
               <div className="space-y-4 sm:space-y-6">
                 <p className="text-base sm:text-lg text-gray-800 leading-relaxed text-center lg:text-left">
@@ -88,7 +93,8 @@ export default async function ServicioPage({ params }: { params: { slug: string 
                       ¿NECESITAS ASESORÍA?
                     </h3>
                     <p className="text-amber-100 mb-4 sm:mb-6 text-base sm:text-lg">
-                      Nuestro equipo está listo para brindarte la mejor asesoría legal
+                      Nuestro equipo está listo para brindarte la mejor asesoría
+                      legal
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                       <a
@@ -108,21 +114,33 @@ export default async function ServicioPage({ params }: { params: { slug: string 
               {/* Subtítulo */}
               <div className="flex items-center justify-center lg:justify-start gap-2 text-amber-500 text-sm font-medium mb-4">
                 <div className="w-6 sm:w-8 h-px bg-amber-400"></div>
-                <span className="uppercase tracking-wider text-xs sm:text-sm">Áreas de Especialización</span>
+                <span className="uppercase tracking-wider text-xs sm:text-sm">
+                  Áreas de Especialización
+                </span>
                 <div className="w-6 sm:w-8 h-px bg-amber-400"></div>
               </div>
 
               {/* Grid de áreas */}
               <div className="space-y-3 sm:space-y-4">
                 {servicio.areas_especializacion.map((area, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="group bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-xl border border-gray-100 hover:shadow-xl"
                   >
                     <div className="flex items-center gap-3 sm:gap-4">
                       <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-400/20 to-amber-500/20 rounded-lg flex items-center justify-center">
-                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <svg
+                          className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
                         </svg>
                       </div>
                       <div className="flex-1">
@@ -146,7 +164,8 @@ export default async function ServicioPage({ params }: { params: { slug: string 
                     ¿NECESITAS ASESORÍA?
                   </h3>
                   <p className="text-amber-100 mb-4 sm:mb-6 text-base sm:text-lg">
-                    Nuestro equipo está listo para brindarte la mejor asesoría legal
+                    Nuestro equipo está listo para brindarte la mejor asesoría
+                    legal
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                     <a
