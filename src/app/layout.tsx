@@ -5,7 +5,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { ReactNode } from "react";
 import AOSInit from "@/components/AOSInit";
 
-export const metadata = {
+export const viewport = {
   title: "AR Company",
   description: "Firma legal especializada en servicios jurídicos integrales",
 

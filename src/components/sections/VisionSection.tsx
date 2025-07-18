@@ -15,13 +15,9 @@ export default function VisionSection() {
       >
         <div className="absolute inset-0 bg-[#111C32] opacity-80"></div>
       </div>
-
-
-      {/* Geometric decorations */}
-      <div className="absolute top-32 left-20 w-4 h-4 bg-amber-400/60 rounded-full animate-bounce"></div>
-
+      
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 text-center lg:text-left">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <div className="lg:w-1/2 space-y-8">
             <div className="inline-flex items-center gap-2 text-amber-400 text-sm font-medium mb-4">

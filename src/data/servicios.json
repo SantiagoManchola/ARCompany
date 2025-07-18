@@ -1,0 +1,45 @@
+[
+  {
+    "nombre": "Propiedad Horizontal",
+    "slug": "propiedad-horizontal",
+    "descripcion": "Servicio especializado en la gestión jurídica y administrativa de propiedad horizontal, incluyendo constitución de condominios, reglamentos de propiedad horizontal, resolución de conflictos entre copropietarios y administración de bienes comunes.",
+    "titulo_banner": "Propiedad Horizontal",
+    "descripcion_banner": "Especialistas en gestión jurídica y administrativa de condominios, brindando soluciones integrales para propietarios y administradores.",
+    "imagen_banner": "/images/propiedad-horizontal-banner.jpg",
+    "areas_especializacion": [
+      "Constitución de condominios",
+      "Reglamentos de propiedad horizontal",
+      "Resolución de conflictos",
+      "Administración de bienes comunes"
+    ]
+  },
+  {
+    "nombre": "Revisoría Fiscal y Contabilidad",
+    "slug": "revisoria-fiscal",
+    "descripcion": "Supervisión contable y financiera especializada para garantizar el cumplimiento normativo, auditorías internas, revisión de estados financieros y asesoría en temas tributarios y contables.",
+    "titulo_banner": "Revisoría Fiscal",
+    "descripcion_banner": "Supervisión contable y financiera profesional para garantizar el cumplimiento normativo y la transparencia en su organización.",
+    "imagen_banner": "/images/revisoria-fiscal-banner.jpg",
+    "areas_especializacion": [
+      "Auditorías internas",
+      "Revisión de estados financieros",
+      "Asesoría tributaria",
+      "Cumplimiento normativo"
+    ]
+  },
+  {
+    "nombre": "Asesoría Jurídica Especializada",
+    "slug": "asesoria-juridica",
+    "descripcion": "Consultoría legal integral en derecho civil, laboral, comercial, penal y administrativo, con un enfoque personalizado para cada cliente y situación jurídica específica.",
+    "titulo_banner": "Asesoría Jurídica",
+    "descripcion_banner": "Consultoría legal integral con un enfoque personalizado en todas las áreas del derecho para proteger sus intereses.",
+    "imagen_banner": "/images/asesoria-juridica-banner.jpg",
+    "areas_especializacion": [
+      "Derecho civil",
+      "Derecho laboral",
+      "Derecho comercial",
+      "Derecho penal",
+      "Derecho administrativo"
+    ]
+  }
+]

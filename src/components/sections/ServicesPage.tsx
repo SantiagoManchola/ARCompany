@@ -38,7 +38,7 @@ export default function ServicesPageSection() {
           {servicesData.map((service, index) => (
             <div key={index} className="group relative">
               {/* Card Background with advanced effects */}
-              <div className="absolute inset-0 bg-white rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500 transform group-hover:scale-105 border border-gray-200 group-hover:border-amber-400/50"></div>
+              <div className="absolute inset-0 bg-white rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-500 transform group-hover:scale-105 border border-gray-200 group-hover:border-amber-400"></div>
 
               <Link
                 href={service.href}
@@ -88,7 +88,7 @@ export default function ServicesPageSection() {
                 </div>
 
                 {/* Decorative corner accent */}
-                <div className="absolute top-6 right-6 w-6 h-6 border-t-2 border-r-2 border-amber-400/20 group-hover:border-amber-400/50 transition-colors duration-300"></div>
+                <div className="absolute top-6 right-6 w-6 h-6 border-t-2 border-r-2 border-amber-400/40 group-hover:border-amber-400/65 transition-all transform  duration-400 group-hover:scale-130"></div>
               </Link>
             </div>
           ))}
