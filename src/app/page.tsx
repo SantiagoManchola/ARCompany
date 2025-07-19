@@ -16,7 +16,7 @@ export default function Home() {
       <ServicesSection
         services={servicesData}
         loading={loading}
-        error={error}
+        error={typeof error === "string" ? null : error}
       />
       <NewsSection />
     </div>
