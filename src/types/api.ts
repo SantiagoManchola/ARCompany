@@ -6,7 +6,10 @@ export interface ServiceAPI {
   descripcion: string;
   titulo_banner: string;
   descripcion_banner: string;
-  imagen_banner: string;
+  imagen_banner: {
+    url: string;
+    [key: string]: any;
+  };
   areas_especializacion: Array<{
     id: number;
     area: string;

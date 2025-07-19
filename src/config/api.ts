@@ -1,6 +1,6 @@
 // Configuración de la API
 export const API_CONFIG = {
-  BASE_URL: "https://ar-cms-cs94.onrender.com/api",
+  BASE_URL: "http://localhost:3000/api",
   TIMEOUT: 15000, // 15 segundos
   ENDPOINTS: {
     SERVICIOS: "/servicios",

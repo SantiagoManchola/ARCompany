@@ -54,7 +54,7 @@ function ServicioPageContent({ slug }: { slug: string }) {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('${servicio.imagen_banner}')`,
+            backgroundImage: `url('${servicio.imagen_banner.url}')`,
           }}
         >
           <div className="absolute inset-0 bg-black/45"></div>

@@ -80,7 +80,7 @@ class APIService {
   // Métodos específicos para servicios
   async getServicios(): Promise<ServiceAPI[]> {
     try {
-      const response = await this.get<ServiceAPI[] | APIResponse<ServiceAPI[]>>(
+      const response = await this.get<any>(
         API_CONFIG.ENDPOINTS.SERVICIOS
       );
 
@@ -88,9 +88,9 @@ class APIService {
       if (Array.isArray(response)) {
         return response;
       }
-      // Si la respuesta es un objeto con la propiedad 'data' como array, retornarla
-      if (response && "data" in response && Array.isArray(response.data)) {
-        return response.data;
+      // Si la respuesta es un objeto con la propiedad 'docs' como array, retornarla
+      if (response && "docs" in response && Array.isArray(response.docs)) {
+        return response.docs;
       }
       throw new Error("Invalid response format");
     } catch (error) {
