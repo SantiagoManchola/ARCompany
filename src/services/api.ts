@@ -1,4 +1,4 @@
-import { ServiceAPI, APIResponse, APIConfig } from "@/types/api";
+import { ServiceAPI, APIConfig } from "@/types/api";
 import { API_CONFIG } from "@/config/api";
 
 class APIService {
@@ -80,9 +80,7 @@ class APIService {
   // Métodos específicos para servicios
   async getServicios(): Promise<ServiceAPI[]> {
     try {
-      const response = await this.get<any>(
-        API_CONFIG.ENDPOINTS.SERVICIOS
-      );
+      const response = await this.get<any>(API_CONFIG.ENDPOINTS.SERVICIOS);
 
       // Si la respuesta es un array, retornarla directamente
       if (Array.isArray(response)) {

@@ -8,7 +8,6 @@ export interface ServiceAPI {
   descripcion_banner: string;
   imagen_banner: {
     url: string;
-    [key: string]: any;
   };
   areas_especializacion: Array<{
     id: number;
@@ -26,6 +25,14 @@ export interface ServiceData {
   title: string;
   description: string;
   href: string;
+}
+
+// Tipo genérico para respuestas de la API
+export interface APIResponse<T> {
+  data?: T;
+  message?: string;
+  success?: boolean;
+  error?: string;
 }
 
 // Configuración de la API
