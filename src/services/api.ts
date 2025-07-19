@@ -1,4 +1,4 @@
-import { ServiceAPI, APIConfig } from "@/types/api";
+import { ServiceAPI, APIConfig, ServiciosAPIResponse } from "@/types/api";
 import { API_CONFIG } from "@/config/api";
 
 class APIService {
@@ -80,16 +80,14 @@ class APIService {
   // Métodos específicos para servicios
   async getServicios(): Promise<ServiceAPI[]> {
     try {
-      const response = await this.get<any>(API_CONFIG.ENDPOINTS.SERVICIOS);
+      const response = await this.get<ServiciosAPIResponse>(
+        API_CONFIG.ENDPOINTS.SERVICIOS
+      );
 
-      // Si la respuesta es un array, retornarla directamente
-      if (Array.isArray(response)) {
-        return response;
-      }
-      // Si la respuesta es un objeto con la propiedad 'docs' como array, retornarla
-      if (response && "docs" in response && Array.isArray(response.docs)) {
+      if (response && Array.isArray(response.docs)) {
         return response.docs;
       }
+
       throw new Error("Invalid response format");
     } catch (error) {
       console.error("Error fetching servicios:", error);
