@@ -28,14 +28,6 @@ export interface ServiceData {
   href: string;
 }
 
-// Tipo genérico para respuestas de la API
-export interface APIResponse<T> {
-  data?: T;
-  message?: string;
-  success?: boolean;
-  error?: string;
-}
-
 // Configuración de la API
 export interface APIConfig {
   baseURL: string;
