@@ -84,22 +84,18 @@ class APIService {
         API_CONFIG.ENDPOINTS.SERVICIOS
       );
 
-      // Si la respuesta es un array directamente
+      // Si la respuesta es un array, retornarla directamente
       if (Array.isArray(response)) {
         return response;
       }
-      // Si la respuesta es un objeto con docs (por ejemplo, paginación tipo MongoDB)
-      if (response && typeof response === "object" && Array.isArray((response as any).docs)) {
-        return (response as any).docs;
+      // Si la respuesta es un objeto con la propiedad 'data' como array, retornarla
+      if (response && "data" in response && Array.isArray(response.data)) {
+        return response.data;
       }
-      // Si la respuesta es un objeto con data
-      if (response && typeof response === "object" && Array.isArray((response as any).data)) {
-        return (response as any).data;
-      }
-      throw new Error("Invalid response format for servicios");
+      throw new Error("Invalid response format");
     } catch (error) {
       console.error("Error fetching servicios:", error);
-      return [];
+      throw error;
     }
   }
 
