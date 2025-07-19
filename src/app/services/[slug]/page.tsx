@@ -1,21 +1,50 @@
+"use client";
+
 import { notFound } from "next/navigation";
-import servicios from "@/data/servicios.json";
+import { useServicioBySlug } from "@/hooks/useServicios";
+import { useState, useEffect } from "react";
 
-export async function generateStaticParams() {
-  return servicios.map((servicio) => ({
-    slug: servicio.slug,
-  }));
-}
-
-export default async function ServicioPage({
+export default function ServicioPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  const servicio = servicios.find((s) => s.slug === slug);
+  const [slug, setSlug] = useState<string>("");
 
-  if (!servicio) return notFound();
+  useEffect(() => {
+    params.then(({ slug: paramSlug }) => {
+      setSlug(paramSlug);
+    });
+  }, [params]);
+
+  if (!slug) {
+    return (
+      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500"></div>
+      </main>
+    );
+  }
+
+  return <ServicioPageContent slug={slug} />;
+}
+
+function ServicioPageContent({ slug }: { slug: string }) {
+  const { servicio, loading, error } = useServicioBySlug(slug);
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500 mx-auto mb-4"></div>
+          <p className="text-xl text-gray-600">Cargando servicio...</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (error || !servicio) {
+    return notFound();
+  }
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -25,7 +54,7 @@ export default async function ServicioPage({
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('${servicio.imagen_banner}')`,
+            backgroundImage: `url('${servicio.imagen_banner.url}')`,
           }}
         >
           <div className="absolute inset-0 bg-black/45"></div>
@@ -122,9 +151,9 @@ export default async function ServicioPage({
 
               {/* Grid de áreas */}
               <div className="space-y-3 sm:space-y-4">
-                {servicio.areas_especializacion.map((area, index) => (
+                {servicio.areas_especializacion.map((areaObj, index) => (
                   <div
-                    key={index}
+                    key={areaObj.id || index}
                     className="group bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-xl border border-gray-100 hover:shadow-xl"
                   >
                     <div className="flex items-center gap-3 sm:gap-4">
@@ -145,7 +174,7 @@ export default async function ServicioPage({
                       </div>
                       <div className="flex-1">
                         <h4 className="text-base sm:text-lg font-semibold text-gray-800">
-                          {area}
+                          {areaObj.area}
                         </h4>
                       </div>
                     </div>

@@ -1,8 +1,52 @@
 "use client";
 import Link from "next/link";
-import { servicesData } from "@/data/services";
+import Image from "next/image";
+import { useServicios } from "@/hooks/useServicios";
 
 export default function ServicesPageSection() {
+  const { servicesData, loading, error } = useServicios();
+
+  if (loading) {
+    return (
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-1 text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500 mx-auto"></div>
+          <p className="mt-6 text-xl text-gray-600">Cargando servicios...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-1 text-center">
+          <div className="text-red-500 mb-6">
+            <svg
+              className="w-16 h-16 mx-auto"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Error al cargar los servicios
+          </h2>
+          <p className="text-xl text-gray-600">
+            Por favor, intenta nuevamente más tarde.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Background with gradient */}
@@ -48,10 +92,12 @@ export default function ServicesPageSection() {
                 {/* Icon Container */}
                 <div className="relative mb-6">
                   <div className="w-20 h-20 bg-gradient-to-br from-amber-400/20 to-amber-500/10 rounded-2xl flex items-center justify-center group-hover:from-amber-400/30 group-hover:to-amber-400/20 transition-all duration-300">
-                    <img
+                    <Image
                       src={service.icon}
                       alt={service.title}
-                      className="w-10 h-10 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                      width={40}
+                      height={40}
+                      className="object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                     />
                   </div>
 
