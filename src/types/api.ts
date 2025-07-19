@@ -18,7 +18,7 @@ export interface ServiceAPI {
 
 // Tipo para el formato actual de servicesData
 export interface ServiceData {
-  d;
+  d: any;
   icon: string;
   title: string;
   description: string;
