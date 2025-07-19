@@ -4,12 +4,13 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { ReactNode } from "react";
 import AOSInit from "@/components/AOSInit";
+import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
+import { Metadata, Viewport } from "next";
 
-export const viewport = {
-  title: "AR Company",
-  description: "Firma legal especializada en servicios jurídicos integrales",
-
-  // SEO
+export const metadata: Metadata = {
+  title: "AR Company | Firma Legal Especializada",
+  description:
+    "Firma legal especializada en servicios jurídicos integrales, asesoría legal, propiedad horizontal y revisoría fiscal. Protegemos sus intereses con experiencia y profesionalismo.",
   keywords: [
     "abogados",
     "firma legal",
@@ -17,19 +18,19 @@ export const viewport = {
     "AR Company",
     "consultoría legal",
     "asesoría jurídica",
+    "propiedad horizontal",
+    "revisoría fiscal",
   ],
   authors: [
     {
       name: "AR Company",
-      url: "https://arcompany-git-dev-santiago-mancholas-projects.vercel.app/",
+      url: "https://arcompany-delta.vercel.app/",
     },
-  ], // CAMBIA por el dominio real
+  ],
   generator: "Next.js",
   applicationName: "AR Company",
   referrer: "origin-when-cross-origin",
   creator: "AR Company",
-
-  // Robots
   robots: {
     index: true,
     follow: true,
@@ -40,16 +41,14 @@ export const viewport = {
       noimageindex: false,
     },
   },
-
-  // Open Graph
   openGraph: {
-    title: "AR Company",
+    title: "AR Company | Firma Legal Especializada",
     description: "Firma legal especializada en servicios jurídicos integrales",
-    url: "https://arcompany-git-dev-santiago-mancholas-projects.vercel.app/", // CAMBIA por el dominio real
+    url: "https://arcompany-delta.vercel.app/",
     siteName: "AR Company",
     images: [
       {
-        url: "https://arcompany-git-dev-santiago-mancholas-projects.vercel.app/og-image.png", // CAMBIA por una imagen real
+        url: "https://arcompany-delta.vercel.app//og-image.png",
         width: 1200,
         height: 630,
         alt: "Logo de AR Company",
@@ -58,26 +57,22 @@ export const viewport = {
     locale: "es_CO",
     type: "website",
   },
-
-  // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "AR Company",
+    title: "AR Company | Firma Legal Especializada",
     description: "Firma legal especializada en servicios jurídicos integrales",
-    site: "@arcompany", // CAMBIA si tienes cuenta
-    creator: "@arcompany", // CAMBIA si tienes cuenta
-    images: [
-      "https://arcompany-git-dev-santiago-mancholas-projects.vercel.app/og-image.png",
-    ], // misma imagen que Open Graph
+    site: "@arcompany",
+    creator: "@arcompany",
+    images: ["https://arcompany-delta.vercel.app//og-image.png"],
   },
-
-  // Iconos
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-32x32.png",
     apple: "/apple-touch-icon.png",
   },
+};
 
+export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
@@ -85,6 +80,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es">
       <body className="min-h-screen bg-white">
+        <OrganizationJsonLd baseUrl={process.env.NEXT_PUBLIC_BASE_URL} />
         <AOSInit />
         <Header />
         <main>{children}</main>

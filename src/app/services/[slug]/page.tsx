@@ -1,53 +1,99 @@
-"use client";
-
 import { notFound } from "next/navigation";
-import { useServicioBySlug } from "@/hooks/useServicios";
-import { useState, useEffect } from "react";
+import { apiService } from "@/services/api";
+import { ServiceAPI } from "@/types/api";
+import { Metadata } from "next";
+import ServiceJsonLd from "@/components/seo/ServiceJsonLd";
 
-export default function ServicioPage({
-  params,
-}: {
+interface ServicioPageProps {
   params: Promise<{ slug: string }>;
-}) {
-  const [slug, setSlug] = useState<string>("");
-
-  useEffect(() => {
-    params.then(({ slug: paramSlug }) => {
-      setSlug(paramSlug);
-    });
-  }, [params]);
-
-  if (!slug) {
-    return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500"></div>
-      </main>
-    );
-  }
-
-  return <ServicioPageContent slug={slug} />;
 }
 
-function ServicioPageContent({ slug }: { slug: string }) {
-  const { servicio, loading, error } = useServicioBySlug(slug);
+// Función para generar metadata dinámico para SEO
+export async function generateMetadata({
+  params,
+}: ServicioPageProps): Promise<Metadata> {
+  const { slug } = await params;
 
-  if (loading) {
-    return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600">Cargando servicio...</p>
-        </div>
-      </main>
-    );
+  try {
+    const servicio = await apiService.getServicioBySlug(slug);
+
+    if (!servicio) {
+      return {
+        title: "Servicio no encontrado",
+        description: "El servicio solicitado no existe.",
+      };
+    }
+
+    return {
+      title: `${servicio.nombre} | AR Company`,
+      description: servicio.descripcion,
+      openGraph: {
+        title: servicio.titulo_banner || servicio.nombre,
+        description: servicio.descripcion_banner || servicio.descripcion,
+        images: [
+          {
+            url: servicio.imagen_banner.url,
+            width: servicio.imagen_banner.width,
+            height: servicio.imagen_banner.height,
+            alt: servicio.imagen_banner.alt,
+          },
+        ],
+        type: "website",
+        siteName: "AR Company",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: servicio.titulo_banner || servicio.nombre,
+        description: servicio.descripcion_banner || servicio.descripcion,
+        images: [servicio.imagen_banner.url],
+      },
+      alternates: {
+        canonical: `/services/${slug}`,
+      },
+    };
+  } catch (error) {
+    console.error("Error generating metadata:", error);
+    return {
+      title: "Error",
+      description: "Error al cargar el servicio.",
+    };
+  }
+}
+
+// Función para generar parámetros estáticos (opcional, para better performance)
+export async function generateStaticParams() {
+  try {
+    const servicios = await apiService.getServicios();
+    return servicios.map((servicio) => ({
+      slug: servicio.slug,
+    }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
+}
+
+export default async function ServicioPage({ params }: ServicioPageProps) {
+  const { slug } = await params;
+
+  let servicio: ServiceAPI | null = null;
+
+  try {
+    servicio = await apiService.getServicioBySlug(slug);
+  } catch (error) {
+    console.error("Error fetching servicio:", error);
   }
 
-  if (error || !servicio) {
+  if (!servicio) {
     return notFound();
   }
 
   return (
     <main className="min-h-screen bg-gray-50">
+      <ServiceJsonLd
+        servicio={servicio}
+        baseUrl={process.env.NEXT_PUBLIC_BASE_URL}
+      />
       {/* Banner del servicio integrado */}
       <section className="relative h-[40vh] sm:h-[50vh] lg:h-[60vh] overflow-hidden">
         {/* Background Image */}
@@ -151,35 +197,37 @@ function ServicioPageContent({ slug }: { slug: string }) {
 
               {/* Grid de áreas */}
               <div className="space-y-3 sm:space-y-4">
-                {servicio.areas_especializacion.map((areaObj, index) => (
-                  <div
-                    key={areaObj.id || index}
-                    className="group bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-xl border border-gray-100 hover:shadow-xl"
-                  >
-                    <div className="flex items-center gap-3 sm:gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-400/20 to-amber-500/20 rounded-lg flex items-center justify-center">
-                        <svg
-                          className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-base sm:text-lg font-semibold text-gray-800">
-                          {areaObj.area}
-                        </h4>
+                {servicio.areas_especializacion.map(
+                  (areaObj: { area: string; id: string }, index: number) => (
+                    <div
+                      key={areaObj.id || index}
+                      className="group bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-xl border border-gray-100 hover:shadow-xl"
+                    >
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-400/20 to-amber-500/20 rounded-lg flex items-center justify-center">
+                          <svg
+                            className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-base sm:text-lg font-semibold text-gray-800">
+                            {areaObj.area}
+                          </h4>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             </div>
           </div>
