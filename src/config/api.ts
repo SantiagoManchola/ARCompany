@@ -1,11 +1,10 @@
 // Configuración de la API
 export const API_CONFIG = {
   BASE_URL: "https://ar-cms-cs94.onrender.com/api",
-  TIMEOUT: 15000, // 15 segundos
+  TIMEOUT: 15000, 
   ENDPOINTS: {
     SERVICIOS: "/servicios",
-    PROPIEDADES: "/propiedades", // Para futuro uso
-    // Agregar más endpoints aquí cuando sean necesarios
+    PROPIEDADES: "/propiedades", 
   },
 } as const;
 
