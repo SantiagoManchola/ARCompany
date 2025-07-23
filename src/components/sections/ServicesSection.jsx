@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-
 const ServicesSection = ({ services, loading = false, error = null }) => {
   if (loading) {
     return (
