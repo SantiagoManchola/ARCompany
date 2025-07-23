@@ -120,7 +120,7 @@ const ServicesSection = ({ services, loading = false, error = null }) => {
                     {service.title}
                   </h3>
                   <p className="text-gray-200 text-sm leading-relaxed">
-                    {service.description}
+                    {service.descripcion_general}
                   </p>
                 </div>
               </div>

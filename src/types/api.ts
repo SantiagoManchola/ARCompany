@@ -4,6 +4,7 @@ export interface ServiceAPI {
   createdAt: string;
   updatedAt: string;
   nombre: string;
+  descripcion_general: string;
   slug: string;
   descripcion: string;
   titulo_banner: string;
@@ -27,7 +28,17 @@ export interface ServiceAPI {
     area: string;
     id: string;
   }>;
-  icon?: string;
+  icon?: {
+    id: string;
+    url: string;
+    alt?: string;
+    filename?: string;
+    mimeType?: string;
+    filesize?: number;
+    width?: number;
+    height?: number;
+    thumbnailURL?: string | null;
+  };
   title?: string;
   href?: string;
 }
@@ -38,6 +49,7 @@ export interface ServiceData {
   icon: string;
   title: string;
   description: string;
+  descripcion_general: string;
   href: string;
 }
 

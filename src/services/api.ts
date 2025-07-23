@@ -116,9 +116,10 @@ export const apiService = new APIService(apiConfig);
 
 // Funciones de utilidad para transformar datos
 export const transformServiceToServiceData = (service: ServiceAPI) => ({
-  icon: service.icon || "/images/Icono.png",
+  icon: service.icon?.url,
   title: service.title || service.nombre,
   description: service.descripcion,
+  descripcion_general: service.descripcion_general,
   href: `/services/${service.slug}`,
 });
 

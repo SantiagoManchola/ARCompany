@@ -153,7 +153,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
                 {servicio.nombre}
               </h2>
 
-              {/* Descripción detallada */}
+              {/* Descripción general y detallada */}
               <div className="space-y-4 sm:space-y-6">
                 <p className="text-base sm:text-lg text-gray-800 leading-relaxed text-center lg:text-left">
                   {servicio.descripcion}
