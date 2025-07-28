@@ -102,11 +102,13 @@ const ServicesSection = ({ services, loading = false, error = null }) => {
                   data-aos="zoom-in"
                   data-aos-delay={300 + index * 200}
                 >
+                  {service.icon ? (
                   <img
                     src={service.icon}
                     alt={service.title}
                     className="w-8 h-8 object-contain filter brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                   />
+                  ) : null}
                 </div>
 
                 {/* Content */}

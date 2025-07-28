@@ -5,9 +5,11 @@ import InfoSection from "@/components/sections/InfoSection";
 import NewsSection from "@/components/sections/NewsSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import { useServicios } from "@/hooks/useServicios";
+import { useNoticias } from "@/hooks/useNoticias";
 
 export default function Home() {
-  const { servicesData, loading, error } = useServicios();
+  const { servicesData, loading: servicesLoading, error: servicesError } = useServicios();
+  const { newsData, loading: newsLoading, error: newsError } = useNoticias(); 
 
   return (
     <div>
@@ -15,10 +17,14 @@ export default function Home() {
       <InfoSection />
       <ServicesSection
         services={servicesData}
-        loading={loading}
-        error={typeof error === "string" ? null : error}
+        loading={servicesLoading}
+        error={typeof servicesError === "string" ? null : servicesError}
       />
-      <NewsSection />
+      <NewsSection
+        news={newsData}
+        loading={newsLoading}
+        error={typeof newsError === "string" ? null : newsError}
+      />
     </div>
   );
 }

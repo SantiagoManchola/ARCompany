@@ -1,4 +1,4 @@
-import { ServiceAPI, APIConfig, ServiciosAPIResponse } from "@/types/api";
+import { ServiceAPI, NewsAPI, APIConfig, ServiciosAPIResponse, NoticiasAPIResponse } from "@/types/api";
 import { API_CONFIG } from "@/config/api";
 
 class APIService {
@@ -104,6 +104,34 @@ class APIService {
       throw error;
     }
   }
+
+  // Métodos específicos para noticias
+  async getNoticias(): Promise<NewsAPI[]> {
+    try {
+      const response = await this.get<NoticiasAPIResponse>(
+        API_CONFIG.ENDPOINTS.NOTICIAS
+      );
+
+      if (response && Array.isArray(response.docs)) {
+        return response.docs;
+      }
+
+      throw new Error("Invalid response format");
+    } catch (error) {
+      console.error("Error fetching noticias:", error);
+      throw error;
+    }
+  }
+
+  async getNoticiaBySlug(slug: string): Promise<NewsAPI | null> {
+    try {
+      const noticias = await this.getNoticias();
+      return noticias.find((noticia) => noticia.slug === slug) || null;
+    } catch (error) {
+      console.error(`Error fetching noticia with slug ${slug}:`, error);
+      throw error;
+    }
+  }
 }
 
 // Instancia singleton de la API
@@ -114,14 +142,35 @@ const apiConfig: APIConfig = {
 
 export const apiService = new APIService(apiConfig);
 
-// Funciones de utilidad para transformar datos
+// Funciones de utilidad para transformar datos de servicios
 export const transformServiceToServiceData = (service: ServiceAPI) => ({
-  icon: service.icon?.url,
-  title: service.title || service.nombre,
-  description: service.descripcion,
-  descripcion_general: service.descripcion_general,
+  icon: service.icon?.url || '',
+  title: service.title || service.nombre || '',
+  description: service.descripcion || '',
+  descripcion_general: service.descripcion_general || '',
   href: `/services/${service.slug}`,
 });
 
 export const transformServicesToServiceData = (services: ServiceAPI[]) =>
   services.map(transformServiceToServiceData);
+
+// Funciones de utilidad para transformar datos de noticias
+export const transformNewsToNewsData = (news: NewsAPI) => ({
+  id: news.id,
+  title: news.title || '',
+  description: news.description || '',
+  backgroundImage: news.backgroundImage?.url || '',
+  date: new Date(news.publishedAt).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  }),
+  link: `/news/${news.slug}`,
+});
+
+export const transformNoticiasToNewsData = (noticias: NewsAPI[]) => {
+  if (!Array.isArray(noticias)) {
+    return [];
+  }
+  return noticias.map(transformNewsToNewsData);
+};

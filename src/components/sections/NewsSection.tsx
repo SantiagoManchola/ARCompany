@@ -1,10 +1,16 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { newsItems } from "@/data/news";
 import NewsCard from "./NewsCard";
+import { NewsData } from "@/types/api";
 
-export default function NewsSection() {
+interface NewsSectionProps {
+  news: NewsData[];
+  loading: boolean;
+  error: string | null;
+}
+
+export default function NewsSection({ news, loading, error }: NewsSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slidesToShow, setSlidesToShow] = useState(3);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -31,9 +37,106 @@ export default function NewsSection() {
     setCurrentSlide(0);
   }, [slidesToShow]);
 
-  // Mostrar máximo 4 artículos
-  const maxItems = Math.min(newsItems.length, 15);
-  const displayItems = newsItems.slice(0, maxItems);
+  // Loading state
+  if (loading) {
+    return (
+      <section className="relative py-20 px-2 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-50/85 via-white to-blue-50/90"></div>
+        <div className="relative max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              <span className="relative">
+                Trending
+                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+              </span>{" "}
+              Today
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Stay informed with our latest insights, case studies, and legal
+              updates from our expert team
+            </p>
+          </div>
+          <div className="flex justify-center items-center min-h-[300px]">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500"></div>
+            <p className="ml-4 text-xl text-gray-600">Cargando noticias...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <section className="relative py-20 px-2 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-50/85 via-white to-blue-50/90"></div>
+        <div className="relative max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              <span className="relative">
+                Trending
+                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+              </span>{" "}
+              Today
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Stay informed with our latest insights, case studies, and legal
+              updates from our expert team
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-center min-h-[300px]">
+            <div className="text-red-500 mb-4">
+              <svg
+                className="w-12 h-12 mx-auto"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            <p className="text-gray-600 text-center">
+              Error al cargar las noticias: {error}
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // No data state
+  if (!news || news.length === 0) {
+    return (
+      <section className="relative py-20 px-2 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-50/85 via-white to-blue-50/90"></div>
+        <div className="relative max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              <span className="relative">
+                Trending
+                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+              </span>{" "}
+              Today
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Stay informed with our latest insights, case studies, and legal
+              updates from our expert team
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-gray-600">No hay noticias disponibles en este momento.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Mostrar máximo 15 artículos
+  const maxItems = Math.min(news.length, 15);
+  const displayItems = news.slice(0, maxItems);
 
   // Calcular el número máximo de slides (número de posiciones posibles)
   const maxSlides = Math.max(0, displayItems.length - slidesToShow);

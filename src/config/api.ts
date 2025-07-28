@@ -4,6 +4,7 @@ export const API_CONFIG = {
   TIMEOUT: 15000, 
   ENDPOINTS: {
     SERVICIOS: "/servicios",
+    NOTICIAS: "/noticias",
     PROPIEDADES: "/propiedades", 
   },
 } as const;
