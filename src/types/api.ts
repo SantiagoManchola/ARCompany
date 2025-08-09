@@ -129,11 +129,23 @@ export interface RichTextParentBase {
   children?: RichTextNode[];
 }
 
-export interface ParagraphNode extends RichTextParentBase { type: 'paragraph'; }
-export interface HeadingNode extends RichTextParentBase { type: 'heading'; tag?: 1|2|3|4|5|6; }
-export interface ListNode extends RichTextParentBase { type: 'list'; listType?: 'ordered' | 'unordered'; }
-export interface BlockquoteNode extends RichTextParentBase { type: 'blockquote'; }
-export interface ListItemNode extends RichTextParentBase { type?: 'list-item' | 'listItem'; }
+export interface ParagraphNode extends RichTextParentBase {
+  type: "paragraph";
+}
+export interface HeadingNode extends RichTextParentBase {
+  type: "heading";
+  tag?: 1 | 2 | 3 | 4 | 5 | 6;
+}
+export interface ListNode extends RichTextParentBase {
+  type: "list";
+  listType?: "ordered" | "unordered";
+}
+export interface BlockquoteNode extends RichTextParentBase {
+  type: "blockquote";
+}
+export interface ListItemNode extends RichTextParentBase {
+  type?: "list-item" | "listItem";
+}
 
 export type RichTextNode =
   | RichTextTextNode
@@ -144,8 +156,12 @@ export type RichTextNode =
   | ListItemNode;
 
 // Estructuras envoltorio que puede devolver el CMS
-export interface RichTextRootWrapper { root: { children: RichTextNode[] } }
-export interface RichTextChildrenWrapper { children: RichTextNode[] }
+export interface RichTextRootWrapper {
+  root: { children: RichTextNode[] };
+}
+export interface RichTextChildrenWrapper {
+  children: RichTextNode[];
+}
 
 // Unión final aceptada en NewsAPI.contenido
 export type RichTextContent =
