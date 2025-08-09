@@ -51,7 +51,9 @@ export interface NewsAPI {
   title: string;
   slug: string;
   description: string;
-  contenido: any; // RichText content
+  // Contenido puede venir en varios formatos: HTML string, array de nodos rich text
+  // o estructuras estilo Payload (root/children). Tipado flexible pero sin 'any'.
+  contenido: RichTextContent;
   backgroundImage: {
     createdAt: string;
     updatedAt: string;
@@ -111,6 +113,46 @@ export interface ServiciosAPIResponse {
   prevPage: number | null;
   nextPage: number | null;
 }
+
+// =====================
+// Rich Text Types (Noticias)
+// =====================
+export interface RichTextTextNode {
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+  code?: boolean;
+}
+
+export interface RichTextParentBase {
+  children?: RichTextNode[];
+}
+
+export interface ParagraphNode extends RichTextParentBase { type: 'paragraph'; }
+export interface HeadingNode extends RichTextParentBase { type: 'heading'; tag?: 1|2|3|4|5|6; }
+export interface ListNode extends RichTextParentBase { type: 'list'; listType?: 'ordered' | 'unordered'; }
+export interface BlockquoteNode extends RichTextParentBase { type: 'blockquote'; }
+export interface ListItemNode extends RichTextParentBase { type?: 'list-item' | 'listItem'; }
+
+export type RichTextNode =
+  | RichTextTextNode
+  | ParagraphNode
+  | HeadingNode
+  | ListNode
+  | BlockquoteNode
+  | ListItemNode;
+
+// Estructuras envoltorio que puede devolver el CMS
+export interface RichTextRootWrapper { root: { children: RichTextNode[] } }
+export interface RichTextChildrenWrapper { children: RichTextNode[] }
+
+// Unión final aceptada en NewsAPI.contenido
+export type RichTextContent =
+  | string // HTML simple
+  | RichTextNode[]
+  | RichTextRootWrapper
+  | RichTextChildrenWrapper;
 
 // Tipo específico para la respuesta de noticias (respuesta directa de la API)
 export interface NoticiasAPIResponse {
