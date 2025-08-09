@@ -20,7 +20,7 @@ export const slides: Slide[] = [
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80',
+    image: 'Estatua2.jpg',
     subtitle: 'Experiencia Legal Comprobada',
     title: 'PROTECTING YOUR RIGHTS WITH DEDICATION',
     description: 'Con años de experiencia en el sistema legal, defendemos sus intereses con pasión y profesionalismo. Su causa es nuestra prioridad.',

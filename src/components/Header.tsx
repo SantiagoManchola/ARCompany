@@ -38,13 +38,13 @@ export default function Header() {
                   height={110}
                   className="rounded"
                 /> */}
-                {/* <Image
+                <Image
                  src="/images/Logo BYJ.png"
                   alt="Logo"
                   width={200}
                   height={100}
                   className="rounded"
-                /> */}
+                />
               </div>
             </Link>
           </div>

@@ -114,7 +114,7 @@ export default function InfoSection() {
 
             <div className="relative group">
               <Image
-                src="/images/Abogados.jpg"
+                src="/images/Estatua2.jpg"
                 alt="Legal professionals illustration"
                 width={600}
                 height={400}
