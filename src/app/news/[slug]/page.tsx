@@ -127,6 +127,10 @@ const hasChildren = (node: RichTextNode): node is RichTextParentBase =>
 
 // Renderizado de contenido genérico (entrada puede ser HTML string, array rich text, objeto con root, etc.)
 const renderContent = (contenido: unknown): React.ReactElement => {
+  // Soporte para JSON de Lexical (Payload CMS)
+  if (isLexicalDocument(contenido)) {
+    return renderLexicalRichText(contenido);
+  }
   if (typeof contenido === "string") {
     return <div dangerouslySetInnerHTML={{ __html: contenido }} />;
   }
@@ -145,6 +149,320 @@ const renderContent = (contenido: unknown): React.ReactElement => {
     return <div>{JSON.stringify(contenido, null, 2)}</div>;
   }
   return <div>Contenido no disponible</div>;
+};
+
+// =====================
+// Render Lexical (Payload) Rich Text
+// =====================
+type LexicalTextNode = {
+  type: "text";
+  text: string;
+  format?: number;
+};
+
+type LexicalParagraphNode = {
+  type: "paragraph";
+  children?: LexicalNode[];
+};
+
+type LexicalHeadingNode = {
+  type: "heading";
+  tag?: 1 | 2 | 3 | 4 | 5 | 6;
+  children?: LexicalNode[];
+};
+
+type LexicalListNode = {
+  type: "list";
+  listType?: "bullet" | "number" | "ordered" | "unordered";
+  children?: LexicalNode[];
+};
+
+type LexicalQuoteNode = {
+  type: "quote" | "blockquote";
+  children?: LexicalNode[];
+};
+
+type LexicalLinkNode = {
+  type: "link";
+  url?: string;
+  newTab?: boolean;
+  fields?: { url?: string; newTab?: boolean };
+  children?: LexicalNode[];
+};
+
+type LexicalUploadMedia = {
+  url?: string;
+  width?: number;
+  height?: number;
+  alt?: string;
+  filename?: string;
+  caption?: string;
+  sizes?: {
+    thumbnail?: { url?: string; width?: number; height?: number };
+    card?: { url?: string; width?: number; height?: number };
+    tablet?: { url?: string; width?: number; height?: number };
+    [key: string]:
+      | { url?: string; width?: number; height?: number }
+      | undefined;
+  };
+};
+
+type LexicalUploadNode = {
+  type: "upload";
+  value?: LexicalUploadMedia;
+};
+
+type LexicalUnknownNode = {
+  type?: string;
+  children?: LexicalNode[];
+  [key: string]: unknown;
+};
+
+type LexicalNode =
+  | LexicalTextNode
+  | LexicalParagraphNode
+  | LexicalHeadingNode
+  | LexicalListNode
+  | LexicalQuoteNode
+  | LexicalLinkNode
+  | LexicalUploadNode
+  | LexicalUnknownNode;
+
+type LexicalRoot = {
+  root: { type: "root"; children?: LexicalNode[] };
+};
+
+const isLexicalDocument = (value: unknown): value is LexicalRoot => {
+  if (!value || typeof value !== "object") return false;
+  const maybe = value as { root?: { type?: string } };
+  return !!maybe.root && maybe.root.type === "root";
+};
+
+const FORMAT = {
+  BOLD: 1,
+  ITALIC: 2,
+  STRIKETHROUGH: 4,
+  UNDERLINE: 8,
+  CODE: 16,
+};
+
+const renderLexicalRichText = (data: LexicalRoot): React.ReactElement => {
+  const nodes: LexicalNode[] = data.root?.children ?? [];
+  return (
+    <div>
+      {nodes.map((node: LexicalNode, i: number) => renderLexicalBlock(node, i))}
+    </div>
+  );
+};
+
+const renderLexicalInline = (
+  node: LexicalNode,
+  index: number
+): React.ReactElement | null => {
+  if (!node) return null;
+  if (node.type === "text") {
+    let el: React.ReactElement = <>{(node as LexicalTextNode).text}</>;
+    const fmt = Number(node.format || 0);
+    if (fmt & FORMAT.CODE) {
+      el = (
+        <code
+          key={`c-${index}`}
+          className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded font-mono text-sm"
+        >
+          {el}
+        </code>
+      );
+    }
+    if (fmt & FORMAT.BOLD) {
+      el = (
+        <strong key={`b-${index}`} className="font-semibold">
+          {el}
+        </strong>
+      );
+    }
+    if (fmt & FORMAT.ITALIC) {
+      el = (
+        <em key={`i-${index}`} className="italic">
+          {el}
+        </em>
+      );
+    }
+    if (fmt & FORMAT.UNDERLINE) {
+      el = (
+        <u key={`u-${index}`} className="underline">
+          {el}
+        </u>
+      );
+    }
+    if (fmt & FORMAT.STRIKETHROUGH) {
+      el = (
+        <span key={`s-${index}`} className="line-through">
+          {el}
+        </span>
+      );
+    }
+    return <React.Fragment key={index}>{el}</React.Fragment>;
+  }
+  if (node.type === "link") {
+    const link = node as LexicalLinkNode;
+    const url = link.fields?.url || link.url || "#";
+    const newTab = link.fields?.newTab || link.newTab;
+    const rel = newTab ? "noopener noreferrer" : undefined;
+    return (
+      <a
+        key={index}
+        href={url}
+        target={newTab ? "_blank" : undefined}
+        rel={rel}
+        className="text-blue-600 underline"
+      >
+        {link.children?.map((child: LexicalNode, ci: number) =>
+          renderLexicalInline(child, ci)
+        )}
+      </a>
+    );
+  }
+  // Unknown inline node -> render children if any
+  const children = (node as { children?: LexicalNode[] }).children;
+  return children ? (
+    <React.Fragment key={index}>
+      {children.map((child: LexicalNode, ci: number) =>
+        renderLexicalInline(child, ci)
+      )}
+    </React.Fragment>
+  ) : null;
+};
+
+const renderLexicalBlock = (
+  node: LexicalNode,
+  index: number
+): React.ReactElement | null => {
+  if (!node) return null;
+  switch (node.type) {
+    case "paragraph": {
+      // Skip empty paragraphs (common in Lexical)
+      const hasText =
+        Array.isArray(node.children) &&
+        node.children.some(
+          (c) =>
+            (c as { type?: string; text?: string })?.type === "text" &&
+            ((c as { text?: string }).text ?? "").trim() !== ""
+        );
+      if (!hasText) return <p key={index} className="mb-4 h-4" />; // keep spacing
+      return (
+        <p key={index} className="mb-4 text-gray-700 leading-relaxed text-base">
+          {node.children?.map((child: LexicalNode, ci: number) =>
+            renderLexicalInline(child, ci)
+          )}
+        </p>
+      );
+    }
+    case "heading": {
+      const level = Number(node.tag || 2);
+      const cls = (lvl: number) =>
+        ((
+          {
+            1: "text-3xl font-bold text-gray-900 mb-6 mt-8",
+            2: "text-2xl font-semibold text-gray-800 mb-4 mt-6",
+            3: "text-xl font-medium text-gray-800 mb-3 mt-5",
+            4: "text-lg font-medium text-gray-700 mb-3 mt-4",
+            5: "text-base font-medium text-gray-700 mb-2 mt-4",
+            6: "text-sm font-medium text-gray-700 mb-2 mt-3",
+          } as Record<number, string>
+        )[lvl] || "text-2xl font-semibold text-gray-800 mb-4 mt-6");
+      const Tag = `h${Math.min(
+        6,
+        Math.max(1, level)
+      )}` as unknown as React.ElementType;
+      return (
+        <Tag key={index} className={cls(level)}>
+          {node.children?.map((child: LexicalNode, ci: number) =>
+            renderLexicalInline(child, ci)
+          )}
+        </Tag>
+      );
+    }
+    case "list": {
+      const ordered = node.listType === "number" || node.listType === "ordered";
+      const Tag = (ordered ? "ol" : "ul") as unknown as React.ElementType;
+      const listClasses = ordered
+        ? "mb-4 ml-6 space-y-1 list-decimal list-outside"
+        : "mb-4 ml-6 space-y-1 list-disc list-outside";
+      return (
+        <Tag key={index} className={listClasses}>
+          {(node.children ?? []).map((li: LexicalNode, liIndex: number) => (
+            <li key={liIndex} className="text-gray-700 leading-relaxed">
+              {(li as { children?: LexicalNode[] }).children?.map(
+                (child: LexicalNode, ci: number) =>
+                  renderLexicalInline(child, ci)
+              )}
+            </li>
+          ))}
+        </Tag>
+      );
+    }
+    case "quote":
+    case "blockquote": {
+      return (
+        <blockquote
+          key={index}
+          className="mb-6 pl-4 border-l-4 border-gray-300 italic text-gray-600 bg-gray-50 py-3 px-4 rounded-r"
+        >
+          {node.children?.map((child: LexicalNode, ci: number) =>
+            renderLexicalInline(child, ci)
+          )}
+        </blockquote>
+      );
+    }
+    case "upload": {
+      // Payload upload: relationTo: 'media', value: { url, width, height, sizes... }
+      const media = (node as LexicalUploadNode).value as
+        | LexicalUploadMedia
+        | undefined;
+      const src: string | undefined =
+        media?.url || media?.sizes?.tablet?.url || media?.sizes?.thumbnail?.url;
+      const width: number | undefined =
+        media?.width ||
+        media?.sizes?.tablet?.width ||
+        media?.sizes?.thumbnail?.width;
+      const height: number | undefined =
+        media?.height ||
+        media?.sizes?.tablet?.height ||
+        media?.sizes?.thumbnail?.height;
+      if (!src || !width || !height) return null;
+      const alt = (media?.alt || media?.filename || "Media") as string;
+      return (
+        <figure key={index} className="my-6">
+          <Image
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            className="w-full h-auto rounded-lg shadow"
+          />
+          {media?.caption ? (
+            <figcaption className="text-sm text-gray-500 mt-2">
+              {media.caption}
+            </figcaption>
+          ) : null}
+        </figure>
+      );
+    }
+    default: {
+      // Fallback: try to render its children inline or as JSON for debugging
+      const children = (node as { children?: LexicalNode[] }).children;
+      if (Array.isArray(children)) {
+        return (
+          <div key={index} className="mb-4">
+            {children.map((child: LexicalNode, ci: number) =>
+              renderLexicalInline(child, ci)
+            )}
+          </div>
+        );
+      }
+      return null;
+    }
+  }
 };
 
 // Renderizado del array de nodos Rich Text
