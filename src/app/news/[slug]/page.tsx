@@ -10,6 +10,8 @@ interface NewsPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamic = "force-dynamic";
+
 // Función para generar metadata dinámico para SEO
 export async function generateMetadata({
   params,
