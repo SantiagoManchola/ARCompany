@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useServicios } from "@/hooks/useServicios";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  // Obtener servicios desde la API (solo título y href ya transformados)
+  const { servicesData, loading, error } = useServicios();
 
   return (
     <footer className="relative bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 overflow-hidden">
@@ -16,8 +19,8 @@ export default function Footer() {
                 <Image
                   src="/images/Logo AR COMPANY.png"
                   alt="AR Company Logo"
-                  width={80}
-                  height={80}
+                  width={90}
+                  height={90}
                   className="rounded-lg"
                 />
                 <div className="">
@@ -119,7 +122,7 @@ export default function Footer() {
                     Servicios
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     href="/real-state"
                     className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center group"
@@ -127,7 +130,7 @@ export default function Footer() {
                     <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                     Bienes Raíces
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     href="/contact"
@@ -140,49 +143,33 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Servicios */}
+            {/* Servicios (desde API) */}
             <div className="lg:col-span-1">
               <h4 className="text-lg font-semibold text-white mb-6 relative">
                 Servicios
                 <div className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
               </h4>
               <ul className="space-y-3">
-                <li>
-                  <Link
-                    href="/services/corporate"
-                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    Derecho Corporativo
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/services/civil"
-                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    Derecho Civil
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/services/labor"
-                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    Derecho Laboral
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/services/real-estate"
-                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    Bienes Raíces
-                  </Link>
-                </li>
+                {loading && (
+                  <li className="text-gray-400 text-sm">Cargando servicios...</li>
+                )}
+                {!loading && error && (
+                  <li className="text-gray-400 text-sm">No fue posible cargar los servicios.</li>
+                )}
+                {!loading && !error && servicesData?.length === 0 && (
+                  <li className="text-gray-400 text-sm">No hay servicios disponibles.</li>
+                )}
+                {!loading && !error && servicesData?.map((service) => (
+                  <li key={service.href}>
+                    <Link
+                      href={service.href}
+                      className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center group"
+                    >
+                      <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                      {service.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -234,7 +221,7 @@ export default function Footer() {
                       d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                     />
                   </svg>
-                  +57 (XXX) XXX-XXXX
+                (323) 289 5945 - (316) 225 7289
                 </div>
                 <div className="flex items-center text-gray-300 text-sm">
                   <svg
@@ -250,11 +237,12 @@ export default function Footer() {
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  info@arcompany.com
+                  arcompanybienesyservicios@gmail.com
+
                 </div>
                 <div className="flex items-start text-gray-300 text-sm">
                   <svg
-                    className="w-4.0 h-5 mr-3 text-amber-400"
+                    className="w-4.0 h-5 mr-2 text-amber-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

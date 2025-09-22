@@ -16,12 +16,12 @@ export default function InfoSection() {
               data-aos="fade-down"
               data-aos-duration="1000"
             >
-              Traditional payroll cant
+              Asesoría legal
               <span className="relative">
-                <span className="bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text"> keep up</span>
-                <div className="absolute -bottom-2 left-2 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+                <span className="bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text"> experta </span>
+                <div className="absolute -bottom-2 w-54 h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
               </span>{" "}
-              with your needs
+              para cada situación
             </h1>
 
             <p 
@@ -29,40 +29,20 @@ export default function InfoSection() {
               data-aos="fade-right"
               data-aos-delay="200"
             >
-              End the game of payroll whack-a-mole with the ability to pay your
-              team
-              <span className="font-semibold text-gray-800">
-                {" "}
-                however you need to
-              </span>
-              , whenever you need to
+              Brindamos servicio de asesoría y representación jurídica a
+              personas naturales o jurídicas, entidades publicas o privadas,
+              con profesionales en derecho en el área civil, familia,
+              comercial, laboral, administrativo y constitucional.
             </p>
 
-            {/* Stats */}
-            <div 
-              className="flex gap-15 py-6"
-              data-aos="zoom-in"
-              data-aos-delay="0"
+            <p
+              className="text-xl text-gray-800 font-bold leading-relaxed max-w-lg"
+              data-aos="fade-left"
+              data-aos-delay="200"
             >
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">500+</div>
-                <div className="text-sm text-gray-500 font-medium">
-                  Cases Won
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">5+</div>
-                <div className="text-sm text-gray-500 font-medium">
-                  Years Experience
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">98%</div>
-                <div className="text-sm text-gray-500 font-medium">
-                  Success Rate
-                </div>
-              </div>
-            </div>
+              “Trabajamos con responsabilidad y compromiso en beneficio de sus
+              intereses”.
+            </p>
 
             {/* Buttons */}
             <div 
@@ -75,7 +55,7 @@ export default function InfoSection() {
                 href="/contact"
                 className="group relative bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-600 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
               >
-                <span className="relative z-10">See how it works</span>
+                <span className="relative z-10">Contáctenos</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
 
@@ -84,7 +64,7 @@ export default function InfoSection() {
                 className="group border-2 border-gray-300 hover:border-amber-400 text-gray-700 hover:text-amber-500 font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-amber-50/40"
               >
                 <span className="flex items-center gap-2">
-                  Learn more
+                  Leer más
                   <svg
                     className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
                     fill="none"

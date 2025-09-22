@@ -9,7 +9,7 @@ const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/about", label: "Nosotros" },
   { href: "/services", label: "Servicios" },
-  { href: "/real-state", label: "Bienes Raíces" },
+  // { href: "/real-state", label: "Bienes Raíces" },
 ];
 
 export default function Header() {
@@ -20,26 +20,19 @@ export default function Header() {
     <header className="sticky top-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 shadow-lg h-[10vh] min-h-[80px]">
       <div className="max-w-7xl mx-auto h-full">
         <div className="flex justify-between items-center h-full px-1">
-          {/* Logo */}
+          {/* Logo - Left Side */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center space-x-0">
               <Image
                 src="/images/Logo AR COMPANY.png"
                 alt="Logo"
-                width={80}
-                height={80}
+                width={90}
+                height={90}
                 className="rounded"
               />
-              <div className=" ">
-                {/* <Image
-                 src="/images/Logo COMPANY.png"
-                  alt="Logo"
-                  width={110}
-                  height={110}
-                  className="rounded"
-                /> */}
+              <div className="">
                 <Image
-                 src="/images/Logo BYJ.png"
+                  src="/images/Logo BYJ.png"
                   alt="Logo"
                   width={200}
                   height={100}
@@ -49,29 +42,28 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Navigation - Desktop */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={clsx(
-                  "text-normal font-medium transition-colors duration-200 hover:text-amber-300",
-                  pathname === href ? "text-amber-300" : "text-gray-100"
-                )}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
+          {/* Navigation, Contact Button & Mobile Menu - Right Side */}
+          <div className="flex items-center">
+            {/* Navigation - Desktop */}
+            <nav className="hidden md:flex items-center space-x-8 mr-8">
+              {navItems.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className={clsx(
+                    "text-normal font-medium transition-colors duration-200 hover:text-amber-300",
+                    pathname === href ? "text-amber-300" : "text-gray-100"
+                  )}
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
 
-          {/* Contact Button & Mobile Menu Button */}
-          <div className="flex items-center space-x-0">
-            
-            {/* Contact Button */}
+            {/* Contact Button - Desktop */}
             <Link
               href="/contact"
-              className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 px-4 py-2 rounded-md text-sm font-semibold transition-colors duration-200 hidden sm:inline-flex items-center"
+              className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 px-4 py-2 rounded-md text-sm font-semibold transition-colors duration-200 hidden md:inline-flex items-center"
             >
               Contacto
             </Link>

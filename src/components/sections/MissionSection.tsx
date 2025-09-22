@@ -6,6 +6,8 @@ export default function MissionSection() {
     <section className="relative pt-10 overflow-hidden">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
+      {/* Mission Section Gradient - Only visible on large screens when image is on the left */}
+      <div className="absolute left-0 top-0 bottom-0 w-[60%] bg-gradient-to-r from-amber-500/30 to-amber-300/0 hidden lg:block"></div>
       
       <div className="relative max-w-7xl mx-auto top-0">
         <div className="flex flex-col lg:flex-row items-center gap-16 px-6 sm:px-10">
@@ -19,32 +21,27 @@ export default function MissionSection() {
             </div>
             
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-              Construyendo{" "}
+              Asesoría jurídica{" "}
               <span className="relative">
-                <span className="text-amber-500">confianza</span>
+                <span className="text-amber-500">especializada</span>
                 <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
               </span>{" "}
-              a través de la excelencia
+              con confianza
             </h2>
             
             <div className="space-y-6 text-left">
               <p className="text-lg text-gray-600 leading-relaxed">
-                Nuestra misión es proporcionar servicios jurídicos de la más alta calidad, 
-                con un enfoque personalizado y comprometido con los resultados de nuestros 
-                clientes. Creemos en la importancia de construir relaciones duraderas 
-                basadas en la confianza, la transparencia y la excelencia profesional.
-              </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                Nos esforzamos por ser más que asesores legales; somos partners estratégicos 
-                que acompañan a nuestros clientes en cada paso de su camino, ofreciendo 
-                soluciones innovadoras y efectivas para sus desafíos jurídicos.
+                Nuestra firma ofrece asesoría jurídica especializada y representación en
+                Derecho público y Privado, orientación profesional en cuanto a la
+                administración de bienes inmuebles, brindando soluciones efectivas en el
+                campo de nuestro objeto social, brindando apoyo, confianza y
+                tranquilidad a nuestros clientes.
               </p>
             </div>
           </div>
 
           {/* Image Column */}
           <div className="lg:w-120 relative order-2 lg:order-1">
-            <div className="sm:sticky lg:absolute lg:-inset-60 lg:w-[740px] bg-gradient-to-r from-amber-500 to-amber-300/0 rounded-r-3xl opacity-30"></div>
             <div className="relative group">
               <Image
                 src="/images/Lawyer.png"

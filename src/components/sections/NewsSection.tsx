@@ -44,18 +44,16 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
         <div className="absolute inset-0 bg-gradient-to-r from-gray-50/85 via-white to-blue-50/90"></div>
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              <span className="relative">
-                Trending
-                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
-              </span>{" "}
-              Today
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Stay informed with our latest insights, case studies, and legal
-              updates from our expert team
-            </p>
-          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <span className="relative">
+              Manténte Informado
+              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+            </span>{" "}
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Entérate de las principales novedades del ámbito legal 
+          </p>
+        </div>
           <div className="flex justify-center items-center min-h-[300px]">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500"></div>
             <p className="ml-4 text-xl text-gray-600">Cargando noticias...</p>
@@ -72,18 +70,16 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
         <div className="absolute inset-0 bg-gradient-to-r from-gray-50/85 via-white to-blue-50/90"></div>
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              <span className="relative">
-                Trending
-                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
-              </span>{" "}
-              Today
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Stay informed with our latest insights, case studies, and legal
-              updates from our expert team
-            </p>
-          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <span className="relative">
+              Manténte Informado
+              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+            </span>{" "}
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Entérate de las principales novedades del ámbito legal 
+          </p>
+        </div>
           <div className="flex flex-col items-center justify-center min-h-[300px]">
             <div className="text-red-500 mb-4">
               <svg
@@ -114,18 +110,16 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
         <div className="absolute inset-0 bg-gradient-to-r from-gray-50/85 via-white to-blue-50/90"></div>
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              <span className="relative">
-                Trending
-                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
-              </span>{" "}
-              Today
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Stay informed with our latest insights, case studies, and legal
-              updates from our expert team
-            </p>
-          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <span className="relative">
+              Manténte Informado
+              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+            </span>{" "}
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Entérate de las principales novedades del ámbito legal 
+          </p>
+        </div>
           <div className="text-center">
             <p className="text-gray-600">No hay noticias disponibles en este momento.</p>
           </div>
@@ -188,15 +182,12 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             <span className="relative">
-              Trending
+              Manténte Informado
               <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
             </span>{" "}
-            Today
           </h2>
-
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Stay informed with our latest insights, case studies, and legal
-            updates from our expert team
+            Entérate de las principales novedades del ámbito legal 
           </p>
         </div>
 

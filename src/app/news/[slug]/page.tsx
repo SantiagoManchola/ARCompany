@@ -691,7 +691,11 @@ export default async function NewsPage({ params }: NewsPageProps) {
         <figure className="mb-8">
           <Image
             src={noticia.backgroundImage.url}
-            alt={noticia.backgroundImage.alt}
+            alt={
+              noticia.backgroundImage.alt?.trim() ||
+              noticia.title ||
+              "Imagen de la noticia"
+            }
             width={noticia.backgroundImage.width}
             height={noticia.backgroundImage.height}
             className="w-full h-auto rounded-lg shadow-lg"
