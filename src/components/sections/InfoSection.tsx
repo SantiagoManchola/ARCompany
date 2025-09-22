@@ -16,10 +16,13 @@ export default function InfoSection() {
               data-aos="fade-down"
               data-aos-duration="1000"
             >
-              Asesoría legal
-              <span className="relative">
-                <span className="bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text"> experta </span>
-                <div className="absolute -bottom-2 w-54 h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+              Asesoría legal {" "}
+              <span className="relative inline-block">
+                <span className="bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">experta</span>
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"
+                ></span>
               </span>{" "}
               para cada situación
             </h1>
@@ -94,7 +97,7 @@ export default function InfoSection() {
 
             <div className="relative group">
               <Image
-                src="/images/Estatua2.jpg"
+                src="/images/imagen_info.jpg"
                 alt="Legal professionals illustration"
                 width={600}
                 height={400}

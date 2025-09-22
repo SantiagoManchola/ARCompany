@@ -44,17 +44,29 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
         <div className="absolute inset-0 bg-gradient-to-r from-gray-50/85 via-white to-blue-50/90"></div>
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            <span className="relative">
-              Manténte Informado
-              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
-            </span>{" "}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Entérate de las principales novedades del ámbito legal 
-          </p>
-        </div>
-          <div className="flex justify-center items-center min-h-[300px]">
+            <h2 
+              className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <span className="relative">
+                Mantente Informado
+                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+              </span>
+            </h2>
+            <p 
+              className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              Entérate de las principales novedades del ámbito legal 
+            </p>
+          </div>
+          <div 
+            className="flex justify-center items-center min-h-[300px]"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500"></div>
             <p className="ml-4 text-xl text-gray-600">Cargando noticias...</p>
           </div>
@@ -70,17 +82,29 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
         <div className="absolute inset-0 bg-gradient-to-r from-gray-50/85 via-white to-blue-50/90"></div>
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            <span className="relative">
-              Manténte Informado
-              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
-            </span>{" "}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Entérate de las principales novedades del ámbito legal 
-          </p>
-        </div>
-          <div className="flex flex-col items-center justify-center min-h-[300px]">
+            <h2 
+              className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <span className="relative">
+                Mantente Informado
+                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+              </span>
+            </h2>
+            <p 
+              className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              Entérate de las principales novedades del ámbito legal 
+            </p>
+          </div>
+          <div 
+            className="flex flex-col items-center justify-center min-h-[300px]"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             <div className="text-red-500 mb-4">
               <svg
                 className="w-12 h-12 mx-auto"
@@ -110,17 +134,29 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
         <div className="absolute inset-0 bg-gradient-to-r from-gray-50/85 via-white to-blue-50/90"></div>
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            <span className="relative">
-              Manténte Informado
-              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
-            </span>{" "}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Entérate de las principales novedades del ámbito legal 
-          </p>
-        </div>
-          <div className="text-center">
+            <h2 
+              className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <span className="relative">
+                Mantente Informado
+                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
+              </span>
+            </h2>
+            <p 
+              className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              Entérate de las principales novedades del ámbito legal 
+            </p>
+          </div>
+          <div 
+            className="text-center"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             <p className="text-gray-600">No hay noticias disponibles en este momento.</p>
           </div>
         </div>
@@ -180,19 +216,31 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 
+            className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
             <span className="relative">
-              Manténte Informado
+              Mantente Informado
               <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
-            </span>{" "}
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p 
+            className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             Entérate de las principales novedades del ámbito legal 
           </p>
         </div>
 
         {/* Slider Container */}
-        <div className="relative">
+        <div 
+          className="relative"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
           {/* Navigation Buttons - Solo mostrar si hay más slides */}
           {maxSlides > 0 && (
             <>
@@ -202,6 +250,8 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
                 className={`absolute left-1 top-2/5 -translate-y-1/4 z-10 bg-white backdrop-blur-sm hover:bg-white text-black hover:text-amber-600 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group ${
                   currentSlide === 0 ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
                 }`}
+                data-aos="fade-right"
+                data-aos-delay="400"
               >
                 <svg
                   className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -224,6 +274,8 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
                 className={`absolute right-1 top-2/5 -translate-y-1/4 z-10 bg-white backdrop-blur-sm hover:bg-white text-black hover:text-amber-600 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group ${
                   currentSlide === maxSlides ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
                 }`}
+                data-aos="fade-left"
+                data-aos-delay="400"
               >
                 <svg
                   className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
@@ -257,18 +309,21 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
               >
                 <div
                   ref={sliderRef}
-                  className="flex transition-transform duration-500 ease-in-out sm:h-80 md:h-80 lg:h-86 h-67 "
+                  className="flex transition-transform duration-500 ease-in-out sm:h-80 md:h-80 lg:h-86 h-67"
                   style={{
                     transform: `translateX(-${currentSlide * totalCardWidth}px)`,
                     gap: `${gap}px`,
                     width: `${displayItems.length * totalCardWidth - gap}px`
                   }}
                 >
-                  {displayItems.map((item) => (
+                  {displayItems.map((item, index) => (
                     <div 
                       key={item.id} 
                       className="flex-shrink-0"
                       style={{ width: `${cardWidth}px` }}
+                      data-aos="zoom-in"
+                      data-aos-delay={500 + index * 100}
+                      data-aos-duration="600"
                     >
                       <NewsCard 
                         item={item} 
@@ -284,7 +339,11 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
 
           {/* Dots Navigation - Solo mostrar si hay más de un slide */}
           {maxSlides > 0 && (
-            <div className="flex justify-center gap-2 mt-8">
+            <div 
+              className="flex justify-center gap-2 mt-8"
+              data-aos="fade-up"
+              data-aos-delay="600"
+            >
               {Array.from({ length: maxSlides + 1 }, (_, index) => (
                 <button
                   key={index}

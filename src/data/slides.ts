@@ -11,7 +11,7 @@ export interface Slide {
 export const slides: Slide[] = [
   {
     id: 1,
-    image: '/images/Slider%201.jpg',
+    image: '/images/Slider1.jpg',
     subtitle: '',
     title: 'CONTÁCTANOS AHORA Y DECIDE CON CLARIDAD',
     description: 'Cuéntanos tu caso en minutos y recibe una orientación inicial clara. Estamos listos para ayudarte a tomar la mejor decisión legal, sin rodeos y con total confidencialidad.',
@@ -20,7 +20,7 @@ export const slides: Slide[] = [
   },
   {
     id: 2,
-    image: '/images/slider%202.jpg',
+    image: '/images/slider2.jpg',
     subtitle: '',
     title: 'DESCUBRE NUESTROS SERVICIOS',
     description: 'Conoce cómo podemos ayudarte con estrategias prácticas, transparentes y enfocadas en resultados.',
@@ -29,7 +29,7 @@ export const slides: Slide[] = [
   },
   {
     id: 3,
-    image: '/images/slider%203.jpg',
+    image: '/images/slider3.jpg',
     subtitle: '',
     title: '¿QUIÉNES SOMOS Y CÓMO TRABAJAMOS?',
     description: 'Somos un equipo cercano y comprometido. Descubre nuestra misión, visión, valores y la forma en que acompañamos a cada cliente paso a paso.',
