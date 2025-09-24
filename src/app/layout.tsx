@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     siteName: "AR Company",
     images: [
       {
-        url: "https://arcompany-delta.vercel.app//og-image.png",
+        url: "https://arcompany-delta.vercel.app//og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Logo de AR Company",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     description: "Firma legal especializada en servicios jurídicos integrales",
     site: "@arcompany",
     creator: "@arcompany",
-    images: ["https://arcompany-delta.vercel.app//og-image.png"],
+    images: ["https://arcompany-delta.vercel.app//og-image.jpg"],
   },
   icons: {
     icon: "/favicon.ico",

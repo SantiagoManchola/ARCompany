@@ -38,13 +38,22 @@ export default function ValuesSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-2">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-amber-500 text-sm font-medium mb-4">
+          <div
+            className="inline-flex items-center gap-2 text-amber-500 text-sm font-medium mb-4"
+            data-aos="fade-down"
+            data-aos-delay="0"
+          >
             <div className="w-8 h-px bg-amber-400"></div>
             <span className="uppercase tracking-wider">Nuestros Valores</span>
             <div className="w-8 h-px bg-amber-400"></div>
           </div>
           
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
+          <h2
+            className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6"
+            data-aos="fade-up"
+            data-aos-delay="100"
+            data-aos-duration="800"
+          >
             Los{" "}
             <span className="relative">
               <span className="text-amber-500">principios</span>
@@ -53,7 +62,12 @@ export default function ValuesSection() {
             que nos guían
           </h2>
           
-          <p className="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          <p
+            className="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="800"
+          >
             Nuestros valores fundamentales definen quiénes somos y cómo trabajamos, 
             asegurando que cada cliente reciba el servicio excepcional que merece.
           </p>
@@ -65,6 +79,9 @@ export default function ValuesSection() {
             <div
               key={index}
               className="group relative"
+              data-aos="fade-up"
+              data-aos-delay={index * 500 + 100}
+              data-aos-once="true"
             >
               {/* Card */}
               <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
@@ -72,7 +89,7 @@ export default function ValuesSection() {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400/10 to-amber-500/5 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700"></div>
                 
                 {/* Icon */}
-                <div className="relative z-10 mb-6">
+                <div className="relative z-10 mb-6" data-aos="zoom-in" data-aos-delay={index * 150 + 150} data-aos-duration="500">
                   <div className="w-16 h-16 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     {value.icon}
                   </div>

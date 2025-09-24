@@ -3,25 +3,26 @@ import Image from "next/image";
 
 export default function MissionSection() {
   return (
-    <section className="relative pt-10 overflow-hidden">
+    <section className="relative py-16 lg:py-24 overflow-hidden">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
       {/* Mission Section Gradient - Only visible on large screens when image is on the left */}
       <div 
-        className="absolute left-0 top-0 bottom-0 w-[60%] bg-gradient-to-r from-amber-500/30 to-amber-300/0 hidden lg:block"
+        className="absolute left-0 top-0 bottom-0 w-[55%] bg-gradient-to-r from-amber-500/25 to-amber-300/0 hidden lg:block"
         data-aos="fade-right"
         data-aos-duration="1000"
       ></div>
       
-      <div className="relative max-w-7xl mx-auto top-0">
-        <div className="flex flex-col lg:flex-row items-center gap-16 px-6 sm:px-10">
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-6 md:px-1">
+  <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-16">
           
           {/* Content Column */}
-          <div className="lg:w-1/2 space-y-8 order-1 lg:order-2 text-center lg:text-left">
+          <div className="order-1 lg:order-2 lg:col-span-6 space-y-6 lg:space-y-8 text-center lg:text-left">
             <div 
               className="inline-flex items-center gap-2 text-amber-500 text-sm font-medium mb-4"
               data-aos="fade-down"
               data-aos-delay="100"
+              data-aos-duration="1500"
             >
               <div className="w-8 h-px bg-amber-400"></div>
               <span className="uppercase tracking-wider">Nuestra Misión</span>
@@ -32,6 +33,8 @@ export default function MissionSection() {
               className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
               data-aos="fade-up"
               data-aos-delay="200"
+              data-aos-duration="1500"
+
             >
               Asesoría jurídica{" "}
               <span className="relative">
@@ -42,10 +45,12 @@ export default function MissionSection() {
             </h2>
             
             <div 
-              className="space-y-6 text-left"
+              className="space-y-6 text-left max-w-2xl mx-auto lg:mx-0"
               data-aos="zoom-in"
               data-aos-delay="300"
               data-aos-offset="50"
+              data-aos-duration="1500"
+
             >
               <p className="text-lg text-gray-600 leading-relaxed">
                 Nuestra firma ofrece asesoría jurídica especializada y representación en
@@ -59,18 +64,24 @@ export default function MissionSection() {
 
           {/* Image Column */}
           <div 
-            className="lg:w-120 relative order-2 lg:order-1"
+            className="order-2 lg:order-1 lg:col-span-6 relative max-w-[600px] mx-auto lg:mx-0"
             data-aos="fade-right"
             data-aos-delay="400"
-            data-aos-duration="800"
+            data-aos-duration="1500"
           >
             <div className="relative group">
-              <Image
-                src="/images/Lawyer.png"
-                alt="Nuestro equipo"
-                width={600}
-                height={400}
-              />
+              <div 
+                className="absolute -inset-4 bg-amber-400/30 rounded-3xl blur opacity-50 group-hover:opacity-80 transition-opacity duration-300 lg:hidden"
+              ></div>
+              <div className="relative">
+                <Image
+                  src="/images/Imagen misión.jpg"
+                  alt="Nuestro equipo"
+                  width={600}
+                  height={400}
+                  className="rounded-2xl shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
             </div>
           </div>
           

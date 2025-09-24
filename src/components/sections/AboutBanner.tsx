@@ -17,7 +17,12 @@ export default function BannerSection() {
           
 
           {/* Main Title */}
-          <h1 className="text-5xl lg:text-6x1 font-bold mb-6 leading-tight animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <h1
+            className="text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="1500"
+          >
             {/* Sobre{" "} */}
             <span className="relative">
               <span className="bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text">Nosotros</span>
@@ -26,31 +31,17 @@ export default function BannerSection() {
           </h1>
 
           {/* Description */}
-          <p className="text-gray-200 text-xl leading-relaxed max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+          <p
+            className="text-gray-200 text-xl leading-relaxed max-w-3xl mx-auto"
+            data-aos="fade-up"
+            data-aos-delay="400"
+            data-aos-duration="1500"
+          >
             Somos un equipo de profesionales comprometidos con la excelencia jurídica, 
             brindando soluciones integrales y personalizadas para cada uno de nuestros clientes.
           </p>
         </div>
       </div>
-
-      {/* Custom Styles */}
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-          opacity: 0;
-        }
-      `}</style>
     </section>
   );
 }

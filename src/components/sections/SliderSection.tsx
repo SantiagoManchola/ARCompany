@@ -8,8 +8,16 @@ import "swiper/css/effect-fade";
 
 import { slides } from "@/data/slides";
 import Link from "next/link";
+import { useRef, useState, useEffect } from "react";
 
 export default function SliderSection() {
+  const swiperRef = useRef<any>(null);
+  const [currentSlide, setCurrentSlide] = useState(-1);
+
+  const handleSlideChange = (swiper: any) => {
+    setCurrentSlide(swiper.realIndex);
+  };
+
   return (
     <section className="relative h-[90vh] min-h-[600px]">
       <Swiper
@@ -23,12 +31,25 @@ export default function SliderSection() {
           bulletClass: "swiper-pagination-bullet",
           bulletActiveClass: "swiper-pagination-bullet-active",
         }}
+        simulateTouch={true}
+        shortSwipes={true}
+        longSwipes={true}
+        longSwipesRatio={0.1}
+        threshold={5}
+        touchRatio={1.4}
         effect="fade"
         fadeEffect={{ crossFade: true }}
         loop
         className="w-full h-full"
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          requestAnimationFrame(() => {
+            setCurrentSlide(swiper.realIndex);
+          });
+        }}
+        onSlideChange={handleSlideChange}
       >
-        {slides.map((slide) => (
+        {slides.map((slide, slideIndex) => (
           <SwiperSlide key={slide.id}>
             <div className="relative w-full h-full">
               {/* Background Image */}
@@ -46,21 +67,31 @@ export default function SliderSection() {
               <div className="relative z-10 flex items-center justify-center h-full px-4">
                 <div className="text-center max-w-4xl mx-auto">
                   {/* Subtitle */}
-                  <div
-                    className="text-gray-200 text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-medium"
-                    data-aos="fade-down"
-                    data-aos-duration="800"
-                    data-aos-delay="200"
-                  >
-                    {slide.subtitle}
-                  </div>
+                  {slide.subtitle && (
+                    <div 
+                      className={`text-gray-200 text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-medium transition-all duration-800 ${
+                        currentSlide === slideIndex 
+                          ? 'opacity-100 transform translate-y-0' 
+                          : 'opacity-0 transform -translate-y-4'
+                      }`}
+                      style={{
+                        transitionDelay: currentSlide === slideIndex ? '200ms' : '0ms'
+                      }}
+                    >
+                      {slide.subtitle}
+                    </div>
+                  )}
 
                   {/* Main Title */}
-                  <h1
-                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight"
-                    data-aos="fade-up"
-                    data-aos-duration="1000"
-                    data-aos-delay="400"
+                  <h1 
+                    className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight transition-all duration-1200 ${
+                      currentSlide === slideIndex 
+                        ? 'opacity-100 transform translate-y-0' 
+                        : 'opacity-0 transform translate-y-4'
+                    }`}
+                    style={{
+                      transitionDelay: currentSlide === slideIndex ? '400ms' : '0ms'
+                    }}
                   >
                     {slide.title.split(" ").map((word, i) => (
                       <span
@@ -73,24 +104,34 @@ export default function SliderSection() {
                   </h1>
 
                   {/* Description */}
-                  <p
-                    className="text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed"
-                    data-aos="fade-up"
-                    data-aos-duration="800"
-                    data-aos-delay="600"
+                  <p 
+                    className={`text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed transition-all duration-1200 ${
+                      currentSlide === slideIndex 
+                        ? 'opacity-100 transform translate-y-0' 
+                        : 'opacity-0 transform translate-y-4'
+                    }`}
+                    style={{
+                      transitionDelay: currentSlide === slideIndex ? '700ms' : '0ms'
+                    }}
                   >
                     {slide.description}
                   </p>
 
                   {/* CTA Button */}
-                  <div
-                    data-aos="zoom-in"
-                    data-aos-duration="600"
-                    data-aos-delay="800"
+                  <div 
+                    className={`transform-gpu origin-center transition-all duration-1000 ease-out ${
+                      currentSlide === slideIndex 
+                        ? 'opacity-100 scale-100' 
+                        : 'opacity-0 scale-50'
+                    }`}
+                    style={{
+                      transitionDelay: currentSlide === slideIndex ? '1200ms' : '0ms',
+                      willChange: 'transform, opacity'
+                    }}
                   >
                     <Link
                       href={slide.ctaLink}
-                      className="inline-flex items-center bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg text-base sm:text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                      className="group inline-flex items-center bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg text-base sm:text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
                     >
                       {slide.ctaText}
                       <svg
@@ -126,12 +167,34 @@ export default function SliderSection() {
           height: 12px !important;
           background: rgba(255, 255, 255, 0.3) !important;
           opacity: 1 !important;
-          transition: all 0.3s ease !important;
+          transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
+          transform: scale(1);
+        }
+
+        /* Hover only affects non-active bullets */
+        .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover {
+          transform: scale(1.25);
+          background: rgba(255, 255, 255, 0.5) !important;
+          box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.12);
         }
 
         .swiper-pagination-bullet-active {
           background: rgb(245, 179, 11) !important;
-          transform: scale(1.2) !important;
+          /* Animate last with a noticeable delay after CTA */
+          animation: bullet-pop 300ms ease-out both 150ms;
+        }
+
+        /* Keep active bullet style stable on hover */
+        .swiper-pagination-bullet-active:hover {
+          background: rgb(245, 179, 11) !important;
+          box-shadow: none;
+          cursor: default;
+        }
+
+        @keyframes bullet-pop {
+          0% { transform: scale(1); }
+          60% { transform: scale(1.35); }
+          100% { transform: scale(1.2); }
         }
 
         /* Asegurar que el slider se vea bien en pantallas muy pequeñas */

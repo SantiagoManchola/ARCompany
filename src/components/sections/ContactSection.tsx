@@ -116,7 +116,7 @@ export default function ContactSection() {
                   <h3 className="font-semibold text-gray-900 mb-1">
                     Teléfono/WhatsApp
                   </h3>
-                  <p className="text-gray-600">+57 (XXX) XXX-XXXX</p>
+                  <p className="text-gray-600">323 289 5945 <br /> 316 225 7289</p>
                 </div>
                 <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
               </div>
@@ -139,12 +139,14 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                  <p className="text-gray-600">info@arcompany.com</p>
+                  <p className="text-gray-600 break-all sm:break-normal">
+                    arcompanybienesyservicios@gmail.com
+                  </p>
                 </div>
                 <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
               </div>
 
-              <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden">
+              <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden cursor-pointer">
                 <div className="w-12 h-12 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">
                   <svg
                     className="w-6 h-6"
@@ -175,6 +177,14 @@ export default function ContactSection() {
                   </p>
                 </div>
                 <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
+                {/* Full-card clickable overlay to open Google Maps directions */}
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=4.445355813830964,-75.24154039630838"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Abrir ubicación en Google Maps"
+                  className="absolute inset-0 z-10"
+                />
               </div>
             </div>
 

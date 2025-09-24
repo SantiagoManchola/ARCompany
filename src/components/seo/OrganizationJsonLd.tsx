@@ -15,7 +15,7 @@ export default function OrganizationJsonLd({
     logo: `${baseUrl}/images/Logo AR COMPANY.png`,
     image: `${baseUrl}/images/Services.webp`,
     telephone: "+57-XXX-XXXXXXX", // Reemplaza con tu número real
-    email: "info@arcompany.com", // Reemplaza con tu email real
+    email: "arcompanybienesyservicios@gmail.com", 
     address: {
       "@type": "PostalAddress",
       streetAddress: "Tu dirección aquí", // Reemplaza con tu dirección real

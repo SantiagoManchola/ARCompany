@@ -29,6 +29,7 @@ export default function VisionSection() {
               className="inline-flex items-center gap-2 text-amber-400 text-sm font-medium mb-4"
               data-aos="fade-down"
               data-aos-delay="300"
+              data-aos-duration="1200"
             >
               <div className="w-8 h-px bg-amber-400"></div>
               <span className="uppercase tracking-wider">Nuestra Visión</span>
@@ -39,6 +40,7 @@ export default function VisionSection() {
               className="text-4xl lg:text-5xl font-bold text-gray-50 leading-tight"
               data-aos="zoom-in"
               data-aos-delay="400"
+              data-aos-duration="1200"
             >
               Profesionalismo que marca la
               <span className="relative ml-3">
@@ -50,7 +52,8 @@ export default function VisionSection() {
             <div 
               className="space-y-6 text-left"
               data-aos="fade-up"
-              data-aos-delay="500"
+              data-aos-delay="200"
+              data-aos-duration="1200"
             >
               <p className="text-lg text-gray-100 leading-relaxed">
                 Ser el establecimiento de comercio número uno en el ejercicio de
@@ -66,12 +69,14 @@ export default function VisionSection() {
             className="lg:w-1/2 relative"
             data-aos="zoom-in-left"
             data-aos-delay="600"
+            data-aos-duration="1200"
           >
             <div className="relative group">
               <div 
                 className="absolute -inset-4 bg-amber-400/30 rounded-3xl blur opacity-50 group-hover:opacity-80 transition-opacity duration-300"
                 data-aos="fade-in"
                 data-aos-delay="700"
+                data-aos-duration="1200"
               ></div>
               <div className="relative">
                 <Image
@@ -79,13 +84,8 @@ export default function VisionSection() {
                   alt="Imagen visión"
                   width={600}
                   height={400}
-                  className="rounded-2xl shadow-2x"
+                  className="rounded-2xl shadow-2xl transition-transform duration-500 group-hover:scale-102"
                 />
-                <div 
-                  className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent rounded-2xl"
-                  data-aos="fade-up"
-                  data-aos-delay="800"
-                ></div>
               </div>
             </div>
           </div>
