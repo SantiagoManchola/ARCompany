@@ -8,13 +8,14 @@ import "swiper/css/effect-fade";
 
 import { slides } from "@/data/slides";
 import Link from "next/link";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
+import type SwiperType from "swiper";
 
 export default function SliderSection() {
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperType | null>(null);
   const [currentSlide, setCurrentSlide] = useState(-1);
 
-  const handleSlideChange = (swiper: any) => {
+  const handleSlideChange = (swiper: SwiperType) => {
     setCurrentSlide(swiper.realIndex);
   };
 
@@ -68,14 +69,15 @@ export default function SliderSection() {
                 <div className="text-center max-w-4xl mx-auto">
                   {/* Subtitle */}
                   {slide.subtitle && (
-                    <div 
+                    <div
                       className={`text-gray-200 text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-medium transition-all duration-800 ${
-                        currentSlide === slideIndex 
-                          ? 'opacity-100 transform translate-y-0' 
-                          : 'opacity-0 transform -translate-y-4'
+                        currentSlide === slideIndex
+                          ? "opacity-100 transform translate-y-0"
+                          : "opacity-0 transform -translate-y-4"
                       }`}
                       style={{
-                        transitionDelay: currentSlide === slideIndex ? '200ms' : '0ms'
+                        transitionDelay:
+                          currentSlide === slideIndex ? "200ms" : "0ms",
                       }}
                     >
                       {slide.subtitle}
@@ -83,14 +85,15 @@ export default function SliderSection() {
                   )}
 
                   {/* Main Title */}
-                  <h1 
+                  <h1
                     className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight transition-all duration-1200 ${
-                      currentSlide === slideIndex 
-                        ? 'opacity-100 transform translate-y-0' 
-                        : 'opacity-0 transform translate-y-4'
+                      currentSlide === slideIndex
+                        ? "opacity-100 transform translate-y-0"
+                        : "opacity-0 transform translate-y-4"
                     }`}
                     style={{
-                      transitionDelay: currentSlide === slideIndex ? '400ms' : '0ms'
+                      transitionDelay:
+                        currentSlide === slideIndex ? "400ms" : "0ms",
                     }}
                   >
                     {slide.title.split(" ").map((word, i) => (
@@ -104,29 +107,31 @@ export default function SliderSection() {
                   </h1>
 
                   {/* Description */}
-                  <p 
+                  <p
                     className={`text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed transition-all duration-1200 ${
-                      currentSlide === slideIndex 
-                        ? 'opacity-100 transform translate-y-0' 
-                        : 'opacity-0 transform translate-y-4'
+                      currentSlide === slideIndex
+                        ? "opacity-100 transform translate-y-0"
+                        : "opacity-0 transform translate-y-4"
                     }`}
                     style={{
-                      transitionDelay: currentSlide === slideIndex ? '700ms' : '0ms'
+                      transitionDelay:
+                        currentSlide === slideIndex ? "700ms" : "0ms",
                     }}
                   >
                     {slide.description}
                   </p>
 
                   {/* CTA Button */}
-                  <div 
+                  <div
                     className={`transform-gpu origin-center transition-all duration-1000 ease-out ${
-                      currentSlide === slideIndex 
-                        ? 'opacity-100 scale-100' 
-                        : 'opacity-0 scale-50'
+                      currentSlide === slideIndex
+                        ? "opacity-100 scale-100"
+                        : "opacity-0 scale-50"
                     }`}
                     style={{
-                      transitionDelay: currentSlide === slideIndex ? '1200ms' : '0ms',
-                      willChange: 'transform, opacity'
+                      transitionDelay:
+                        currentSlide === slideIndex ? "1200ms" : "0ms",
+                      willChange: "transform, opacity",
                     }}
                   >
                     <Link
@@ -167,7 +172,10 @@ export default function SliderSection() {
           height: 12px !important;
           background: rgba(255, 255, 255, 0.3) !important;
           opacity: 1 !important;
-          transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
+          transition:
+            transform 0.25s ease,
+            background 0.25s ease,
+            box-shadow 0.25s ease !important;
           transform: scale(1);
         }
 
@@ -192,18 +200,34 @@ export default function SliderSection() {
         }
 
         @keyframes bullet-pop {
-          0% { transform: scale(1); }
-          60% { transform: scale(1.35); }
-          100% { transform: scale(1.2); }
+          0% {
+            transform: scale(1);
+          }
+          60% {
+            transform: scale(1.35);
+          }
+          100% {
+            transform: scale(1.2);
+          }
         }
 
         /* Asegurar que el slider se vea bien en pantallas muy pequeñas */
         @media (max-height: 600px) {
-          .text-3xl { font-size: 1.5rem; }
-          .text-4xl { font-size: 1.75rem; }
-          .text-5xl { font-size: 2rem; }
-          .mb-8 { margin-bottom: 1rem; }
-          .mb-12 { margin-bottom: 1.5rem; }
+          .text-3xl {
+            font-size: 1.5rem;
+          }
+          .text-4xl {
+            font-size: 1.75rem;
+          }
+          .text-5xl {
+            font-size: 2rem;
+          }
+          .mb-8 {
+            margin-bottom: 1rem;
+          }
+          .mb-12 {
+            margin-bottom: 1.5rem;
+          }
         }
       `}</style>
     </section>
