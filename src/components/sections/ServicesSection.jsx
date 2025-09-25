@@ -41,7 +41,7 @@ const ServicesSection = ({ services, loading = false, error = null }) => {
     <section className="relative py-20 overflow-hidden bg-gradient-to-tr from-slate-50 via-white to-blue-50">
       {/* Background Image with Overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/images/BG%20Services%20phone.avif')] md:bg-[url('/images/Services.webp')]"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/images/BGServicesPhone.avif')] md:bg-[url('/images/Services.webp')]"
         data-aos="slide-right"
         data-aos-delay="0"
       >

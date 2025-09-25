@@ -53,12 +53,14 @@ export default function SliderSection() {
         {slides.map((slide, slideIndex) => (
           <SwiperSlide key={slide.id}>
             <div className="relative w-full h-full">
-              {/* Background Image */}
+              {/* Background Images (mobile + desktop) */}
               <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: `url(${slide.image})`,
-                }}
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
+                style={{ backgroundImage: `url(${slide.mobileImage || slide.image})` }}
+              />
+              <div
+                className="absolute inset-0 hidden md:block bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${slide.image})` }}
               />
 
               {/* Dark Overlay */}

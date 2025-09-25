@@ -5,16 +5,21 @@ export default function VisionSection() {
   return (
     <section className="relative py-20 overflow-hidden bg-gradient-to-tr from-slate-50 via-white to-blue-50">
       {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-100"
-        style={{
-          backgroundImage: "url('images/Law.jpg')",
-        }}
-        data-aos="slide-right"
-        data-aos-delay="0"
-
-      >
-        <div 
+      {/* Background responsive (mobile + desktop) */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
+          style={{ backgroundImage: "url('/images/BGVisionPhone.avif')" }}
+          data-aos="slide-right"
+          data-aos-delay="0"
+        ></div>
+        <div
+          className="absolute inset-0 hidden md:block bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/Law.jpg')" }}
+          data-aos="slide-right"
+          data-aos-delay="0"
+        ></div>
+        <div
           className="absolute inset-0 bg-[#111C32] opacity-80"
           data-aos="slide-right"
           data-aos-delay="0"
