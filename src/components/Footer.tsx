@@ -122,7 +122,7 @@ export default function Footer() {
                     Servicios
                   </Link>
                 </li>
-                {/* <li>
+                <li>
                   <Link
                     href="/real-state"
                     className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center group"
@@ -130,7 +130,7 @@ export default function Footer() {
                     <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                     Bienes Raíces
                   </Link>
-                </li> */}
+                </li>
                 <li>
                   <Link
                     href="/contact"

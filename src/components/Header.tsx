@@ -9,7 +9,7 @@ const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/about", label: "Nosotros" },
   { href: "/services", label: "Servicios" },
-  // { href: "/real-state", label: "Bienes Raíces" },
+  { href: "/bienes-raices", label: "Bienes Raíces" },
 ];
 
 export default function Header() {

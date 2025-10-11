@@ -92,6 +92,41 @@ export interface NewsData {
   link: string;
 }
 
+// Tipos para bienes raíces
+export interface RealStateProperty {
+  id: string;
+  tipo: "CASA" | "APARTAMENTO" | "LOCAL";
+  operacion: "VENTA" | "ARRIENDO";
+  titulo: string;
+  descripcion: string;
+  precio: number;
+  ciudad: string;
+  departamento: string;
+  barrio?: string;
+  direccion?: string;
+  area: number; // en m²
+  alcobas: number;
+  banos: number;
+  garajes: number;
+  estrato?: number;
+  antiguedad?: number; // años
+  piso?: number;
+  pisos?: number; // número de pisos (principalmente para casas)
+  administracion?: number;
+  imagenes: Array<{
+    id: string;
+    url: string;
+    alt: string;
+    thumbnailURL?: string;
+  }>;
+  caracteristicas?: string[]; // Ej: "Cocina integral", "Balcón", "Ascensor"
+  slug: string;
+  destacado?: boolean;
+  estado?: "DISPONIBLE" | "RESERVADO" | "VENDIDO" | "ARRENDADO";
+  createdAt: string;
+  updatedAt: string;
+}
+
 // Tipo genérico para respuestas de la API
 export interface APIResponse<T> {
   data?: T;

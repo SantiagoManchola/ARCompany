@@ -73,7 +73,7 @@ Edita `src/components/seo/OrganizationJsonLd.tsx` y actualiza:
 - `/services` (Lista de servicios)
 - `/services/[slug]` (Cada servicio individual)
 - `/contact` (Contacto)
-- `/real-state` (Bienes raíces)
+- `/bienes-raices` (Bienes raíces)
 
 ## 📈 Beneficios implementados:
 
