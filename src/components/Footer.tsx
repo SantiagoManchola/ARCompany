@@ -124,7 +124,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/real-state"
+                    href="/bienes-raices"
                     className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center group"
                   >
                     <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
