@@ -494,7 +494,7 @@ export default function PropertyPage() {
                       aria-label={`Ver imagen ${index + 1}`}
                     >
                       <ThumbImg
-                        srcPrimary={(img as any).thumbnailURL}
+                        srcPrimary={img.thumbnailURL}
                         fallbackSrc={img.url}
                         alt={img.alt}
                       />
