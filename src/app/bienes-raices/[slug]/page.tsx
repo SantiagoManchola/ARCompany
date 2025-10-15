@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-// Miniatura como <img> normal con fallback
 function ThumbImg({
   srcPrimary,
   fallbackSrc,
@@ -20,11 +19,13 @@ function ThumbImg({
     srcPrimary && srcPrimary.trim() !== "" ? srcPrimary : fallbackSrc
   );
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
+      fill
+      sizes="80px"
+      className="object-cover bg-white"
       loading="lazy"
-      className="block w-full h-full object-cover bg-white"
       onError={() => {
         if (src !== fallbackSrc) setSrc(fallbackSrc);
       }}
