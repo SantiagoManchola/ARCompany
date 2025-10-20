@@ -3,9 +3,6 @@ export interface ServiceAPI {
   id: string;
   createdAt: string;
   updatedAt: string;
-  // Campo de orden proveniente de Payload cuando la colección es "orderable"
-  // No siempre está presente en todos los entornos, por eso es opcional
-  order?: number;
   // Payload expone típicamente un campo interno `_order` (string) para ordenar colecciones "orderable".
   // Lo incluimos como opcional para soportar el orden real del Admin.
   _order?: string;

@@ -8,6 +8,9 @@ interface ServicioPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 // Función para generar metadata dinámico para SEO
 export async function generateMetadata({
   params,

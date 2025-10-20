@@ -23,6 +23,7 @@ class APIService {
       const response = await fetch(url, {
         ...options,
         signal: controller.signal,
+        cache: "no-store",
         headers: {
           "Content-Type": "application/json",
           ...options.headers,
@@ -90,16 +91,11 @@ class APIService {
       const response = await this.get<ServiciosAPIResponse>(query);
 
       if (response && Array.isArray(response.docs)) {
-        // Fallback: asegurar orden por 'order' si el backend no lo aplica
         return [...response.docs].sort((a, b) => {
-          // Preferir `_order` (string) descendente para reflejar el Admin
           if (a?._order && b?._order) {
             return a._order > b._order ? -1 : a._order < b._order ? 1 : 0;
           }
-          // Fallback a `order` (numérico) ascendente si existiera
-          const ao = a?.order !== undefined && a?.order !== null ? Number(a.order) : Number.MAX_SAFE_INTEGER;
-          const bo = b?.order !== undefined && b?.order !== null ? Number(b.order) : Number.MAX_SAFE_INTEGER;
-          return ao - bo;
+          return 0;
         });
       }
 
