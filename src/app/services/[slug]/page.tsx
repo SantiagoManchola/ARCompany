@@ -106,7 +106,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
             backgroundImage: `url('${servicio.imagen_banner.url}')`,
           }}
         >
-          <div className="absolute inset-0 bg-black/45"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
         </div>
 
         <div className="relative z-10 flex items-center h-full px-4 sm:px-6 lg:px-8">
