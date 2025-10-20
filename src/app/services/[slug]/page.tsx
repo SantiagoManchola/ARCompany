@@ -10,6 +10,8 @@ interface ServicioPageProps {
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+export const runtime = "nodejs";
+export const fetchCache = "force-no-store";
 
 // Función para generar metadata dinámico para SEO
 export async function generateMetadata({
@@ -60,19 +62,6 @@ export async function generateMetadata({
       title: "Error",
       description: "Error al cargar el servicio.",
     };
-  }
-}
-
-// Función para generar parámetros estáticos (opcional, para better performance)
-export async function generateStaticParams() {
-  try {
-    const servicios = await apiService.getServicios();
-    return servicios.map((servicio) => ({
-      slug: servicio.slug,
-    }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
   }
 }
 
