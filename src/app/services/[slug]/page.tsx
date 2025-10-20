@@ -3,7 +3,6 @@ import { apiService } from "@/services/api";
 import { ServiceAPI } from "@/types/api";
 import { Metadata } from "next";
 import ServiceJsonLd from "@/components/seo/ServiceJsonLd";
-import { API_CONFIG } from "@/config/api";
 
 interface ServicioPageProps {
   params: Promise<{ slug: string }>;
@@ -81,16 +80,6 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
     return notFound();
   }
 
-  // Normaliza URLs relativas de imágenes del CMS a absolutas
-  const cmsOrigin = API_CONFIG.BASE_URL.replace(/\/api$/, "");
-  const bannerUrl = servicio.imagen_banner?.url || "";
-  const normalizedBannerUrl = bannerUrl.startsWith("http")
-    ? bannerUrl
-    : `${cmsOrigin}${bannerUrl}`;
-
-  // Fallback de descripción del banner si viene vacía
-  const bannerDescription = servicio.descripcion_banner || servicio.descripcion || "";
-
   return (
     <main className="min-h-screen bg-gray-50">
       <ServiceJsonLd
@@ -103,7 +92,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('${normalizedBannerUrl}')`,
+            backgroundImage: `url('${servicio.imagen_banner.url}')`,
           }}
         >
           <div className="absolute inset-0 bg-black/50"></div>
@@ -125,7 +114,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
 
                 {/* Description */}
                 <p className="text-gray-200 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl lg:max-w-none">
-                  {bannerDescription}
+                  {servicio.descripcion_banner}
                 </p>
               </div>
             </div>

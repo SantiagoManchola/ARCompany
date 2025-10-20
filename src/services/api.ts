@@ -14,7 +14,13 @@ class APIService {
     endpoint: string,
     options: RequestInit = {}
   ): Promise<T> {
-    const url = `${this.baseURL}${endpoint}`;
+    // Build URL and add cache-busting param for GET requests in production
+    const urlObj = new URL(`${this.baseURL}${endpoint}`);
+    const method = (options.method || "GET").toUpperCase();
+    if (method === "GET" && process.env.NODE_ENV === "production") {
+      urlObj.searchParams.set("_t", Date.now().toString());
+    }
+    const url = urlObj.toString();
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.timeout);
@@ -108,8 +114,14 @@ class APIService {
 
   async getServicioBySlug(slug: string): Promise<ServiceAPI | null> {
     try {
-      const servicios = await this.getServicios();
-      return servicios.find((servicio) => servicio.slug === slug) || null;
+      const query = `${API_CONFIG.ENDPOINTS.SERVICIOS}?where[slug][equals]=${encodeURIComponent(
+        slug
+      )}&limit=1`;
+      const response = await this.get<ServiciosAPIResponse>(query);
+      if (response && Array.isArray(response.docs) && response.docs.length > 0) {
+        return response.docs[0];
+      }
+      return null;
     } catch (error) {
       console.error(`Error fetching servicio with slug ${slug}:`, error);
       throw error;
