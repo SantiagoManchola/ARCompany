@@ -80,6 +80,15 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
     return notFound();
   }
 
+  // Normaliza la URL del banner (convierte rutas relativas a absolutas)
+  const cmsBase =
+    process.env.NEXT_PUBLIC_CMS_BASE_URL || "https://ar-cms-cs94.onrender.com";
+  const bannerUrl = servicio.imagen_banner?.url
+    ? servicio.imagen_banner.url.startsWith("http")
+      ? servicio.imagen_banner.url
+      : `${cmsBase}${servicio.imagen_banner.url}`
+    : "";
+
   return (
     <main className="min-h-screen bg-gray-50">
       <ServiceJsonLd
@@ -92,7 +101,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('${servicio.imagen_banner.url}')`,
+            backgroundImage: `url('${bannerUrl}')`,
           }}
         >
           <div className="absolute inset-0 bg-black/50"></div>
