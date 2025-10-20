@@ -80,12 +80,27 @@ class APIService {
   // Métodos específicos para servicios
   async getServicios(): Promise<ServiceAPI[]> {
     try {
-      const response = await this.get<ServiciosAPIResponse>(
-        API_CONFIG.ENDPOINTS.SERVICIOS
-      );
+      // Solicitar a Payload ya ordenado por el campo "order" y con un límite alto
+      // para preservar el orden configurado en el admin. Si el servidor no soporta
+      // estos parámetros, más abajo aplicamos un sort defensivo en cliente.
+  // En colecciones "orderable" de Payload, el campo real para ordenamiento es `_order` (string)
+  // y el orden mostrado en el admin corresponde a sort descendente por `_order`.
+  // Ejemplo: ?sort=-_order
+  const query = `${API_CONFIG.ENDPOINTS.SERVICIOS}?sort=-_order&limit=100`;
+      const response = await this.get<ServiciosAPIResponse>(query);
 
       if (response && Array.isArray(response.docs)) {
-        return response.docs;
+        // Fallback: asegurar orden por 'order' si el backend no lo aplica
+        return [...response.docs].sort((a, b) => {
+          // Preferir `_order` (string) descendente para reflejar el Admin
+          if (a?._order && b?._order) {
+            return a._order > b._order ? -1 : a._order < b._order ? 1 : 0;
+          }
+          // Fallback a `order` (numérico) ascendente si existiera
+          const ao = a?.order !== undefined && a?.order !== null ? Number(a.order) : Number.MAX_SAFE_INTEGER;
+          const bo = b?.order !== undefined && b?.order !== null ? Number(b.order) : Number.MAX_SAFE_INTEGER;
+          return ao - bo;
+        });
       }
 
       throw new Error("Invalid response format");
