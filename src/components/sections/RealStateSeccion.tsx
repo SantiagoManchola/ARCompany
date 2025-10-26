@@ -1,20 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import { realStateProperties } from "@/data/realState";
 import Image from "next/image";
 import Link from "next/link";
 import AOS from "aos";
+import { useFilteredProperties } from "@/hooks/useRealState";
 
 export default function RealStateSeccion() {
   const [filter, setFilter] = useState<"TODOS" | "VENTA" | "ARRIENDO">("TODOS");
   // Used to force remount and re-trigger animations on every click
   const [animateSeed, setAnimateSeed] = useState(0);
-
-  const filteredProperties = (
-    filter === "TODOS"
-      ? realStateProperties
-      : realStateProperties.filter((prop) => prop.operacion === filter)
-  ).sort((a, b) => b.precio - a.precio);
+  const { properties: filteredProperties, loading, error } = useFilteredProperties(filter);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -106,6 +101,19 @@ export default function RealStateSeccion() {
           </button>
         </div>
 
+        {/* Loading / Error states */}
+        {loading && (
+          <div className="flex justify-center items-center min-h-[200px]" data-aos="fade-up" data-aos-delay="150">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-amber-500"></div>
+            <p className="ml-3 text-gray-600">Cargando propiedades...</p>
+          </div>
+        )}
+        {error && !loading && (
+          <div className="text-center text-red-600" data-aos="fade-up" data-aos-delay="150">
+            Ocurrió un error al cargar propiedades.
+          </div>
+        )}
+
         {/* Properties Grid */}
         <div
           key={`grid-${animateSeed}`}
@@ -118,7 +126,7 @@ export default function RealStateSeccion() {
               data-aos-delay={index * 50}
               data-aos-offset="0"
             >
-              <Link href={`/bienes-raices/${property.slug}`}>
+              <Link href={`/bienes-raices/${property.slug}`} prefetch={false}>
                 <div className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl h-full cursor-pointer">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden bg-gray-200">
@@ -278,7 +286,7 @@ export default function RealStateSeccion() {
         </div>
 
         {/* Empty State */}
-        {filteredProperties.length === 0 && (
+        {!loading && filteredProperties.length === 0 && (
           <div className="text-center py-16" data-aos="fade-up">
             <svg
               className="w-24 h-24 mx-auto text-gray-300 mb-4"

@@ -1,10 +1,15 @@
 import { Metadata } from "next";
-import { realStateProperties } from "@/data/realState";
+import { apiService, toRealStateProperty } from "@/services/api";
 
 interface LayoutProps {
   children: React.ReactNode;
   params: Promise<{ slug: string }>;
 }
+
+// Hacer el segmento completamente dinámico y sin caché
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -12,7 +17,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const property = realStateProperties.find((p) => p.slug === slug);
+  const api = await apiService.getPropiedadBySlug(slug).catch(() => null);
+  const property = api ? toRealStateProperty(api) : null;
 
   if (!property) {
     return {
@@ -34,11 +40,8 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  return realStateProperties.map((property) => ({
-    slug: property.slug,
-  }));
-}
+// Importante: no declaramos generateStaticParams para permitir que cualquier
+// slug nuevo del CMS funcione inmediatamente en navegación de cliente.
 
 export default function PropertyLayout({ children }: LayoutProps) {
   return children;

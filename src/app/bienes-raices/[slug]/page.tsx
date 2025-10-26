@@ -1,10 +1,12 @@
 "use client";
-import { notFound, useParams } from "next/navigation";
-import { realStateProperties } from "@/data/realState";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { usePropertyBySlug } from "@/hooks/useRealState";
+
+// Segment options se declaran en el layout (Server Component)
 
 function ThumbImg({
   srcPrimary,
@@ -36,8 +38,7 @@ function ThumbImg({
 export default function PropertyPage() {
   const params = useParams();
   const slug = params.slug as string;
-
-  const property = realStateProperties.find((p) => p.slug === slug);
+  const { property, loading, error } = usePropertyBySlug(slug);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   // Small enter animation for the lightbox
@@ -57,10 +58,9 @@ export default function PropertyPage() {
   const [showContactForm, setShowContactForm] = useState(false);
   const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const thumbsContainerRef = useRef<HTMLDivElement | null>(null);
+  const imagesCount = property?.imagenes?.length ?? 0;
 
-  if (!property) {
-    notFound();
-  }
+  // Nota: no retornamos temprano antes de declarar hooks; las comprobaciones se hacen justo antes del render.
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -72,7 +72,7 @@ export default function PropertyPage() {
 
   const nextImage = () => {
     setCurrentImageIndex((prev) =>
-      prev < property.imagenes.length - 1 ? prev + 1 : prev
+      prev < imagesCount - 1 ? prev + 1 : prev
     );
   };
 
@@ -151,7 +151,7 @@ export default function PropertyPage() {
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
         setCurrentImageIndex((prev) =>
-          prev < property.imagenes.length - 1 ? prev + 1 : prev
+          prev < imagesCount - 1 ? prev + 1 : prev
         );
       }
     };
@@ -160,7 +160,7 @@ export default function PropertyPage() {
       document.body.style.overflow = originalOverflow;
       window.removeEventListener("keydown", onKey);
     };
-  }, [isLightboxOpen, property.imagenes.length]);
+  }, [isLightboxOpen, imagesCount]);
 
   // Pan handlers
   const onLBMouseDown: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -286,8 +286,40 @@ export default function PropertyPage() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white grid place-items-center">
+        <div className="flex items-center gap-3 text-gray-600">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-amber-500"></div>
+          Cargando propiedad...
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !property) {
+    return (
+      <div className="min-h-screen bg-white grid place-items-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            Propiedad no encontrada
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Es posible que el enlace haya cambiado o que la propiedad haya sido eliminada.
+          </p>
+          <Link
+            href="/bienes-raices"
+            className="inline-flex items-center bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+          >
+            Volver a propiedades
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 py-8">
         {/* Título y Ubicación */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

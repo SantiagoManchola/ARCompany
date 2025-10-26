@@ -130,6 +130,50 @@ export interface RealStateProperty {
   updatedAt: string;
 }
 
+// Representación directa de la colección "propiedades" del CMS (flexible)
+// Nota: muchos campos pueden ser opcionales según cómo esté configurada tu colección.
+export interface PropertyAPI {
+  id: string | number;
+  createdAt?: string;
+  updatedAt?: string;
+  title?: string; // título en el CMS
+  slug?: string; // si existe
+  description?: string;
+  price?: number;
+  location?: string; // libre o ciudad
+  city?: string;
+  state?: string; // departamento
+  neighborhood?: string; // barrio
+  address?: string;
+  type?: string; // CASA | APARTAMENTO | LOCAL
+  operation?: "VENTA" | "ARRIENDO" | string;
+  rooms?: number; // alcobas
+  bathrooms?: number;
+  garages?: number;
+  area?: number;
+  estrato?: number;
+  years?: number; // antigüedad
+  floor?: number; // piso (apto)
+  floors?: number; // pisos (casa)
+  adminFee?: number; // administración
+  features?: string[];
+  highlighted?: boolean;
+  status?: "DISPONIBLE" | "RESERVADO" | "VENDIDO" | "ARRENDADO" | string;
+  images?: Array<{
+    // Payload: { image: Upload } | { url }
+    image?: {
+      id?: string;
+      url?: string;
+      alt?: string;
+      filename?: string;
+      sizes?: Record<string, { url?: string; width?: number; height?: number } | undefined>;
+    };
+    url?: string;
+    alt?: string;
+  }>;
+  [key: string]: unknown;
+}
+
 // Tipo genérico para respuestas de la API
 export interface APIResponse<T> {
   data?: T;
@@ -211,6 +255,20 @@ export type RichTextContent =
 // Tipo específico para la respuesta de noticias (respuesta directa de la API)
 export interface NoticiasAPIResponse {
   docs: NewsAPI[];
+  totalDocs: number;
+  limit: number;
+  totalPages: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
+}
+
+// Respuesta de la API para la colección de propiedades
+export interface PropiedadesAPIResponse {
+  docs: PropertyAPI[];
   totalDocs: number;
   limit: number;
   totalPages: number;

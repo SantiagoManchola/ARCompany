@@ -1,4 +1,4 @@
-import { ServiceAPI, NewsAPI, APIConfig, ServiciosAPIResponse, NoticiasAPIResponse } from "@/types/api";
+import { ServiceAPI, NewsAPI, APIConfig, ServiciosAPIResponse, NoticiasAPIResponse, PropertyAPI, PropiedadesAPIResponse, RealStateProperty } from "@/types/api";
 import { API_CONFIG } from "@/config/api";
 
 class APIService {
@@ -155,6 +155,53 @@ class APIService {
       throw error;
     }
   }
+
+  // =========================
+  // Propiedades (Bienes raíces)
+  // =========================
+  async getPropiedades(): Promise<PropertyAPI[]> {
+    try {
+      const query = `${API_CONFIG.ENDPOINTS.PROPIEDADES}?depth=2&limit=100`;
+      const response = await this.get<PropiedadesAPIResponse | { docs?: PropertyAPI[] }>(query);
+      const hasDocs = (val: unknown): val is { docs: PropertyAPI[] } =>
+        !!val && typeof val === "object" && Array.isArray((val as { docs?: unknown }).docs);
+      const docs = hasDocs(response) ? response.docs : [];
+      return docs;
+    } catch (error) {
+      console.error("Error fetching propiedades:", error);
+      throw error;
+    }
+  }
+
+  async getPropiedadBySlug(slug: string): Promise<PropertyAPI | null> {
+    try {
+      // Buscar por slug si existe campo en el CMS
+      const bySlug = `${API_CONFIG.ENDPOINTS.PROPIEDADES}?where[slug][equals]=${encodeURIComponent(
+        slug
+      )}&limit=1&depth=2`;
+      const resp = await this.get<PropiedadesAPIResponse | { docs?: PropertyAPI[] }>(bySlug);
+      const docs = ("docs" in resp && Array.isArray((resp as { docs?: unknown }).docs))
+        ? (resp as { docs: PropertyAPI[] }).docs
+        : [];
+      if (docs.length > 0) return docs[0];
+
+      // Fallback: aproximar por título
+      const guessTitle = decodeURIComponent(slug.replace(/-/g, " "));
+      const byTitle = `${API_CONFIG.ENDPOINTS.PROPIEDADES}?where[title][like]=${encodeURIComponent(
+        guessTitle
+      )}&limit=1&depth=2`;
+      const resp2 = await this.get<PropiedadesAPIResponse | { docs?: PropertyAPI[] }>(byTitle);
+      const docs2 = ("docs" in resp2 && Array.isArray((resp2 as { docs?: unknown }).docs))
+        ? (resp2 as { docs: PropertyAPI[] }).docs
+        : [];
+      if (docs2.length > 0) return docs2[0];
+
+      return null;
+    } catch (error) {
+      console.error(`Error fetching propiedad with slug ${slug}:`, error);
+      throw error;
+    }
+  }
 }
 
 // Instancia singleton de la API
@@ -197,3 +244,86 @@ export const transformNoticiasToNewsData = (noticias: NewsAPI[]) => {
   }
   return noticias.map(transformNewsToNewsData);
 };
+
+// =========================
+// Transformadores de Propiedades -> RealStateProperty (UI)
+// =========================
+
+const slugify = (s?: string) =>
+  (s ?? "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+export const toRealStateProperty = (p: PropertyAPI): RealStateProperty => {
+  // Intentar capturar url de upload (Payload) o url directa
+  const images = (p.images ?? []).map((it, idx) => {
+    const up = it?.image;
+    const url = up?.sizes?.card?.url || up?.url || it?.url || "";
+    const alt = up?.alt || it?.alt || up?.filename || p.title || "Propiedad";
+    return {
+      id: up?.id || `img-${p.id}-${idx}`,
+      url,
+      alt,
+      thumbnailURL: up?.sizes?.thumbnail?.url || undefined,
+    };
+  });
+
+  const tipoRaw = (p.type ?? "CASA").toUpperCase();
+  const opRaw = (p.operation ?? "VENTA").toUpperCase();
+  const statusRaw = (p.status ?? "").toString().toUpperCase();
+  const tipo: "CASA" | "APARTAMENTO" | "LOCAL" =
+    tipoRaw === "APARTAMENTO" ? "APARTAMENTO" : tipoRaw === "LOCAL" ? "LOCAL" : "CASA";
+  const operacion: "VENTA" | "ARRIENDO" = opRaw === "ARRIENDO" ? "ARRIENDO" : "VENTA";
+
+  return {
+    id: String(p.id),
+    tipo,
+    operacion,
+    titulo: p.title || "Propiedad",
+    descripcion: p.description || "",
+    precio: typeof p.price === "number" ? p.price : 0,
+    ciudad: p.city ?? p.location ?? "Bogotá",
+    departamento: p.state ?? "Cundinamarca",
+    barrio: p.neighborhood ?? undefined,
+    direccion: p.address ?? undefined,
+    area: p.area ?? 0,
+    alcobas: p.rooms ?? 0,
+    banos: p.bathrooms ?? 0,
+    garajes: p.garages ?? 0,
+    estrato: p.estrato ?? undefined,
+    antiguedad: p.years ?? undefined,
+    piso: p.floor ?? undefined,
+    pisos: p.floors ?? undefined,
+    administracion: p.adminFee ?? undefined,
+    imagenes: images.length > 0 ? images : [
+      {
+        id: `img-${p.id}-0`,
+        url: "/images/propiedades/placeholder.jpg",
+        alt: "Imagen no disponible",
+      },
+    ],
+    caracteristicas: Array.isArray(p.features)
+      ? (p.features as Array<string | { feature?: string }>)
+          .map((it) => (typeof it === "string" ? it : it?.feature || ""))
+          .filter(Boolean)
+      : [],
+    slug: p.slug || slugify(p.title),
+    destacado: p.highlighted ?? false,
+    estado:
+      statusRaw === "RESERVADO"
+        ? "RESERVADO"
+        : statusRaw === "VENDIDO"
+          ? "VENDIDO"
+          : statusRaw === "ARRENDADO"
+            ? "ARRENDADO"
+            : "DISPONIBLE",
+    createdAt: p.createdAt || new Date().toISOString(),
+    updatedAt: p.updatedAt || new Date().toISOString(),
+  };
+};
+
+export const transformPropiedadesToRealState = (props: PropertyAPI[]): RealStateProperty[] =>
+  props.map(toRealStateProperty);

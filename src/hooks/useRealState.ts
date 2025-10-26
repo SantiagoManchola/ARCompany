@@ -1,6 +1,8 @@
+"use client";
 import { useState, useEffect } from "react";
 import { RealStateProperty } from "@/types/api";
-import { realStateProperties } from "@/data/realState";
+import { apiService, transformPropiedadesToRealState, toRealStateProperty } from "@/services/api";
+import { FALLBACK_CONFIG } from "@/config/api";
 
 interface UseRealStateReturn {
   properties: RealStateProperty[];
@@ -26,22 +28,28 @@ export function useRealState(): UseRealStateReturn {
     const fetchProperties = async () => {
       try {
         setLoading(true);
-        
-        // TODO: Reemplazar con llamado real a API
-        // const response = await fetch('/api/real-state');
-        // if (!response.ok) throw new Error('Error al cargar propiedades');
-        // const data = await response.json();
-        // setProperties(data);
-        
-        // Simulación de delay de API (remover en producción)
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        // Usar datos locales temporalmente
-        setProperties(realStateProperties);
         setError(null);
+
+        const apiList = await apiService.getPropiedades();
+        const mapped = transformPropiedadesToRealState(apiList).sort(
+          (a, b) => (b.precio ?? 0) - (a.precio ?? 0)
+        );
+        setProperties(mapped);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error desconocido');
-        setProperties([]);
+        console.error("useRealState error:", err);
+        // Fallback a datos locales si está habilitado
+        if (FALLBACK_CONFIG.ENABLE_FALLBACK) {
+          try {
+            const mod = await import("@/data/realState");
+            setProperties(mod.realStateProperties ?? []);
+          } catch {
+            setError(err instanceof Error ? err.message : "Error desconocido");
+            setProperties([]);
+          }
+        } else {
+          setError(err instanceof Error ? err.message : "Error desconocido");
+          setProperties([]);
+        }
       } finally {
         setLoading(false);
       }
@@ -70,4 +78,54 @@ export function useFilteredProperties(
     loading,
     error
   };
+}
+
+// Hook para obtener una propiedad por slug
+export function usePropertyBySlug(slug: string) {
+  const [property, setProperty] = useState<RealStateProperty | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    const run = async () => {
+      if (!slug) return;
+      try {
+        setLoading(true);
+        setError(null);
+        const api = await apiService.getPropiedadBySlug(slug);
+        if (!active) return;
+        if (api) {
+          // Mapear respuesta del CMS al shape de UI
+          const mapped = toRealStateProperty(api);
+          setProperty(mapped);
+        } else {
+          // Fallback local
+          if (FALLBACK_CONFIG.ENABLE_FALLBACK) {
+            try {
+              const mod = await import("@/data/realState");
+              const local = (mod.realStateProperties ?? []).find((p: RealStateProperty) => p.slug === slug) || null;
+              setProperty(local);
+            } catch {
+              setProperty(null);
+            }
+          } else {
+            setProperty(null);
+          }
+        }
+      } catch (err) {
+        console.error("usePropertyBySlug error:", err);
+        setError(err instanceof Error ? err.message : "Error desconocido");
+        setProperty(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    run();
+    return () => {
+      active = false;
+    };
+  }, [slug]);
+
+  return { property, loading, error };
 }
