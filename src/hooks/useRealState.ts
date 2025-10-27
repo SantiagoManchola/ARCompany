@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { RealStateProperty } from "@/types/api";
 import { apiService, transformPropiedadesToRealState, toRealStateProperty } from "@/services/api";
-import { FALLBACK_CONFIG } from "@/config/api";
 
 interface UseRealStateReturn {
   properties: RealStateProperty[];
@@ -37,19 +36,9 @@ export function useRealState(): UseRealStateReturn {
         setProperties(mapped);
       } catch (err) {
         console.error("useRealState error:", err);
-        // Fallback a datos locales si está habilitado
-        if (FALLBACK_CONFIG.ENABLE_FALLBACK) {
-          try {
-            const mod = await import("@/data/realState");
-            setProperties(mod.realStateProperties ?? []);
-          } catch {
-            setError(err instanceof Error ? err.message : "Error desconocido");
-            setProperties([]);
-          }
-        } else {
-          setError(err instanceof Error ? err.message : "Error desconocido");
-          setProperties([]);
-        }
+        // Sin fallback local: reportar error y limpiar lista
+        setError(err instanceof Error ? err.message : "Error desconocido");
+        setProperties([]);
       } finally {
         setLoading(false);
       }
@@ -100,18 +89,8 @@ export function usePropertyBySlug(slug: string) {
           const mapped = toRealStateProperty(api);
           setProperty(mapped);
         } else {
-          // Fallback local
-          if (FALLBACK_CONFIG.ENABLE_FALLBACK) {
-            try {
-              const mod = await import("@/data/realState");
-              const local = (mod.realStateProperties ?? []).find((p: RealStateProperty) => p.slug === slug) || null;
-              setProperty(local);
-            } catch {
-              setProperty(null);
-            }
-          } else {
-            setProperty(null);
-          }
+          // Sin fallback local
+          setProperty(null);
         }
       } catch (err) {
         console.error("usePropertyBySlug error:", err);

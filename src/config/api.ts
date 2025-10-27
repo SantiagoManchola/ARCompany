@@ -11,7 +11,7 @@ export const API_CONFIG = {
 
 // Configuración de fallback
 export const FALLBACK_CONFIG = {
-  ENABLE_FALLBACK: true,
+  ENABLE_FALLBACK: false,
   FALLBACK_DATA_PATH: "@/data",
 } as const;
 
