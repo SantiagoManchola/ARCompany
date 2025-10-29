@@ -52,6 +52,7 @@ export default function PropertyPage() {
   const [rsForm, setRsForm] = useState({ fullName: "", email: "", phone: "", message: "" });
   const [rsSubmitting, setRsSubmitting] = useState(false);
   const [rsSubmitted, setRsSubmitted] = useState(false);
+  const rsTimerRef = useRef<number | null>(null);
   const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const thumbsContainerRef = useRef<HTMLDivElement | null>(null);
   const imagesCount = property?.imagenes?.length ?? 0;
@@ -87,6 +88,15 @@ export default function PropertyPage() {
       });
     }
   }, [showContactForm]);
+
+  // Cleanup any pending success timer on unmount
+  useEffect(() => {
+    return () => {
+      if (rsTimerRef.current) {
+        clearTimeout(rsTimerRef.current);
+      }
+    };
+  }, []);
  
   // Disable body scroll when lightbox open and keyboard navigation
   useEffect(() => {
@@ -707,7 +717,7 @@ export default function PropertyPage() {
                 }}
                 aria-expanded={showContactForm}
                 aria-controls="property-contact-form"
-                className="w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-gray-900 font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg mb-3"
+                className="w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-gray-900 font-bold py-4 px-6 rounded-lg shadow-lg mb-3 transition-colors duration-200 cursor-pointer"
               >
                 Me interesa esta propiedad
               </button>
@@ -765,7 +775,8 @@ export default function PropertyPage() {
                           }
                           setRsSubmitted(true);
                           setRsForm({ fullName: "", email: "", phone: "", message: "" });
-                          setTimeout(() => setRsSubmitted(false), 3000);
+                          if (rsTimerRef.current) clearTimeout(rsTimerRef.current);
+                          rsTimerRef.current = window.setTimeout(() => setRsSubmitted(false), 10000);
                         } catch (err) {
                           console.error(err);
                           alert("Ocurrió un error inesperado.");
