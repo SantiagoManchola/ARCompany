@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useServicios } from "@/hooks/useServicios";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,9 @@ export default function ContactSection() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Cargar los servicios para usar los mismos en el selector de Asunto
+  const { servicesData, loading, error } = useServicios();
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -294,50 +298,33 @@ export default function ContactSection() {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300 appearance-none cursor-pointer"
+                      disabled={loading}
+                      className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300 appearance-none cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       <option value="" className="bg-white text-gray-900">
-                        Selecciona el asunto
+                        {loading
+                          ? "Cargando servicios..."
+                          : error
+                          ? "Selecciona el asunto"
+                          : "Selecciona el servicio"}
                       </option>
-                      <option
-                        value="consulta-general"
-                        className="bg-white text-gray-900"
-                      >
-                        Consulta General
-                      </option>
-                      <option
-                        value="derecho-civil"
-                        className="bg-white text-gray-900"
-                      >
-                        Derecho Civil
-                      </option>
-                      <option
-                        value="derecho-penal"
-                        className="bg-white text-gray-900"
-                      >
-                        Derecho Penal
-                      </option>
-                      <option
-                        value="derecho-laboral"
-                        className="bg-white text-gray-900"
-                      >
-                        Derecho Laboral
-                      </option>
-                      <option
-                        value="derecho-comercial"
-                        className="bg-white text-gray-900"
-                      >
-                        Derecho Comercial
-                      </option>
-                      <option
-                        value="derecho-familia"
-                        className="bg-white text-gray-900"
-                      >
-                        Derecho de Familia
-                      </option>
-                      <option value="otros" className="bg-white text-gray-900">
-                        Otros
-                      </option>
+                      {/* Opciones dinámicas desde la sección de servicios */}
+                      {Array.isArray(servicesData) &&
+                        servicesData.map((s, idx) => (
+                          <option
+                            key={idx}
+                            value={s.title}
+                            className="bg-white text-gray-900"
+                          >
+                            {s.title}
+                          </option>
+                        ))}
+                      {/* Fallback mínimo si hay error o no hay servicios */}
+                      {(!servicesData || servicesData.length === 0) && !loading && (
+                        <option value="Consulta General" className="bg-white text-gray-900">
+                          Consulta General
+                        </option>
+                      )}
                     </select>
                     {/* Custom dropdown arrow */}
                     <div className="absolute right-4 top-12 pointer-events-none">

@@ -34,65 +34,34 @@ function ThumbImg({
     />
   );
 }
-
+ 
 export default function PropertyPage() {
   const params = useParams();
   const slug = params.slug as string;
   const { property, loading, error } = usePropertyBySlug(slug);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  // Small enter animation for the lightbox
-  const [lbVisible, setLbVisible] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
-  const panStartRef = useRef<{
-    x: number;
-    y: number;
-    startX: number;
-    startY: number;
-    moved?: boolean;
-  } | null>(null);
+  const panStartRef = useRef<{ x: number; y: number; startX: number; startY: number; moved?: boolean } | null>(null);
   const justPannedRef = useRef(false);
   const lightboxContainerRef = useRef<HTMLDivElement | null>(null);
   const [showContactForm, setShowContactForm] = useState(false);
   const contactFormRef = useRef<HTMLDivElement | null>(null);
-  const [rsForm, setRsForm] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const [rsForm, setRsForm] = useState({ fullName: "", email: "", phone: "", message: "" });
   const [rsSubmitting, setRsSubmitting] = useState(false);
   const [rsSubmitted, setRsSubmitted] = useState(false);
   const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const thumbsContainerRef = useRef<HTMLDivElement | null>(null);
   const imagesCount = property?.imagenes?.length ?? 0;
 
-  // Nota: no retornamos temprano antes de declarar hooks; las comprobaciones se hacen justo antes del render.
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", minimumFractionDigits: 0 }).format(price);
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      minimumFractionDigits: 0,
-    }).format(price);
-  };
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) =>
-      prev < imagesCount - 1 ? prev + 1 : prev
-    );
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
-  };
-
-  const openLightbox = () => {
-    setIsLightboxOpen(true);
-  };
-
+  const nextImage = () => setCurrentImageIndex((prev) => (prev < imagesCount - 1 ? prev + 1 : prev));
+  const prevImage = () => setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
+  const openLightbox = () => setIsLightboxOpen(true);
   const closeLightbox = () => {
     setIsLightboxOpen(false);
     setZoom(1);
@@ -100,53 +69,25 @@ export default function PropertyPage() {
     setIsPanning(false);
     panStartRef.current = null;
   };
-
-  // Responsive helper for lightbox spacing (only small screens)
-  const isSmallScreen =
-    typeof window !== "undefined" &&
-    window.matchMedia("(max-width: 767px)").matches;
+  const isSmallScreen = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
   const slideGapPx = isSmallScreen ? 8 : 0;
-
-  // Mantener centrada en el carrusel de miniaturas la imagen activa
-  useEffect(() => {
-    const el = thumbRefs.current[currentImageIndex];
-    if (el) {
-      el.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
-      });
-    }
-  }, [currentImageIndex]);
-
-  // Reset zoom on image change while lightbox is open
-  useEffect(() => {
-    if (isLightboxOpen) {
-      setZoom(1);
-      setOffset({ x: 0, y: 0 });
-      setIsPanning(false);
-      panStartRef.current = null;
-    }
-  }, [currentImageIndex, isLightboxOpen]);
-
-  // Trigger enter animation once the lightbox mounts
-  useEffect(() => {
-    if (isLightboxOpen) {
-      setLbVisible(false);
-      const id = requestAnimationFrame(() => setLbVisible(true));
-      return () => cancelAnimationFrame(id);
-    } else {
-      setLbVisible(false);
-    }
-  }, [isLightboxOpen]);
-
-  // Asegurar que el formulario de contacto quede visible dentro de la columna sticky al abrirse
+ 
+  // When the contact form becomes visible, scroll it into view smoothly
   useEffect(() => {
     if (showContactForm && contactFormRef.current) {
-      contactFormRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      // Wait for layout to settle, then scroll with a smaller offset on small screens
+      requestAnimationFrame(() => {
+        const el = contactFormRef.current!;
+        const rect = el.getBoundingClientRect();
+        const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        const isSmall = window.matchMedia && window.matchMedia("(max-width: 767px)").matches;
+        const offset = isSmall ? 130 : 0; // stop a bit earlier on mobile
+        const targetY = rect.top + currentY - offset;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+      });
     }
   }, [showContactForm]);
-
+ 
   // Disable body scroll when lightbox open and keyboard navigation
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
@@ -582,7 +523,7 @@ export default function PropertyPage() {
               typeof window !== "undefined" &&
               createPortal(
                 <div
-                  className={`fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm md:backdrop-blur-md backdrop-brightness-110 transition-opacity duration-300 ${lbVisible ? "opacity-100" : "opacity-0"}`}
+                  className={`fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm md:backdrop-blur-md backdrop-brightness-110 transition-opacity duration-300 opacity-100`}
                   style={{ minHeight: "100dvh" }}
                   onClick={closeLightbox}
                 >
@@ -637,7 +578,7 @@ export default function PropertyPage() {
                   >
                     <div
                       ref={lightboxContainerRef}
-                      className={`relative w-[92vw] h-[80vh] md:w-[80vw] md:h-[80vh] ${zoom > 1 ? "rounded-none" : "rounded-2xl"} overflow-hidden transition-all duration-300 ease-out ${lbVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-1"} ${zoom > 1 ? `touch-none select-none ${isPanning ? "cursor-grabbing" : "cursor-grab"}` : "touch-auto cursor-zoom-in"}`}
+                      className={`relative w-[92vw] h-[80vh] md:w-[80vw] md:h-[80vh] ${zoom > 1 ? "rounded-none" : "rounded-2xl"} overflow-hidden transition-all duration-300 ease-out opacity-100 scale-100 translate-y-0 ${zoom > 1 ? `touch-none select-none ${isPanning ? "cursor-grabbing" : "cursor-grab"}` : "touch-auto cursor-zoom-in"}`}
                       onMouseDown={onLBMouseDown}
                       onMouseMove={onLBMouseMove}
                       onMouseUp={endPan}
@@ -725,7 +666,7 @@ export default function PropertyPage() {
 
           {/* Sección de Precio */}
           <div className="order-2 lg:order-1 lg:col-start-3 lg:row-start-1 lg:row-span-2 lg:self-start lg:sticky lg:top-24 lg:pr-2">
-            <div className="bg-white rounded-xl shadow-xl border border-gray-300 p-6 mb-6 lg:mb-0">
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-300 p-6 mb-6 lg:mb-0">
               <div className="mb-6">
                 <p className="text-sm text-gray-600 mb-1">
                   Precio de {property.operacion === "VENTA" ? "Venta" : "Arriendo"}
@@ -755,7 +696,17 @@ export default function PropertyPage() {
               </div>
 
               <button
-                onClick={() => setShowContactForm(!showContactForm)}
+                onClick={() => {
+                  if (showContactForm) {
+                    // Close without moving the viewport
+                    setShowContactForm(false);
+                  } else {
+                    // Open; the effect will scroll it into view
+                    setShowContactForm(true);
+                  }
+                }}
+                aria-expanded={showContactForm}
+                aria-controls="property-contact-form"
                 className="w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-gray-900 font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg mb-3"
               >
                 Me interesa esta propiedad
@@ -775,128 +726,197 @@ export default function PropertyPage() {
             </div>
 
             {showContactForm && (
-              <div ref={contactFormRef} className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mt-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Solicitar Información</h3>
-                {!rsSubmitted ? (
-                  <form
-                    className="space-y-4"
-                    onSubmit={async (e) => {
-                      e.preventDefault();
-                      if (rsSubmitting) return;
-                      setRsSubmitting(true);
-                      try {
-                        const payload = {
-                          fullName: rsForm.fullName,
-                          email: rsForm.email,
-                          phone: rsForm.phone,
-                          message:
-                            rsForm.message?.trim() || `Estoy interesado en: ${property.titulo}`,
-                          subject: `Interés en propiedad: ${property.titulo}`,
-                          propertyTitle: property.titulo,
-                          propertySlug: property.slug,
-                          propertyUrl:
-                            typeof window !== "undefined"
-                              ? window.location.href
-                              : undefined,
-                        };
+              <div ref={contactFormRef} id="property-contact-form" className="relative mt-6">
+                <div className="absolute inset-0 bg-white rounded-2xl shadow-xl border border-gray-300"></div>
+                <div className="relative p-8 md:p-10">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Solicitar Información</h3>
+                  {!rsSubmitted ? (
+                    <form
+                      className="space-y-6"
+                      onSubmit={async (e) => {
+                        e.preventDefault();
+                        if (rsSubmitting) return;
+                        setRsSubmitting(true);
+                        try {
+                          const payload = {
+                            fullName: rsForm.fullName,
+                            email: rsForm.email,
+                            phone: rsForm.phone,
+                            message:
+                              rsForm.message?.trim() || `Estoy interesado en: ${property.titulo}`,
+                            subject: `Interés en propiedad: ${property.titulo}`,
+                            propertyTitle: property.titulo,
+                            propertySlug: property.slug,
+                            propertyUrl:
+                              typeof window !== "undefined"
+                                ? window.location.href
+                                : undefined,
+                          };
 
-                        const res = await fetch("/api/property-interest", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify(payload),
-                        });
-                        const json = await res.json();
-                        if (!res.ok || !json?.ok) {
-                          alert("No se pudo enviar la solicitud. Intenta de nuevo.");
-                          return;
+                          const res = await fetch("/api/property-interest", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(payload),
+                          });
+                          const json = await res.json();
+                          if (!res.ok || !json?.ok) {
+                            alert("No se pudo enviar la solicitud. Intenta de nuevo.");
+                            return;
+                          }
+                          setRsSubmitted(true);
+                          setRsForm({ fullName: "", email: "", phone: "", message: "" });
+                          setTimeout(() => setRsSubmitted(false), 3000);
+                        } catch (err) {
+                          console.error(err);
+                          alert("Ocurrió un error inesperado.");
+                        } finally {
+                          setRsSubmitting(false);
                         }
-                        setRsSubmitted(true);
-                        setRsForm({ fullName: "", email: "", phone: "", message: "" });
-                        setTimeout(() => setRsSubmitted(false), 3000);
-                      } catch (err) {
-                        console.error(err);
-                        alert("Ocurrió un error inesperado.");
-                      } finally {
-                        setRsSubmitting(false);
-                      }
-                    }}
-                  >
-                    <div>
-                      <label htmlFor="rs-fullName" className="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
-                      <input
-                        type="text"
-                        id="rs-fullName"
-                        name="fullName"
-                        value={rsForm.fullName}
-                        onChange={(e) => setRsForm((s) => ({ ...s, fullName: e.target.value }))}
-                        required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                        placeholder="Tu nombre"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="rs-email" className="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
-                      <input
-                        type="email"
-                        id="rs-email"
-                        name="email"
-                        value={rsForm.email}
-                        onChange={(e) => setRsForm((s) => ({ ...s, email: e.target.value }))}
-                        required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                        placeholder="tu@correo.com"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="rs-phone" className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-                      <input
-                        type="tel"
-                        id="rs-phone"
-                        name="phone"
-                        value={rsForm.phone}
-                        onChange={(e) => setRsForm((s) => ({ ...s, phone: e.target.value }))}
-                        required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                        placeholder="300 123 4567"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="rs-message" className="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
-                      <textarea
-                        id="rs-message"
-                        name="message"
-                        rows={4}
-                        value={rsForm.message}
-                        onChange={(e) => setRsForm((s) => ({ ...s, message: e.target.value }))}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                        placeholder={`Estoy interesado en: ${property.titulo}`}
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={rsSubmitting}
-                      className="w-full bg-gray-900 hover:bg-gray-800 disabled:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                      }}
                     >
-                      {rsSubmitting ? "Enviando..." : "Enviar solicitud"}
-                    </button>
-                  </form>
-                ) : (
-                  <div className="text-center">
-                    <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-500 text-white grid place-items-center">
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
+                      <div>
+                        <label
+                          htmlFor="rs-fullName"
+                          className="block text-gray-900 font-medium mb-2"
+                        >
+                          Nombre completo
+                        </label>
+                        <input
+                          type="text"
+                          id="rs-fullName"
+                          name="fullName"
+                          value={rsForm.fullName}
+                          onChange={(e) => setRsForm((s) => ({ ...s, fullName: e.target.value }))}
+                          required
+                          placeholder="Tu nombre"
+                          className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="rs-email"
+                          className="block text-gray-900 font-medium mb-2"
+                        >
+                          Correo electrónico
+                        </label>
+                        <input
+                          type="email"
+                          id="rs-email"
+                          name="email"
+                          value={rsForm.email}
+                          onChange={(e) => setRsForm((s) => ({ ...s, email: e.target.value }))}
+                          required
+                          placeholder="tu@correo.com"
+                          className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="rs-phone"
+                          className="block text-gray-900 font-medium mb-2"
+                        >
+                          Teléfono
+                        </label>
+                        <input
+                          type="tel"
+                          id="rs-phone"
+                          name="phone"
+                          value={rsForm.phone}
+                          onChange={(e) => setRsForm((s) => ({ ...s, phone: e.target.value }))}
+                          required
+                          placeholder="300 123 4567"
+                          className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="rs-message"
+                          className="block text-gray-900 font-medium mb-2"
+                        >
+                          Mensaje
+                        </label>
+                        <textarea
+                          id="rs-message"
+                          name="message"
+                          rows={5}
+                          value={rsForm.message}
+                          onChange={(e) => setRsForm((s) => ({ ...s, message: e.target.value }))}
+                          placeholder={`Estoy interesado en: ${property.titulo}`}
+                          className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300 resize-none"
+                        />
+                      </div>
+                      <div className="pt-2">
+                        <button
+                          type="submit"
+                          disabled={rsSubmitting}
+                          className="group w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 disabled:from-amber-300 disabled:to-amber-400 text-slate-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl disabled:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-3 cursor-pointer"
+                        >
+                          {rsSubmitting ? (
+                            <>
+                              <svg
+                                className="animate-spin w-5 h-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                                />
+                              </svg>
+                              Enviando...
+                            </>
+                          ) : (
+                            <>
+                              Enviar solicitud
+                              <svg
+                                className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                                />
+                              </svg>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <div className="text-center py-12">
+                      <div className="w-20 h-20 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center text-white mx-auto mb-6 animate-bounce">
+                        <svg
+                          className="w-10 h-10"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <h3 className="text-3xl font-bold text-gray-900 mb-4">¡Solicitud enviada!</h3>
+                      <p className="text-gray-600 text-lg">Pronto un asesor te contactará.</p>
                     </div>
-                    <p className="text-gray-900 font-semibold">¡Solicitud enviada!</p>
-                    <p className="text-gray-600 text-sm">Pronto un asesor te contactará.</p>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             )}
 
             {/* Ayuda (solo escritorio): se mantiene debajo del precio y pegada durante el scroll */}
             <div className="hidden lg:block mt-6">
-              <div className="bg-white rounded-xl shadow-lg border border-gray-300 p-6">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-300 p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">
                   ¿Necesitas ayuda?
                 </h3>
