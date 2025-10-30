@@ -273,7 +273,6 @@ export const toRealStateProperty = (p: PropertyAPI): RealStateProperty => {
 
   const tipoRaw = (p.type ?? "CASA").toUpperCase();
   const opRaw = (p.operation ?? "VENTA").toUpperCase();
-  const statusRaw = (p.status ?? "").toString().toUpperCase();
   const tipo: "CASA" | "APARTAMENTO" | "LOCAL" =
     tipoRaw === "APARTAMENTO" ? "APARTAMENTO" : tipoRaw === "LOCAL" ? "LOCAL" : "CASA";
   const operacion: "VENTA" | "ARRIENDO" = opRaw === "ARRIENDO" ? "ARRIENDO" : "VENTA";
@@ -312,14 +311,8 @@ export const toRealStateProperty = (p: PropertyAPI): RealStateProperty => {
       : [],
     slug: p.slug || slugify(p.title),
     destacado: p.highlighted ?? false,
-    estado:
-      statusRaw === "RESERVADO"
-        ? "RESERVADO"
-        : statusRaw === "VENDIDO"
-          ? "VENDIDO"
-          : statusRaw === "ARRENDADO"
-            ? "ARRENDADO"
-            : "DISPONIBLE",
+    // Forzar estado disponible para todas las propiedades
+    estado: "DISPONIBLE",
     createdAt: p.createdAt || new Date().toISOString(),
     updatedAt: p.updatedAt || new Date().toISOString(),
   };
