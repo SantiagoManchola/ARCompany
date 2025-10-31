@@ -13,10 +13,10 @@ export const metadata: Metadata = {
       "Servicios jurídicos especializados para proteger sus intereses",
     images: [
       {
-        url: "/images/Services.webp",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Servicios Jurídicos AR Company",
+        alt: "AR Company - Open Graph",
       },
     ],
     type: "website",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Servicios Jurídicos | AR Company",
     description:
       "Servicios jurídicos especializados para proteger sus intereses",
-    images: ["/images/Services.webp"],
+    images: ["/og-image.jpg"],
   },
   alternates: {
     canonical: "/services",
