@@ -26,16 +26,36 @@ export async function generateMetadata({
     };
   }
 
+  const firstImg = property.imagenes?.[0];
+  const toAbs = (u?: string) => {
+    if (!u) return u;
+    if (/^https?:\/\//i.test(u)) return u;
+    const base = process.env.NEXT_PUBLIC_BASE_URL || '';
+    const b = base.replace(/\/$/, '');
+    const p = u.startsWith('/') ? u : `/${u}`;
+    return `${b}${p}`;
+  };
+
   return {
     title: `${property.titulo} - ${property.operacion} | AR Company`,
     description: property.descripcion,
     openGraph: {
       title: property.titulo,
       description: property.descripcion,
-      images: property.imagenes.map((img) => ({
-        url: img.url,
-        alt: img.alt,
-      })),
+      images: firstImg
+        ? [
+            {
+              url: toAbs(firstImg.url)!,
+              alt: firstImg.alt,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: property.titulo,
+      description: property.descripcion,
+      images: firstImg ? [toAbs(firstImg.url)!] : undefined,
     },
   };
 }

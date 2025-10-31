@@ -8,6 +8,8 @@ import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
+  // Permite que Next.js resuelva URLs relativas en OpenGraph/Twitter/links
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
   title: "AR Company | Firma Legal Especializada",
   description:
     "Firma legal especializada en servicios jurídicos integrales, asesoría legal, propiedad horizontal y revisoría fiscal. Protegemos sus intereses con experiencia y profesionalismo.",
@@ -44,11 +46,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AR Company | Firma Legal Especializada",
     description: "Firma legal especializada en servicios jurídicos integrales",
-    url: "https://arcompany-delta.vercel.app/",
+    url: "/",
     siteName: "AR Company",
     images: [
       {
-        url: "https://arcompany-delta.vercel.app//og-image.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Logo de AR Company",
@@ -63,7 +65,7 @@ export const metadata: Metadata = {
     description: "Firma legal especializada en servicios jurídicos integrales",
     site: "@arcompany",
     creator: "@arcompany",
-    images: ["https://arcompany-delta.vercel.app//og-image.jpg"],
+    images: ["/og-image.jpg"],
   },
   icons: {
     icon: "/favicon.ico",
