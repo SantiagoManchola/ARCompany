@@ -117,7 +117,7 @@ export default function RealStateSeccion() {
         {/* Properties Grid */}
         <div
           key={`grid-${animateSeed}`}
-          className="grid grid-cols-1 px-10 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10"
+          className="grid grid-cols-1 px-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10"
         >
           {filteredProperties.map((property, index) => (
             <div
@@ -129,7 +129,7 @@ export default function RealStateSeccion() {
               <Link href={`/bienes-raices/${property.slug}`} prefetch={false}>
                 <div className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl h-full cursor-pointer">
                   {/* Image */}
-                  <div className="relative h-48 overflow-hidden bg-gray-200">
+                  <div className="relative h-60 overflow-hidden bg-gray-200">
                     {property.imagenes[0] ? (
                       <Image
                         src={property.imagenes[0].url}

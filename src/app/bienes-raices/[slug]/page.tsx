@@ -47,6 +47,10 @@ export default function PropertyPage() {
   const panStartRef = useRef<{ x: number; y: number; startX: number; startY: number; moved?: boolean } | null>(null);
   const justPannedRef = useRef(false);
   const lightboxContainerRef = useRef<HTMLDivElement | null>(null);
+  // Lightbox swipe state (only for small screens and when zoom <= 1)
+  const [lbIsDragging, setLbIsDragging] = useState(false);
+  const lbDragStartRef = useRef<{ x: number; at: number } | null>(null);
+  const [lbDragDeltaX, setLbDragDeltaX] = useState(0);
   const [showContactForm, setShowContactForm] = useState(false);
   const contactFormRef = useRef<HTMLDivElement | null>(null);
   const [rsForm, setRsForm] = useState({ fullName: "", email: "", phone: "", message: "" });
@@ -55,7 +59,32 @@ export default function PropertyPage() {
   const rsTimerRef = useRef<number | null>(null);
   const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const thumbsContainerRef = useRef<HTMLDivElement | null>(null);
+  // Main gallery drag state (click + drag to slide)
+  const galleryContainerRef = useRef<HTMLDivElement | null>(null);
+  const [isDraggingMain, setIsDraggingMain] = useState(false);
+  const dragStartRef = useRef<{ x: number; at: number } | null>(null);
+  const [dragDeltaX, setDragDeltaX] = useState(0);
+  const mainJustDraggedRef = useRef(false);
   const imagesCount = property?.imagenes?.length ?? 0;
+
+  // Desplaza el carrusel de miniaturas para centrar la imagen activa
+  const centerActiveThumbnail = (index: number) => {
+    const container = thumbsContainerRef.current;
+    const el = thumbRefs.current[index] || null;
+    if (!container || !el) return;
+    // Intento 1: usar scrollIntoView con centrado (cuando está disponible)
+    try {
+      el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" } as ScrollIntoViewOptions);
+      return;
+    } catch {
+      // fallback manual si el navegador no soporta inline:center
+    }
+    const containerRect = container.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const elOffsetLeft = elRect.left - containerRect.left + container.scrollLeft;
+    const target = elOffsetLeft - container.clientWidth / 2 + el.clientWidth / 2;
+    container.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+  };
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", minimumFractionDigits: 0 }).format(price);
@@ -72,6 +101,80 @@ export default function PropertyPage() {
   };
   const isSmallScreen = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
   const slideGapPx = isSmallScreen ? 8 : 0;
+  
+  // Porcentaje de arrastre en función del ancho del contenedor
+  const containerW = galleryContainerRef.current?.clientWidth || 1;
+  const dragPct = isDraggingMain ? (dragDeltaX / containerW) * 100 : 0;
+  // Lightbox drag percentage (mobile-only swipe)
+  const lbContainerW = lightboxContainerRef.current?.clientWidth || 1;
+  const lbDragPct = lbIsDragging ? (lbDragDeltaX / lbContainerW) * 100 : 0;
+
+  // Handlers: arrastrar para cambiar de imagen (galería principal)
+  const onMainMouseDown: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    setIsDraggingMain(true);
+    dragStartRef.current = { x: e.clientX, at: Date.now() };
+    setDragDeltaX(0);
+  };
+  const onMainMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    if (!isDraggingMain || !dragStartRef.current) return;
+    const dx = e.clientX - dragStartRef.current.x;
+    setDragDeltaX(dx);
+  };
+  const commitDrag = (dx: number) => {
+    const w = galleryContainerRef.current?.clientWidth || 1;
+    const ratio = Math.abs(dx) / w;
+    const THRESHOLD = 0.15; // 15% del ancho
+    const shouldSlide = ratio > THRESHOLD;
+    if (shouldSlide) {
+      if (dx < 0) {
+        setCurrentImageIndex((prev) => (prev < imagesCount - 1 ? prev + 1 : prev));
+      } else {
+        setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
+      }
+    }
+    // Solo bloquear el clic si realmente se deslizó de imagen
+    if (shouldSlide) {
+      mainJustDraggedRef.current = true;
+      setTimeout(() => (mainJustDraggedRef.current = false), 120);
+    }
+    setIsDraggingMain(false);
+    setDragDeltaX(0);
+    dragStartRef.current = null;
+  };
+  const onMainMouseUp: React.MouseEventHandler<HTMLDivElement> = () => {
+    if (!isDraggingMain) return;
+    commitDrag(dragDeltaX);
+  };
+  const onMainMouseLeave: React.MouseEventHandler<HTMLDivElement> = () => {
+    if (!isDraggingMain) return;
+    commitDrag(dragDeltaX);
+  };
+  // Touch soporte
+  const onMainTouchStart: React.TouchEventHandler<HTMLDivElement> = (e) => {
+    const t = e.touches[0];
+    if (!t) return;
+    setIsDraggingMain(true);
+    dragStartRef.current = { x: t.clientX, at: Date.now() };
+    setDragDeltaX(0);
+  };
+  const onMainTouchMove: React.TouchEventHandler<HTMLDivElement> = (e) => {
+    if (!isDraggingMain || !dragStartRef.current) return;
+    const t = e.touches[0];
+    if (!t) return;
+    const dx = t.clientX - dragStartRef.current.x;
+    setDragDeltaX(dx);
+    e.preventDefault(); // Evita scroll horizontal de la página
+  };
+  const onMainTouchEnd: React.TouchEventHandler<HTMLDivElement> = () => {
+    if (!isDraggingMain) return;
+    commitDrag(dragDeltaX);
+  };
+ 
+  // Mantener centrada la miniatura activa cuando cambie el índice o las imágenes carguen
+  useEffect(() => {
+    if (!imagesCount) return;
+    centerActiveThumbnail(currentImageIndex);
+  }, [currentImageIndex, imagesCount]);
  
   // When the contact form becomes visible, scroll it into view smoothly
   useEffect(() => {
@@ -179,47 +282,85 @@ export default function PropertyPage() {
 
   // Touch pan handlers (mobile)
   const onLBTouchStart: React.TouchEventHandler<HTMLDivElement> = (e) => {
-    if (zoom <= 1) return;
     const t = e.touches[0];
     if (!t) return;
-    setIsPanning(true);
-    panStartRef.current = {
-      x: t.clientX,
-      y: t.clientY,
-      startX: offset.x,
-      startY: offset.y,
-      moved: false,
-    };
+    if (zoom > 1) {
+      setIsPanning(true);
+      panStartRef.current = {
+        x: t.clientX,
+        y: t.clientY,
+        startX: offset.x,
+        startY: offset.y,
+        moved: false,
+      };
+    } else if (isSmallScreen) {
+      // Start swipe for mobile when not zoomed in
+      setLbIsDragging(true);
+      lbDragStartRef.current = { x: t.clientX, at: Date.now() };
+      setLbDragDeltaX(0);
+    }
   };
   const onLBTouchMove: React.TouchEventHandler<HTMLDivElement> = (e) => {
-    if (!isPanning || !panStartRef.current) return;
     const t = e.touches[0];
     if (!t) return;
-    const dx = t.clientX - panStartRef.current.x;
-    const dy = t.clientY - panStartRef.current.y;
-    if (!panStartRef.current.moved && Math.hypot(dx, dy) > 5) {
-      panStartRef.current.moved = true;
+    if (zoom > 1) {
+      if (!isPanning || !panStartRef.current) return;
+      const dx = t.clientX - panStartRef.current.x;
+      const dy = t.clientY - panStartRef.current.y;
+      if (!panStartRef.current.moved && Math.hypot(dx, dy) > 5) {
+        panStartRef.current.moved = true;
+      }
+      const container = lightboxContainerRef.current;
+      if (!container) return;
+      const cw = container.clientWidth;
+      const ch = container.clientHeight;
+      const maxX = (zoom - 1) * (cw / 2);
+      const maxY = (zoom - 1) * (ch / 2);
+      const nextX = Math.max(
+        -maxX,
+        Math.min(maxX, panStartRef.current.startX + dx)
+      );
+      const nextY = Math.max(
+        -maxY,
+        Math.min(maxY, panStartRef.current.startY + dy)
+      );
+      setOffset({ x: nextX, y: nextY });
+      // Prevent page scroll/bounce while panning
+      e.preventDefault();
+    } else if (isSmallScreen) {
+      if (!lbIsDragging || !lbDragStartRef.current) return;
+      const dx = t.clientX - lbDragStartRef.current.x;
+      setLbDragDeltaX(dx);
+      // Prevent page scroll during swipe
+      e.preventDefault();
     }
-    const container = lightboxContainerRef.current;
-    if (!container) return;
-    const cw = container.clientWidth;
-    const ch = container.clientHeight;
-    const maxX = (zoom - 1) * (cw / 2);
-    const maxY = (zoom - 1) * (ch / 2);
-    const nextX = Math.max(
-      -maxX,
-      Math.min(maxX, panStartRef.current.startX + dx)
-    );
-    const nextY = Math.max(
-      -maxY,
-      Math.min(maxY, panStartRef.current.startY + dy)
-    );
-    setOffset({ x: nextX, y: nextY });
-    // Prevent page scroll/bounce while panning
-    e.preventDefault();
+  };
+  const commitLBSwipe = (dx: number) => {
+    const w = lightboxContainerRef.current?.clientWidth || 1;
+    const ratio = Math.abs(dx) / w;
+    const THRESHOLD = 0.15;
+    const shouldSlide = ratio > THRESHOLD;
+    if (shouldSlide) {
+      if (dx < 0) {
+        setCurrentImageIndex((prev) => (prev < imagesCount - 1 ? prev + 1 : prev));
+      } else {
+        setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
+      }
+      // Prevent click/zoom toggle right after swipe
+      justPannedRef.current = true;
+      setTimeout(() => (justPannedRef.current = false), 120);
+    }
+    setLbIsDragging(false);
+    setLbDragDeltaX(0);
+    lbDragStartRef.current = null;
   };
   const onLBTouchEnd: React.TouchEventHandler<HTMLDivElement> = () => {
-    endPan();
+    if (zoom > 1) {
+      endPan();
+    } else if (isSmallScreen) {
+      if (!lbIsDragging) return;
+      commitLBSwipe(lbDragDeltaX);
+    }
   };
 
   // Single click to toggle zoom (guarded to avoid triggering after a pan)
@@ -362,8 +503,22 @@ export default function PropertyPage() {
             {/* Galería de Imágenes */}
             <div className="rounded-xl overflow-hidden">
               <div
-                className="relative h-96 md:h-[500px] bg-gray-200 rounded-2xl overflow-hidden cursor-zoom-in"
-                onClick={() => openLightbox()}
+                ref={galleryContainerRef}
+                className="relative h-96 md:h-[500px] bg-gray-200 rounded-2xl overflow-hidden cursor-pointer select-none"
+                onClick={(e) => {
+                  if (mainJustDraggedRef.current || isDraggingMain) {
+                    e.preventDefault();
+                    return;
+                  }
+                  openLightbox();
+                }}
+                onMouseDown={onMainMouseDown}
+                onMouseMove={onMainMouseMove}
+                onMouseUp={onMainMouseUp}
+                onMouseLeave={onMainMouseLeave}
+                onTouchStart={onMainTouchStart}
+                onTouchMove={onMainTouchMove}
+                onTouchEnd={onMainTouchEnd}
               >
                 {property.imagenes && property.imagenes.length > 0 ? (
                   <>
@@ -372,7 +527,8 @@ export default function PropertyPage() {
                         key={`${img.id}-${index}`}
                         className="absolute top-0 bottom-0 left-[-1px] right-[-1px] transition-transform duration-500 ease-in-out [will-change:transform] pointer-events-none overflow-hidden"
                         style={{
-                          transform: `translateX(${(index - currentImageIndex) * 100}%)`,
+                          transform: `translateX(${(index - currentImageIndex) * 100 + dragPct}%)`,
+                          transition: isDraggingMain ? "none" : undefined,
                         }}
                         aria-hidden={index !== currentImageIndex}
                       >
@@ -425,7 +581,7 @@ export default function PropertyPage() {
                         e.stopPropagation();
                         prevImage();
                       }}
-                      className={`absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 w-8 h-12 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-10 ${
+                      className={`absolute left-3 md:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 w-7 h-10 md:w-8 md:h-12 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-10 ${
                         currentImageIndex > 0
                           ? "opacity-100 cursor-pointer pointer-events-auto"
                           : "opacity-0 cursor-default pointer-events-none"
@@ -436,7 +592,7 @@ export default function PropertyPage() {
                       disabled={currentImageIndex <= 0}
                     >
                       <svg
-                        className="w-6 h-6"
+                        className="w-5 h-5 md:w-6 md:h-6"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -454,7 +610,7 @@ export default function PropertyPage() {
                         e.stopPropagation();
                         nextImage();
                       }}
-                      className={`absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 w-8 h-12 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-10 ${
+                      className={`absolute right-3 md:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 w-7 h-10 md:w-8 md:h-12 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-10 ${
                         currentImageIndex < property.imagenes.length - 1
                           ? "opacity-100 cursor-pointer pointer-events-auto"
                           : "opacity-0 cursor-default pointer-events-none"
@@ -473,7 +629,7 @@ export default function PropertyPage() {
                       }
                     >
                       <svg
-                        className="w-6 h-6"
+                        className="w-5 h-5 md:w-6 md:h-6"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -542,13 +698,13 @@ export default function PropertyPage() {
                     <div className="text-lg md:text-2xl font-semibold drop-shadow">
                       {property.titulo}
                     </div>
-                    <div className="text-sm md:text-xl text-gray-100 drop-shadow">
+                    <div className="text-lg text-gray-100 drop-shadow">
                       {formatPrice(property.precio)}
                       {property.administracion && (
                         <>
                           {" "}
                           
-                          <span className="opacity-90">
+                          <span className="opacity-90 text-lg">
                             + {formatPrice(property.administracion)}{" "}
                             Administración
                           </span>
@@ -607,8 +763,9 @@ export default function PropertyPage() {
                             className="absolute top-0 bottom-0 left-[-1px] right-[-1px] transition-transform duration-500 ease-in-out [will-change:transform] bg-transparent"
                             style={{
                               transform: slideGapPx
-                                ? `translateX(calc(${(index - currentImageIndex) * 100}% + ${(index - currentImageIndex) * slideGapPx}px))`
-                                : `translateX(${(index - currentImageIndex) * 100}%)`,
+                                ? `translateX(calc(${(index - currentImageIndex) * 100 + (zoom <= 1 && isSmallScreen ? lbDragPct : 0)}% + ${(index - currentImageIndex) * slideGapPx}px))`
+                                : `translateX(${(index - currentImageIndex) * 100 + (zoom <= 1 && isSmallScreen ? lbDragPct : 0)}%)`,
+                              transition: lbIsDragging ? "none" : undefined,
                             }}
                             aria-hidden={index !== currentImageIndex}
                           >
@@ -635,12 +792,12 @@ export default function PropertyPage() {
                               e.stopPropagation();
                               if (zoom <= 1) prevImage();
                             }}
-                            className={`absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 w-10 h-14 rounded-full shadow-lg transition-opacity duration-300 flex items-center justify-center z-10 ${
+                            className={`absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 w-8 h-12 md:w-10 md:h-14 rounded-full shadow-lg transition-opacity duration-300 flex items-center justify-center z-10 cursor-pointer ${
                               currentImageIndex > 0 && zoom <= 1 ? "opacity-100" : "opacity-0 pointer-events-none"
                             }`}
                             aria-label="Imagen anterior"
                           >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
                           </button>
@@ -649,12 +806,12 @@ export default function PropertyPage() {
                               e.stopPropagation();
                               if (zoom <= 1) nextImage();
                             }}
-                            className={`absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 w-10 h-14 rounded-full shadow-lg transition-opacity duration-300 flex items-center justify-center z-10 ${
+                            className={`absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 w-8 h-12 md:w-10 md:h-14 rounded-full shadow-lg transition-opacity duration-300 flex items-center justify-center z-10 cursor-pointer ${
                               currentImageIndex < property.imagenes.length - 1 && zoom <= 1 ? "opacity-100" : "opacity-0 pointer-events-none"
                             }`}
                             aria-label="Siguiente imagen"
                           >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                           </button>
@@ -685,7 +842,7 @@ export default function PropertyPage() {
                   {formatPrice(property.precio)}
                 </p>
                 {property.administracion && (
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="text-base text-gray-600 mt-2">
                     + {formatPrice(property.administracion)} Administración
                   </p>
                 )}
@@ -1201,7 +1358,7 @@ export default function PropertyPage() {
                     <span className="text-2xl font-bold text-gray-900">
                       {property.antiguedad}
                     </span>
-                    <span className="text-sm text-gray-600">Años</span>
+                    <span className="text-sm text-gray-600">Años de Antigüedad</span>
                   </div>
                 )}
               </div>
@@ -1212,7 +1369,7 @@ export default function PropertyPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 Descripción
               </h2>
-              <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+              <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
                 {property.descripcion}
               </p>
             </div>
@@ -1228,7 +1385,7 @@ export default function PropertyPage() {
                     {property.caracteristicas.map((caracteristica, index) => (
                       <div
                         key={index}
-                        className="flex items-center text-gray-700"
+                        className="flex items-center text-lg text-gray-700"
                       >
                         <svg
                           className="w-5 h-5 text-green-500 mr-3 flex-shrink-0"
