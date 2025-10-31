@@ -744,7 +744,7 @@ export default function PropertyPage() {
                   >
                     <div
                       ref={lightboxContainerRef}
-                      className={`relative w-[92vw] h-[80vh] md:w-[80vw] md:h-[80vh] ${zoom > 1 ? "rounded-none" : "rounded-2xl"} overflow-hidden transition-all duration-300 ease-out opacity-100 scale-100 translate-y-0 ${zoom > 1 ? `touch-none select-none ${isPanning ? "cursor-grabbing" : "cursor-grab"}` : "touch-auto cursor-zoom-in"}`}
+                      className={`relative w-[92vw] h-[75vh] md:w-[80vw] md:h-[80vh] ${zoom > 1 ? "rounded-none" : "rounded-2xl"} overflow-hidden transition-all duration-300 ease-out opacity-100 scale-100 translate-y-0 ${zoom > 1 ? `touch-none select-none ${isPanning ? "cursor-grabbing" : "cursor-grab"}` : "touch-auto cursor-zoom-in"}`}
                       onMouseDown={onLBMouseDown}
                       onMouseMove={onLBMouseMove}
                       onMouseUp={endPan}
@@ -817,13 +817,12 @@ export default function PropertyPage() {
                           </button>
                         </>
                       )}
-
-                      {property.imagenes.length > 1 && (
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm">
+                    </div>
+                    {property.imagenes.length > 1 && (
+                        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm">
                           {currentImageIndex + 1} / {property.imagenes.length}
                         </div>
                       )}
-                    </div>
                   </div>
                 </div>,
                 document.body
@@ -1381,7 +1380,7 @@ export default function PropertyPage() {
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">
                     Características Adicionales
                   </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-3">
                     {property.caracteristicas.map((caracteristica, index) => (
                       <div
                         key={index}
