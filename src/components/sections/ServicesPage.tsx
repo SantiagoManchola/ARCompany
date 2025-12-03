@@ -24,7 +24,7 @@ export default function ServicesPageSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
         {/* Header Section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" data-aos="fade-up" data-aos-duration="1300">
           <div className="inline-flex items-center gap-2 text-amber-500 text-sm font-medium mb-6">
             <div className="w-12 h-px bg-amber-500"></div>
             <span className="uppercase tracking-wider">NUESTROS SERVICIOS</span>
@@ -41,7 +41,7 @@ export default function ServicesPageSection() {
             </span>
           </h1>
 
-          <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1300">
             Nuestro equipo está comprometido con la excelencia y resultados
             efectivos
           </p>
@@ -51,7 +51,7 @@ export default function ServicesPageSection() {
         <ServicesGrid />
 
         {/* Why Choose Us Section */}
-        <div className="bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 rounded-3xl p-8 lg:p-12 text-center">
+        <div className="bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 rounded-3xl p-8 lg:p-12 text-center" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1300">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
             ¿Por qué elegir{" "}
             <span className="text-amber-400">nuestros servicios?</span>
@@ -197,7 +197,13 @@ function ServicesGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
       {servicesData.map((service, index) => (
-        <div key={index} className="group relative">
+        <div
+          key={index}
+          className="group relative"
+          data-aos="fade-up"
+          data-aos-delay={100 + index * 100}
+          data-aos-duration="1300"
+        >
           {/* Card Background with advanced effects */}
           <div className="absolute inset-0 bg-white rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-500 transform group-hover:scale-105 border border-gray-200 group-hover:border-amber-400"></div>
 
@@ -207,7 +213,7 @@ function ServicesGrid() {
           >
             {/* Content */}
             {/* Icon Container */}
-            <div className="relative mb-6">
+            <div className="relative mb-6" data-aos="zoom-in" data-aos-delay={150 + index * 100} data-aos-duration="1300">
               <div className="w-20 h-20 bg-gradient-to-br from-amber-400/20 to-amber-500/10 rounded-2xl flex items-center justify-center group-hover:from-amber-400/30 group-hover:to-amber-400/20 transition-all duration-300">
                 {service.icon && isValidUrl(service.icon) ? (
                   <Image
@@ -245,17 +251,17 @@ function ServicesGrid() {
             </div>
 
             {/* Title */}
-            <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4 group-hover:text-amber-500 transition-colors duration-300">
+            <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4 group-hover:text-amber-500 transition-colors duration-300" data-aos="fade-up" data-aos-delay={200 + index * 100} data-aos-duration="1300">
               {service.title}
             </h3>
 
             {/* Descripción general (ahora principal) */}
-            <p className="text-gray-700 leading-relaxed mb-8 flex-grow">
+            <p className="text-gray-700 leading-relaxed mb-8 flex-grow" data-aos="fade-up" data-aos-delay={250 + index * 100} data-aos-duration="1300">
               {service.descripcion_general}
             </p>
 
             {/* CTA Link */}
-            <div className="inline-flex items-center gap-2 text-amber-500 font-semibold hover:text-amber-600 transition-colors duration-300 group-hover:gap-3">
+            <div className="inline-flex items-center gap-2 text-amber-500 font-semibold hover:text-amber-600 transition-colors duration-300 group-hover:gap-3" data-aos="fade-up" data-aos-delay={300 + index * 100} data-aos-duration="900">
               <span>Más información</span>
               <svg
                 className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"

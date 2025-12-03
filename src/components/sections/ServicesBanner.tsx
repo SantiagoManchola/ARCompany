@@ -21,7 +21,7 @@ export default function BannerSection() {
             className="text-5xl lg:text-6xl font-bold mb-6 leading-tight"
             data-aos="fade-down"
             data-aos-delay="200"
-            data-aos-duration="1500"
+            data-aos-duration="1300"
           >
             {/* Sobre{" "} */}
             <span className="relative">
@@ -35,7 +35,7 @@ export default function BannerSection() {
             className="text-gray-200 text-xl leading-relaxed max-w-3xl mx-auto"
             data-aos="zoom-in"
             data-aos-delay="400"
-            data-aos-duration="1500"
+            data-aos-duration="1300"
           >
             Ofrecemos servicios legales con la experiencia y dedicación que tu caso merece.
           </p>

@@ -112,7 +112,11 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
               <div className="lg:w-2/3 xl:w-1/2 space-y-4 sm:space-y-6">
                 {/* Main Title */}
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
+                <h1
+                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight"
+                  data-aos="fade-up"
+                  data-aos-duration="1300"
+                >
                   <span className="relative inline-block">
                     <span className="bg-gradient-to-r from-amber-300 to-amber-400 text-transparent bg-clip-text">
                       {servicio.titulo_banner}
@@ -122,7 +126,12 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
                 </h1>
 
                 {/* Description */}
-                <p className="text-gray-200 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl lg:max-w-none">
+                <p
+                  className="text-gray-200 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl lg:max-w-none"
+                  data-aos="fade-up"
+                  data-aos-delay="150"
+                  data-aos-duration="1300"
+                >
                   {servicio.descripcion_banner}
                 </p>
               </div>
@@ -136,10 +145,10 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
         {/* Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-1">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-1" data-aos="fade-up" data-aos-duration="1300">
           <div className="flex flex-col lg:flex-row items-start gap-8 sm:gap-12 lg:gap-16">
             {/* Columna izquierda - Descripción */}
-            <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8">
+            <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8" data-aos="fade-up" data-aos-duration="1300">
               {/* Subtítulo */}
               <div className="flex items-center justify-center lg:justify-start gap-2 text-amber-500 text-sm font-medium mb-4">
                 <div className="w-6 sm:w-8 h-px bg-amber-400"></div>
@@ -150,19 +159,19 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
               </div>
 
               {/* Título de la sección */}
-              <h2 className="text-4xl sm:text-4xl lg:text-5xl xl:text-5xl font-bold text-gray-900 leading-tight text-center lg:text-left">
+              <h2 className="text-4xl sm:text-4xl lg:text-5xl xl:text-5xl font-bold text-gray-900 leading-tight text-center lg:text-left" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1300" data-aos-offset="0">
                 {servicio.nombre}
               </h2>
 
               {/* Descripción general y detallada */}
               <div className="space-y-4 sm:space-y-6">
-                <p className="text-base sm:text-lg text-gray-800 leading-relaxed text-center lg:text-left">
+                <p className="text-base sm:text-lg text-gray-800 leading-relaxed text-center lg:text-left" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1300">
                   {servicio.descripcion}
                 </p>
               </div>
 
               {/* CTA Card - Solo visible en pantallas grandes */}
-              <div className="hidden lg:block w-full max-w-xl mx-auto lg:max-w-none">
+              <div className="hidden lg:block w-full max-w-xl mx-auto lg:max-w-none" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1300">
                 <div className="bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl sm:rounded-2xl shadow-xl p-6 sm:p-8 text-white">
                   <div className="text-center">
                     <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
@@ -186,7 +195,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
             </div>
 
             {/* Columna derecha - Áreas de especialización */}
-            <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8">
+            <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8" data-aos="fade-up" data-aos-duration="1300" data-aos-offset="0">
               {/* Subtítulo */}
               <div className="flex items-center justify-center lg:justify-start gap-2 text-amber-500 text-sm font-medium mb-4">
                 <div className="w-6 sm:w-8 h-px bg-amber-400"></div>
@@ -203,6 +212,10 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
                     <div
                       key={areaObj.id || index}
                       className="group bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-xl border border-gray-100 hover:shadow-xl"
+                      data-aos="fade-up"
+                      data-aos-delay={100 + index * 100}
+                      data-aos-duration="1300"
+                      data-aos-offset="50"
                     >
                       <div className="flex items-center gap-3 sm:gap-4">
                         <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-400/20 to-amber-500/20 rounded-lg flex items-center justify-center">
@@ -221,7 +234,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
                           </svg>
                         </div>
                         <div className="flex-1">
-                          <h4 className="text-base sm:text-lg font-semibold text-gray-800">
+                          <h4 className="text-base sm:text-lg font-semibold text-gray-800" data-aos="fade-left" data-aos-delay={150 + index * 100} data-aos-duration="1300" data-aos-offset="25">
                             {areaObj.area}
                           </h4>
                         </div>
@@ -234,7 +247,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
           </div>
 
           {/* CTA Card - Solo visible en pantallas pequeñas y medianas */}
-          <div className="lg:hidden mt-8 sm:mt-12">
+          <div className="lg:hidden mt-8 sm:mt-12" data-aos="fade-up" data-aos-duration="1300">
             <div className="w-full">
               <div className="bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl sm:rounded-2xl shadow-xl p-6 sm:p-8 text-white">
                 <div className="text-center">

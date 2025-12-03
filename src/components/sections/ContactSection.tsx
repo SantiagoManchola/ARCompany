@@ -76,33 +76,35 @@ export default function ContactSection() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
         {/* Header Section */}
-        <div className="text-left mb-16">
+          <div className="text-left mb-16" data-aos="fade-up" data-aos-duration="1300">
           <div className="inline-flex items-center gap-2 text-amber-500 text-sm font-medium mb-4">
             <div className="w-8 h-px bg-amber-500"></div>
             <span className="uppercase tracking-wider">HABLEMOS</span>
             <div className="w-8 h-px bg-amber-500"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1300">
             Comencemos una{" "}
             <span className="relative">
               <span className="text-amber-500">conversación</span>
               <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full"></div>
             </span>
           </h2>
-          <p className="text-gray-600 text-lg  mx-auto leading-relaxed">
+            <p className="text-gray-600 text-lg  mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1300">
             Estamos aquí para ayudarte con tus necesidades jurídicas.
             Contáctanos y te responderemos lo antes posible.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start" data-aos="fade-up" data-aos-duration="1300">
           {/* Contact Information */}
-          <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-6" data-aos="fade-up" data-aos-duration="1300">
             {/* Contact Info Cards */}
             <div className="space-y-4">
-              <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden">
+              {/* Wrap AOS on a container to preserve hover transitions on the card */}
+              <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1300">
+                <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden">
                 <div className="w-12 h-12 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">
-                  <svg
+                    <svg
                     className="w-6 h-6"
                     fill="none"
                     stroke="currentColor"
@@ -124,8 +126,10 @@ export default function ContactSection() {
                 </div>
                 <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
               </div>
+              </div>
 
-              <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden">
+              <div data-aos="fade-up" data-aos-delay="150" data-aos-duration="1300">
+                <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden">
                 <div className="w-12 h-12 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">
                   <svg
                     className="w-6 h-6"
@@ -148,9 +152,11 @@ export default function ContactSection() {
                   </p>
                 </div>
                 <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
+                </div>
               </div>
 
-              <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden cursor-pointer">
+              <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1300">
+                <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden cursor-pointer">
                 <div className="w-12 h-12 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">
                   <svg
                     className="w-6 h-6"
@@ -189,11 +195,13 @@ export default function ContactSection() {
                   aria-label="Abrir ubicación en Google Maps"
                   className="absolute inset-0 z-10"
                 />
+                </div>
               </div>
             </div>
 
             {/* Additional Info */}
-            <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 p-6 mt-8 overflow-hidden">
+            <div data-aos="fade-up" data-aos-delay="250" data-aos-duration="1300">
+              <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 p-6 mt-8 overflow-hidden">
               <h3 className="text-gray-900 font-semibold mb-3">
                 Horarios de Atención
               </h3>
@@ -212,11 +220,12 @@ export default function ContactSection() {
                 </div>
               </div>
               <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
+              </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-3 relative">
+          <div className="lg:col-span-3 relative" data-aos="fade-up" data-aos-duration="1300">
             {/* Enhanced shadow background */}
             <div className="absolute -inset-4 bg-gradient-to-r from-amber-400/20 to-amber-500/20 rounded-3xl blur opacity-30"></div>
             <div className="absolute inset-0 bg-white rounded-3xl shadow-2xl border border-gray-100"></div>
@@ -225,7 +234,7 @@ export default function ContactSection() {
               {!submitted ? (
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   {/* Full Name */}
-                  <div>
+                  <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1300">
                     <label
                       htmlFor="fullName"
                       className="block text-gray-900 font-medium mb-2"
@@ -247,6 +256,8 @@ export default function ContactSection() {
                   {/* Phone and Email Row */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
+                      {/* Phone */}
+                      <div data-aos="fade-up" data-aos-delay="150" data-aos-duration="1300">
                       <label
                         htmlFor="phone"
                         className="block text-gray-900 font-medium mb-2"
@@ -263,8 +274,11 @@ export default function ContactSection() {
                         placeholder="Ej: +57 123 456 7890"
                         className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300"
                       />
+                      </div>
                     </div>
                     <div>
+                      {/* Email */}
+                      <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1300">
                       <label
                         htmlFor="email"
                         className="block text-gray-900 font-medium mb-2"
@@ -281,11 +295,12 @@ export default function ContactSection() {
                         placeholder="Ej: tu@email.com"
                         className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300"
                       />
+                      </div>
                     </div>
                   </div>
 
                   {/* Subject */}
-                  <div className="relative">
+                  <div className="relative" data-aos="fade-up" data-aos-delay="250" data-aos-duration="1300">
                     <label
                       htmlFor="subject"
                       className="block text-gray-900 font-medium mb-2"
@@ -345,7 +360,7 @@ export default function ContactSection() {
                   </div>
 
                   {/* Message */}
-                  <div>
+                  <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="1300">
                     <label
                       htmlFor="message"
                       className="block text-gray-900 font-medium mb-2"
@@ -365,7 +380,7 @@ export default function ContactSection() {
                   </div>
 
                   {/* Submit Button */}
-                  <div className="pt-4">
+                  <div className="pt-4" data-aos="zoom-in" data-aos-delay="350" data-aos-duration="1300">
                     <button
                       type="submit"
                       disabled={isSubmitting}
@@ -410,7 +425,7 @@ export default function ContactSection() {
                   </div>
                 </form>
               ) : (
-                <div className="text-center py-12">
+                <div className="text-center py-12" data-aos="fade-up" data-aos-duration="1300">
                   <div className="w-20 h-20 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center text-white mx-auto mb-6 animate-bounce">
                     <svg
                       className="w-10 h-10"

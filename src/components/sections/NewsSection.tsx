@@ -171,43 +171,33 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
 
     content = (
       <div className="relative" data-aos="fade-up" data-aos-delay="300">
-        {/* Navigation Buttons - Solo mostrar si hay más slides */}
-        {maxSlides > 0 && (
+        {/* Navigation Buttons - visibles sólo cuando hay más elementos que mostrar */}
+        {displayItems.length > slidesToShow && (
           <>
+            {/* Flecha izquierda: desvanecer al inicio */}
             <button
               onClick={prevSlide}
               disabled={currentSlide === 0}
-              className={`absolute left-1 top-2/5 -translate-y-1/4 z-10 bg-white backdrop-blur-sm hover:bg-white text-black hover:text-amber-600 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group ${
-                currentSlide === 0 ? "opacity-50 cursor-not-allowed" : "opacity-100"
+              aria-hidden={currentSlide === 0}
+              className={`absolute left-1 top-2/5 -translate-y-1/4 z-20 bg-white/95 text-black w-12 h-12 rounded-full shadow-lg transition-opacity duration-200 flex items-center justify-center hover:text-amber-600 group ${
+                currentSlide === 0 ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
-              data-aos="fade-right"
-              data-aos-delay="400"
             >
-              <svg
-                className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
 
+            {/* Flecha derecha: desvanecer al final */}
             <button
               onClick={nextSlide}
               disabled={currentSlide === maxSlides}
-              className={`absolute right-1 top-2/5 -translate-y-1/4 z-10 bg-white backdrop-blur-sm hover:bg-white text-black hover:text-amber-600 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group ${
-                currentSlide === maxSlides ? "opacity-50 cursor-not-allowed" : "opacity-100"
+              aria-hidden={currentSlide === maxSlides}
+              className={`absolute right-1 top-2/5 -translate-y-1/4 z-20 bg-white/95 text-black w-12 h-12 rounded-full shadow-lg transition-opacity duration-200 flex items-center justify-center hover:text-amber-600 group ${
+                currentSlide === maxSlides ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
-              data-aos="fade-left"
-              data-aos-delay="400"
             >
-              <svg
-                className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>

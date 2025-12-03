@@ -667,13 +667,18 @@ export default async function NewsPage({ params }: NewsPageProps) {
       {/* Contenedor principal clásico */}
       <article className="max-w-4xl mx-auto px-6 py-12">
         {/* Título principal */}
-        <header className="mb-8">
+        <header className="mb-8" data-aos="fade-up" data-aos-duration="600">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
             {noticia.title}
           </h1>
 
           {/* Metadatos del artículo */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 border-b border-gray-200 pb-6">
+          <div
+            className="flex flex-wrap items-center gap-4 text-sm text-gray-600 border-b border-gray-200 pb-6"
+            data-aos="fade-up"
+            data-aos-delay="100"
+            data-aos-duration="600"
+          >
             <div className="flex items-center gap-2">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -688,7 +693,12 @@ export default async function NewsPage({ params }: NewsPageProps) {
         </header>
 
         {/* Imagen principal */}
-        <figure className="mb-8">
+        <figure
+          className="mb-8"
+          data-aos="zoom-in"
+          data-aos-delay="150"
+          data-aos-duration="700"
+        >
           <Image
             src={noticia.backgroundImage.url}
             alt={
@@ -705,7 +715,12 @@ export default async function NewsPage({ params }: NewsPageProps) {
 
         {/* Contenido principal */}
         <div className="prose prose-lg max-w-none">
-          <div className="text-gray-700 leading-relaxed">
+          <div
+            className="text-gray-700 leading-relaxed"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="600"
+          >
             {renderContent(noticia.contenido)}
           </div>
         </div>
