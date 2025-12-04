@@ -28,13 +28,15 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
         <Container style={container}>
           <Section style={header}>
             <div style={logoWrap}>
-              <Img
-                src="https://www.arcompanyjuridicos.com/images/Logo%20AR%20COMPANY.png"
-                alt="AR Company"
-                width={64}
-                height={64}
-                style={logo}
-              />
+              <div style={logoBadge}>
+                <Img
+                  src="https://www.arcompanyjuridicos.com/images/Logo%20AR%20COMPANY.png"
+                  alt="AR Company"
+                  width={56}
+                  height={56}
+                  style={logo}
+                />
+              </div>
               <div style={brandTextWrap}>
                 <Text style={brandTitle}>AR Company</Text>
                 <Text style={brandSubtitle}>Asesoría Jurídica Integral</Text>
@@ -66,32 +68,32 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
                 rel="noopener noreferrer"
                 style={ctaButton}
               >
-                Ver estado o enviar más detalles
+                Enviar más detalles
               </a>
             </div>
 
             <Text style={signature}>
               Equipo AR Company
-              <br />
-              Asesoría Jurídica Integral
             </Text>
+
+            <Hr style={hr} />
+
+            <div style={infoCardInline}>
+              <Text style={infoTitleInline}>Contacto</Text>
+              <Text style={infoRowInline}>
+                <span style={infoLabelInline}>Teléfono:</span> 323 289 5945 · 316 225 7289
+              </Text>
+              <Text style={infoRowInline}>
+                <span style={infoLabelInline}>Email:</span> contacto@arcompanyjuridicos.com
+              </Text>
+              <Text style={infoRowInline}>
+                <span style={infoLabelInline}>Dirección:</span> Carrera 4 No. 10-38 oficina 201 Edificio Vela
+              </Text>
+            </div>
           </Section>
 
-          <Section style={infoCard}>
-            <Text style={infoTitle}>Contacto</Text>
-            <Text style={infoRow}>
-              <span style={infoLabel}>Teléfono:</span> 323 289 5945 · 316 225 7289
-            </Text>
-            <Text style={infoRow}>
-              <span style={infoLabel}>Email:</span> arcompanybienesyservicios@gmail.com
-            </Text>
-            <Text style={infoRow}>
-              <span style={infoLabel}>Dirección:</span> Carrera 4 No. 10-38 oficina 201 Edificio Vela
-            </Text>
-          </Section>
-
-          <Text style={footer}>
-            Este mensaje es una confirmación automática. No compartas información sensible si no estás seguro del destinatario.
+          <Text style={footerStrong}>
+            Confirmación automática de AR Company. Verifica el remitente antes de compartir información sensible.
           </Text>
         </Container>
         <div style={bottomGlow} />
@@ -132,8 +134,19 @@ const logoWrap: React.CSSProperties = {
   gap: "12px",
 };
 const logo: React.CSSProperties = {
-  borderRadius: "12px",
   display: "block",
+};
+const logoBadge: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "64px",
+  height: "64px",
+  backgroundColor: "#ffffff",
+  borderRadius: "14px",
+  border: "1px solid #e5e7eb",
+  boxShadow: "0 2px 6px rgba(17, 24, 39, 0.06)",
+  overflow: "hidden",
 };
 const brandTextWrap: React.CSSProperties = {
   lineHeight: "1.3",
@@ -197,9 +210,9 @@ const signature: React.CSSProperties = {
   lineHeight: "20px",
   margin: "8px 0 0",
 };
-const footer: React.CSSProperties = {
-  color: "#9ca3af",
-  fontSize: "11px",
+const footerStrong: React.CSSProperties = {
+  color: "#374151",
+  fontSize: "12px",
   marginTop: "18px",
 };
 const hr: React.CSSProperties = {
@@ -207,25 +220,25 @@ const hr: React.CSSProperties = {
   borderTop: "1px solid #e5e7eb",
   margin: "14px 0",
 };
-const infoCard: React.CSSProperties = {
+const infoCardInline: React.CSSProperties = {
   backgroundColor: "#ffffff",
   border: "1px solid #e5e7eb",
   borderRadius: "12px",
   padding: "16px",
   marginTop: "18px",
 };
-const infoTitle: React.CSSProperties = {
+const infoTitleInline: React.CSSProperties = {
   color: "#111827",
   fontSize: "14px",
   fontWeight: 700,
   margin: "0 0 8px",
 };
-const infoRow: React.CSSProperties = {
-  color: "#374151",
-  fontSize: "13px",
+const infoRowInline: React.CSSProperties = {
+  color: "#111827",
+  fontSize: "14px",
   margin: "0 0 6px",
 };
-const infoLabel: React.CSSProperties = {
+const infoLabelInline: React.CSSProperties = {
   color: "#b45309",
   fontWeight: 600,
 };
