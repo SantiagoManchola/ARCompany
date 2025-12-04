@@ -90,7 +90,8 @@ export async function POST(req: Request) {
     const userHtml = await render(userReact);
     const userText = `Hola ${fullName},\n\nTu solicitud (${subject}) ha sido recibida. Pronto un asesor se pondrá en contacto contigo.\n\nEquipo AR Company`;
 
-    const from = process.env.RESEND_FROM_EMAIL as string;
+    const fromEmail = process.env.RESEND_FROM_EMAIL as string;
+    const from = `AR Company <${fromEmail}>`;
     const to = process.env.RESEND_TO_EMAIL as string;
 
     const adminResult = await resend.emails.send({
@@ -115,6 +116,7 @@ export async function POST(req: Request) {
         .send({
           from,
           to: email,
+          replyTo: "administracion@arcompanyjuridicos.com",
           subject: "Hemos recibido tu solicitud",
           html: userHtml,
           text: userText,

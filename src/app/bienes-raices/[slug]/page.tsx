@@ -988,10 +988,15 @@ export default function PropertyPage() {
                           type="tel"
                           id="rs-phone"
                           name="phone"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
                           value={rsForm.phone}
-                          onChange={(e) => setRsForm((s) => ({ ...s, phone: e.target.value }))}
+                          onChange={(e) => {
+                            const digits = e.target.value.replace(/\D+/g, "");
+                            setRsForm((s) => ({ ...s, phone: digits }));
+                          }}
                           required
-                          placeholder="300 123 4567"
+                          placeholder="3001234567"
                           className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300"
                         />
                       </div>
@@ -1118,7 +1123,7 @@ export default function PropertyPage() {
                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                       />
                     </svg>
-                    <span className="font-medium">contacto@arcompanyjuridicos.com</span>
+                    <span className="font-medium">administracion@arcompanyjuridicos.com</span>
                   </div>
                 </div>
               </div>
@@ -1444,7 +1449,7 @@ export default function PropertyPage() {
                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                       />
                     </svg>
-                    <span className="font-medium">contacto@arcompanyjuridicos.com</span>
+                    <span className="font-medium">administracion@arcompanyjuridicos.com</span>
                   </div>
                 </div>
               </div>

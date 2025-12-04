@@ -15,7 +15,7 @@ export default function OrganizationJsonLd({
     logo: `${baseUrl}/images/Logo AR COMPANY.png`,
     image: `${baseUrl}/images/Services.webp`,
     telephone: "+57-302-4235453",
-    email: "contacto@arcompanyjuridicos.com", 
+    email: "administracion@arcompanyjuridicos.com", 
     address: {
       "@type": "PostalAddress",
       streetAddress: "Carrera 4 No. 10-38 oficina 201 Edificio Vela", 

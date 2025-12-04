@@ -72,7 +72,7 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
                 <span style={infoLabelInline}>Teléfono:</span> 323 289 5945 · 316 225 7289
               </Text>
               <Text style={infoRowInline}>
-                <span style={infoLabelInline}>Email:</span> contacto@arcompanyjuridicos.com
+                <span style={infoLabelInline}>Email:</span> administracion@arcompanyjuridicos.com
               </Text>
               <Text style={infoRowInline}>
                 <span style={infoLabelInline}>Dirección:</span> Carrera 4 No. 10-38 oficina 201 Edificio Vela

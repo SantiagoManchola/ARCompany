@@ -155,7 +155,7 @@ export default function ContactSection() {
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
                   <p className="text-gray-600 break-all sm:break-normal">
-                    contacto@arcompanyjuridicos.com
+                    administracion@arcompanyjuridicos.com
                   </p>
                 </div>
                 <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
