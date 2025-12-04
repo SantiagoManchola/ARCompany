@@ -109,7 +109,7 @@ const container: React.CSSProperties = {
   width: "100%",
   maxWidth: "640px",
   boxShadow: "0 12px 32px rgba(17, 24, 39, 0.08)",
-  border: "1px solid #e5e7eb",
+  border: "1px solid #d1d5db",
 };
 const header: React.CSSProperties = {
   paddingBottom: "8px",
