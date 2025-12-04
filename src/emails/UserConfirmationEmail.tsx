@@ -28,14 +28,15 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
         <Container style={container}>
           <Section style={header}>
             <div style={logoWrap}>
-              <div style={logoBadge}>
-                <Img
-                  src="https://www.arcompanyjuridicos.com/images/Logo%20AR%20COMPANY.png"
-                  alt="AR Company"
-                  width={90}
-                  height={90}
-                  style={logo}
-                />
+              <Img
+                src="https://www.arcompanyjuridicos.com/images/Logo%20AR%20COMPANY.png"
+                alt="AR Company"
+                width={90}
+                height={90}
+                style={logo}
+              />
+              <div style={brandTextWrap}>
+                <Text style={brandTitle}>AR Company</Text>
               </div>
             </div>
           </Section>
@@ -45,8 +46,7 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
           <Section style={card}>
             <Text style={p}>Hola {firstName},</Text>
             <Text style={p}>
-              Tu solicitud con el asunto <strong style={strong}>{subject}</strong> ha sido recibida
-              correctamente.
+              Tu solicitud con el asunto <strong style={strong}>{subject}</strong> ha sido recibida correctamente.
             </Text>
             <Text style={p}>
               Uno de nuestros asesores revisará tu mensaje y te responderá lo antes posible.
@@ -68,9 +68,7 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
               </a>
             </div>
 
-            <Text style={signature}>
-              Equipo AR Company
-            </Text>
+            <Text style={signature}>Equipo AR Company</Text>
 
             <Hr style={hr} />
 
@@ -132,17 +130,14 @@ const logoWrap: React.CSSProperties = {
 const logo: React.CSSProperties = {
   display: "block",
 };
-const logoBadge: React.CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "64px",
-  height: "64px",
-  backgroundColor: "#ffffff",
-  borderRadius: "14px",
-  border: "1px solid #e5e7eb",
-  boxShadow: "0 2px 6px rgba(17, 24, 39, 0.06)",
-  overflow: "hidden",
+const brandTextWrap: React.CSSProperties = {
+  lineHeight: "1.3",
+};
+const brandTitle: React.CSSProperties = {
+  color: "#111827",
+  fontSize: "18px",
+  fontWeight: 700,
+  margin: 0,
 };
 const h1: React.CSSProperties = {
   color: "#111827",
