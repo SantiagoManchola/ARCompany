@@ -102,7 +102,7 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
   };
 
   let content: ReactNode;
-  if (loading) {
+  if (loading || error) {
     content = (
       <div
         className="flex justify-center items-center min-h-[300px]"
@@ -111,25 +111,6 @@ export default function NewsSection({ news, loading, error }: NewsSectionProps) 
       >
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500"></div>
         <p className="ml-4 text-xl text-gray-600">Cargando noticias...</p>
-      </div>
-    );
-  } else if (error) {
-    content = (
-      <div
-        className="flex flex-col items-center justify-center min-h-[300px]"
-        data-aos="fade-up"
-        data-aos-delay="300"
-      >
-        <div className="text-red-500 mb-4">
-          <svg className="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-        <p className="text-gray-600 text-center">Error al cargar las noticias: {error}</p>
       </div>
     );
   } else if (!news || news.length === 0) {

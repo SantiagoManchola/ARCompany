@@ -1,37 +1,12 @@
 import Link from "next/link";
 
 const ServicesSection = ({ services, loading = false, error = null }) => {
-  if (loading) {
+  if (loading || error) {
     return (
       <section className="relative py-20 overflow-hidden bg-gradient-to-tr from-slate-50 via-white to-blue-50">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500 mx-auto"></div>
           <p className="mt-4 text-gray-600">Cargando servicios...</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="relative py-20 overflow-hidden bg-gradient-to-tr from-slate-50 via-white to-blue-50">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="text-red-500 mb-4">
-            <svg
-              className="w-12 h-12 mx-auto"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-          <p className="text-gray-600">
-            Error al cargar los servicios. Por favor, intenta nuevamente.
-          </p>
         </div>
       </section>
     );

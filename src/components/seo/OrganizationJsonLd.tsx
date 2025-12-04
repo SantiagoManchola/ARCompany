@@ -14,14 +14,14 @@ export default function OrganizationJsonLd({
     url: baseUrl,
     logo: `${baseUrl}/images/Logo AR COMPANY.png`,
     image: `${baseUrl}/images/Services.webp`,
-    telephone: "+57-XXX-XXXXXXX", // Reemplaza con tu número real
-    email: "arcompanybienesyservicios@gmail.com", 
+    telephone: "+57-302-4235453",
+    email: "contacto@arcompanyjuridicos.com", 
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Tu dirección aquí", // Reemplaza con tu dirección real
-      addressLocality: "Ciudad",
-      addressRegion: "Región",
-      postalCode: "Código Postal",
+      streetAddress: "Carrera 4 No. 10-38 oficina 201 Edificio Vela", 
+      addressLocality: "Ibagué",
+      addressRegion: "Tolima",
+      postalCode: "730001",
       addressCountry: "CO",
     },
     serviceArea: {
@@ -34,9 +34,8 @@ export default function OrganizationJsonLd({
       "Revisoría Fiscal",
       "Servicios Legales Especializados",
     ],
-    foundingDate: "2020", // Reemplaza con tu fecha real
+    foundingDate: "2025", // Reemplaza con tu fecha real
     sameAs: [
-      // Agrega aquí tus redes sociales
       // 'https://www.facebook.com/arcompany',
       // 'https://www.linkedin.com/company/arcompany',
     ],

@@ -31,7 +31,7 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
               <Img
                 src="https://www.arcompanyjuridicos.com/images/Logo%20AR%20COMPANY.png"
                 alt="AR Company"
-                width={100}
+                width={110}
                 height={70}
                 style={logo}
               />
@@ -46,7 +46,7 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
               Tu solicitud con el asunto <strong style={strong}>{subject}</strong> ha sido recibida correctamente.
             </Text>
             <Text style={p}>
-              Uno de nuestros asesores revisará tu mensaje y te responderá lo antes posible.
+              Uno de nuestros asesores revisará tu mensaje y te contactará lo antes posible.
             </Text>
 
             <Hr style={hr} />
