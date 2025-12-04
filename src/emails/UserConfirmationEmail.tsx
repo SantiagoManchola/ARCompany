@@ -22,7 +22,9 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
   return (
     <Html>
       <Head />
-      <Preview>AR Company — Hemos recibido tu solicitud</Preview>
+      <Preview>
+        {`Hola ${firstName}, Tu solicitud con el asunto ${subject} ha sido recibida correctamente. Uno de nuestros asesores revisará tu mensaje y te contactará lo antes posible.`}
+      </Preview>
       <Body style={body}>
         <div style={accentBar} />
         <Container style={container}>
@@ -81,7 +83,7 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
           </Section>
 
           <Text style={footerStrong}>
-            Confirmación automática de AR Company. Verifica el remitente antes de compartir información sensible.
+            Confirmación automática de AR Company.
           </Text>
         </Container>
         <div style={bottomGlow} />

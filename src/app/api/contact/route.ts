@@ -117,7 +117,7 @@ export async function POST(req: Request) {
           from,
           to: email,
           replyTo: "administracion@arcompanyjuridicos.com",
-          subject: "Hemos recibido tu solicitud",
+          subject: `Hemos recibido tu solicitud: ${subject}`,
           html: userHtml,
           text: userText,
         })

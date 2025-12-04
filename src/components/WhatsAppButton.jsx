@@ -7,7 +7,7 @@ export default function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
 
   const phoneNumber = "573024235453"; 
-  const message = "¡Hola! Me interesa conocer más sobre sus servicios legales.";
+  const message = "¡Hola! Me gustaría recibir asesoría jurídica.";
   
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 

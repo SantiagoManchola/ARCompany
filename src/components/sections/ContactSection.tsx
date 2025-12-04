@@ -126,7 +126,7 @@ export default function ContactSection() {
                 </div>
                 <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
                 <a
-                  href="https://wa.me/573232895945?text=%C2%A1Hola!%20Me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20jur%C3%ADdica."
+                  href="https://wa.me/573024235453?text=%C2%A1Hola!%20Me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20jur%C3%ADdica."
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Abrir chat de WhatsApp"
