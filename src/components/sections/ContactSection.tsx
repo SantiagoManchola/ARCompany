@@ -24,6 +24,11 @@ export default function ContactSection() {
     >
   ) => {
     const { name, value } = e.target;
+    if (name === "phone") {
+      const digitsOnly = value.replace(/\D+/g, "");
+      setFormData((prev) => ({ ...prev, phone: digitsOnly }));
+      return;
+    }
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -277,8 +282,10 @@ export default function ContactSection() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
+                        inputMode="numeric"
+                        pattern="[0-9]*"
                         required
-                        placeholder="Ej: +57 123 456 7890"
+                        placeholder="Ej: 3001234567"
                         className="w-full px-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-white transition-all duration-300"
                       />
                       </div>

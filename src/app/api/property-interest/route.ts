@@ -69,21 +69,12 @@ export async function POST(req: Request) {
       );
     }
 
-    const { fullName, phone, email, message, subject, propertyTitle, propertySlug, propertyUrl } = validated.data;
+    const { fullName, phone, email, message, subject, propertyTitle, propertyUrl } = validated.data;
 
     const composedSubject = subject || `Interés en propiedad: ${propertyTitle || "Propiedad"}`;
 
-    const extraDetails = [
-      propertyTitle ? `Propiedad: ${propertyTitle}` : undefined,
-      propertySlug ? `Slug: ${propertySlug}` : undefined,
-      propertyUrl ? `URL: ${propertyUrl}` : undefined,
-    ]
-      .filter(Boolean)
-      .join("\n");
 
-    const enrichedMessage = extraDetails
-      ? `${message}\n\n${extraDetails}`
-      : message;
+    const enrichedMessage = message;
 
     const receivedAt = new Date().toLocaleString("es-CO", { hour12: false });
     const adminReact = AdminNotificationEmail({
@@ -98,11 +89,12 @@ export async function POST(req: Request) {
     const adminHtml = await render(adminReact);
     const adminText = `Nuevo interés en propiedad\n\nNombre: ${fullName}\nTeléfono: ${phone}\nEmail: ${email}\nAsunto: ${composedSubject}\n\nMensaje:\n${enrichedMessage}`;
 
-    const userReact = UserConfirmationEmail({ fullName, subject: composedSubject });
+    const userReact = UserConfirmationEmail({ fullName, subject: composedSubject, propertyUrl });
     const userHtml = await render(userReact);
     const userText = `Hola ${fullName},\n\nTu solicitud (${composedSubject}) ha sido recibida. Pronto un asesor se pondrá en contacto contigo.\n\nEquipo AR Company`;
 
-    const from = process.env.RESEND_FROM_EMAIL as string;
+    const fromEmail = process.env.RESEND_FROM_EMAIL as string;
+    const from = `AR Company <${fromEmail}>`;
     const to = process.env.RESEND_TO_EMAIL as string;
 
     const adminResult = await resend.emails.send({
@@ -127,7 +119,8 @@ export async function POST(req: Request) {
         .send({
           from,
           to: email,
-          subject: "Hemos recibido tu solicitud",
+          replyTo: "administracion@arcompanyjuridicos.com",
+          subject: `Hemos recibido tu solicitud: ${composedSubject}`,
           html: userHtml,
           text: userText,
         })

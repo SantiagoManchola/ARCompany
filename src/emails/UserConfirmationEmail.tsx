@@ -15,10 +15,12 @@ import {
 interface Props {
   fullName: string;
   subject: string;
+  propertyUrl?: string;
 }
 
-export function UserConfirmationEmail({ fullName, subject }: Props) {
+export function UserConfirmationEmail({ fullName, subject, propertyUrl }: Props) {
   const firstName = (fullName || "").trim().split(" ")[0] || fullName;
+  const ctaHref = propertyUrl && propertyUrl.trim() ? propertyUrl : "https://www.arcompanyjuridicos.com/contact";
   return (
     <Html>
       <Head />
@@ -55,12 +57,12 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
 
             <div style={ctaWrap}>
               <a
-                href="https://www.arcompanyjuridicos.com/contact"
+                href={ctaHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={ctaButton}
               >
-                Enviar más detalles
+                Ver detalles
               </a>
             </div>
 
