@@ -57,7 +57,7 @@ export default function ContactSection() {
         subject: "",
         message: "",
       });
-      setTimeout(() => setSubmitted(false), 3000);
+      setTimeout(() => setSubmitted(false), 10000);
     } catch (err) {
       console.error(err);
       alert("Ocurrió un error inesperado.");

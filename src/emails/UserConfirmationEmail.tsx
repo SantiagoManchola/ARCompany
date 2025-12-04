@@ -31,7 +31,7 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
               <Img
                 src="https://www.arcompanyjuridicos.com/images/Logo%20AR%20COMPANY.png"
                 alt="AR Company"
-                width={90}
+                width={100}
                 height={70}
                 style={logo}
               />
@@ -47,9 +47,6 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
             </Text>
             <Text style={p}>
               Uno de nuestros asesores revisará tu mensaje y te responderá lo antes posible.
-            </Text>
-            <Text style={pSmall}>
-              Si necesitas agregar información adicional, responde directamente a este correo.
             </Text>
 
             <Hr style={hr} />
@@ -147,12 +144,6 @@ const p: React.CSSProperties = {
 const strong: React.CSSProperties = {
   color: "#b45309",
   fontWeight: 700,
-};
-const pSmall: React.CSSProperties = {
-  color: "#374151",
-  fontSize: "13px",
-  lineHeight: "19px",
-  margin: "0 0 12px",
 };
 const ctaWrap: React.CSSProperties = {
   margin: "16px 0 8px",
