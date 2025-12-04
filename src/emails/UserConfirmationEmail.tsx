@@ -32,14 +32,10 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
                 <Img
                   src="https://www.arcompanyjuridicos.com/images/Logo%20AR%20COMPANY.png"
                   alt="AR Company"
-                  width={56}
-                  height={56}
+                  width={90}
+                  height={90}
                   style={logo}
                 />
-              </div>
-              <div style={brandTextWrap}>
-                <Text style={brandTitle}>AR Company</Text>
-                <Text style={brandSubtitle}>Asesoría Jurídica Integral</Text>
               </div>
             </div>
           </Section>
@@ -147,20 +143,6 @@ const logoBadge: React.CSSProperties = {
   border: "1px solid #e5e7eb",
   boxShadow: "0 2px 6px rgba(17, 24, 39, 0.06)",
   overflow: "hidden",
-};
-const brandTextWrap: React.CSSProperties = {
-  lineHeight: "1.3",
-};
-const brandTitle: React.CSSProperties = {
-  color: "#111827",
-  fontSize: "18px",
-  fontWeight: 700,
-  margin: 0,
-};
-const brandSubtitle: React.CSSProperties = {
-  color: "#6b7280",
-  fontSize: "13px",
-  margin: 0,
 };
 const h1: React.CSSProperties = {
   color: "#111827",
