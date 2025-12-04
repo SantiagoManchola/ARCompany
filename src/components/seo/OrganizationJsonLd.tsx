@@ -3,7 +3,7 @@ interface OrganizationJsonLdProps {
 }
 
 export default function OrganizationJsonLd({
-  baseUrl = "https://arcompany-delta.vercel.app",
+  baseUrl = "https://www.arcompanyjuridicos.com",
 }: OrganizationJsonLdProps) {
   const jsonLd = {
     "@context": "https://schema.org",

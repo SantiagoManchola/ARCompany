@@ -3,7 +3,7 @@ import { apiService } from "@/services/api";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://arcompany-delta.vercel.app/";
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.arcompanyjuridicos.com";
 
   // URLs estáticas
   const staticUrls = [

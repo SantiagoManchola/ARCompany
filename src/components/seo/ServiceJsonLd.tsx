@@ -7,7 +7,7 @@ interface ServiceJsonLdProps {
 
 export default function ServiceJsonLd({
   servicio,
-  baseUrl = "https://arcompany-delta.vercel.app",
+  baseUrl = "https://www.arcompanyjuridicos.com",
 }: ServiceJsonLdProps) {
   const jsonLd = {
     "@context": "https://schema.org",
