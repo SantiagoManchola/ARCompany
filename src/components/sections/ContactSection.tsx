@@ -102,7 +102,7 @@ export default function ContactSection() {
             <div className="space-y-4">
               {/* Wrap AOS on a container to preserve hover transitions on the card */}
               <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1300">
-                <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden">
+                <div className="group relative flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 overflow-hidden cursor-pointer">
                 <div className="w-12 h-12 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">
                     <svg
                     className="w-6 h-6"
@@ -125,6 +125,13 @@ export default function ContactSection() {
                   <p className="text-gray-600">323 289 5945 <br /> 316 225 7289</p>
                 </div>
                 <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-amber-400 to-amber-500"></div>
+                <a
+                  href="https://wa.me/573232895945?text=%C2%A1Hola!%20Me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20jur%C3%ADdica."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Abrir chat de WhatsApp"
+                  className="absolute inset-0 z-10"
+                />
               </div>
               </div>
 

@@ -23,6 +23,11 @@ interface Props {
 
 export function AdminNotificationEmail(props: Props) {
   const { fullName, phone, email, subject, message, receivedAt } = props;
+  const displayTime = new Intl.DateTimeFormat("es-CO", {
+    dateStyle: "short",
+    timeStyle: "medium",
+    timeZone: "America/Bogota",
+  }).format(new Date(receivedAt));
   return (
     <Html>
       <Head />
@@ -41,14 +46,11 @@ export function AdminNotificationEmail(props: Props) {
                 height={70}
                 style={logo}
               />
-              <div style={brandTextWrap}>
-                <Text style={brandTitle}>AR Company</Text>
-              </div>
             </div>
           </Section>
 
           <Heading style={h1}>Nuevo mensaje de contacto</Heading>
-          <Text style={meta}>Recibido: {receivedAt}</Text>
+          <Text style={meta}>Recibido: {displayTime} (GMT-5)</Text>
 
           <Section style={card}>
             <Text style={label}><strong>Nombre:</strong> {fullName}</Text>
@@ -90,7 +92,7 @@ const container: React.CSSProperties = {
   margin: "24px auto",
   width: "100%",
   maxWidth: "640px",
-  boxShadow: "0 12px 32px rgba(17, 24, 39, 0.08)",
+  boxShadow: "0 6px 16px rgba(17, 24, 39, 0.06)",
   border: "1px solid #e5e7eb",
 };
 const header: React.CSSProperties = {
@@ -105,15 +107,6 @@ const logoWrap: React.CSSProperties = {
 };
 const logo: React.CSSProperties = {
   display: "block",
-};
-const brandTextWrap: React.CSSProperties = {
-  lineHeight: "1.3",
-};
-const brandTitle: React.CSSProperties = {
-  color: "#111827",
-  fontSize: "18px",
-  fontWeight: 700,
-  margin: 0,
 };
 const h1: React.CSSProperties = {
   color: "#111827",

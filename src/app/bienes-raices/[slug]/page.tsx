@@ -879,7 +879,7 @@ export default function PropertyPage() {
               </button>
 
               <a
-                href={`https://wa.me/573123456789?text=Hola, estoy interesado en la propiedad: ${property.titulo}`}
+                href={`https://wa.me/573024235453?text=Hola, estoy interesado en la propiedad: ${property.titulo}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 flex items-center justify-center shadow-lg"
