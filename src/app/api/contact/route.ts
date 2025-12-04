@@ -98,7 +98,7 @@ export async function POST(req: Request) {
       from,
       to: to,
       replyTo: email,
-      subject: `Contacto AR Company: ${subject}`,
+      subject: `Solicitud de asesoría en: ${subject}`,
       html: adminHtml,
       text: adminText,
     });
