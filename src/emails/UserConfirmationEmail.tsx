@@ -32,12 +32,9 @@ export function UserConfirmationEmail({ fullName, subject }: Props) {
                 src="https://www.arcompanyjuridicos.com/images/Logo%20AR%20COMPANY.png"
                 alt="AR Company"
                 width={90}
-                height={90}
+                height={70}
                 style={logo}
               />
-              <div style={brandTextWrap}>
-                <Text style={brandTitle}>AR Company</Text>
-              </div>
             </div>
           </Section>
 
@@ -129,15 +126,6 @@ const logoWrap: React.CSSProperties = {
 };
 const logo: React.CSSProperties = {
   display: "block",
-};
-const brandTextWrap: React.CSSProperties = {
-  lineHeight: "1.3",
-};
-const brandTitle: React.CSSProperties = {
-  color: "#111827",
-  fontSize: "18px",
-  fontWeight: 700,
-  margin: 0,
 };
 const h1: React.CSSProperties = {
   color: "#111827",

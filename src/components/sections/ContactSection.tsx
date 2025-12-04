@@ -380,7 +380,7 @@ export default function ContactSection() {
                   </div>
 
                   {/* Submit Button */}
-                  <div className="pt-4" data-aos="zoom-in" data-aos-delay="350" data-aos-duration="1300">
+                  <div className="pt-4" data-aos="zoom-in" data-aos-delay="350" data-aos-duration="1300" data-aos-offset="50">
                     <button
                       type="submit"
                       disabled={isSubmitting}
