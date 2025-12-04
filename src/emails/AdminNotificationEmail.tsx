@@ -50,7 +50,7 @@ export function AdminNotificationEmail(props: Props) {
           </Section>
 
           <Heading style={h1}>Nuevo mensaje de contacto</Heading>
-          <Text style={meta}>Recibido: {displayTime} (GMT-5)</Text>
+          <Text style={meta}>Recibido: {displayTime}</Text>
 
           <Section style={card}>
             <Text style={label}><strong>Nombre:</strong> {fullName}</Text>
@@ -92,7 +92,6 @@ const container: React.CSSProperties = {
   margin: "24px auto",
   width: "100%",
   maxWidth: "640px",
-  boxShadow: "0 6px 16px rgba(17, 24, 39, 0.06)",
   border: "1px solid #e5e7eb",
 };
 const header: React.CSSProperties = {
