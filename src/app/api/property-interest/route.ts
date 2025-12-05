@@ -3,8 +3,18 @@ import { Resend } from "resend";
 import { render } from "@react-email/components";
 import AdminNotificationEmail from "@/emails/AdminNotificationEmail";
 import UserConfirmationEmail from "@/emails/UserConfirmationEmail";
+export const dynamic = "force-dynamic";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return null;
+  try {
+    return new Resend(key);
+  } catch (e) {
+    console.error("RESEND_INIT_ERROR", e);
+    return null;
+  }
+}
 
 interface PropertyInterestBodyRaw {
   fullName?: unknown;
@@ -97,7 +107,16 @@ export async function POST(req: Request) {
     const from = `AR Company <${fromEmail}>`;
     const to = process.env.RESEND_TO_EMAIL as string;
 
-    const adminResult = await resend.emails.send({
+    const resendClient = getResend();
+    if (!resendClient) {
+      console.error("RESEND_API_KEY missing or invalid");
+      return NextResponse.json(
+        { ok: false, error: "EMAIL_SERVICE_UNAVAILABLE" },
+        { status: 503 }
+      );
+    }
+
+    const adminResult = await resendClient.emails.send({
       from,
       to,
       replyTo: email,
@@ -115,7 +134,7 @@ export async function POST(req: Request) {
     }
 
     if (email) {
-      resend.emails
+      resendClient.emails
         .send({
           from,
           to: email,

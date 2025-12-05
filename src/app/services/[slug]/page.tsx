@@ -4,6 +4,8 @@ import { ServiceAPI } from "@/types/api";
 import { Metadata } from "next";
 import ServiceJsonLd from "@/components/seo/ServiceJsonLd";
 
+type FAQ = { pregunta?: string; respuesta?: string; q?: string; a?: string };
+
 interface ServicioPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -29,6 +31,7 @@ export async function generateMetadata({
       };
     }
 
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.arcompanyjuridicos.com";
     return {
       title: `${servicio.nombre} | AR Company`,
       description: servicio.descripcion,
@@ -53,7 +56,7 @@ export async function generateMetadata({
         images: [servicio.imagen_banner.url],
       },
       alternates: {
-        canonical: `/services/${slug}`,
+        canonical: `${baseUrl}/services/${slug}`,
       },
     };
   } catch (error) {
@@ -89,12 +92,60 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
       : `${cmsBase}${servicio.imagen_banner.url}`
     : "";
 
+  // FAQPage JSON-LD (si existe data de FAQs)
+  const getFaqs = (s: unknown): FAQ[] => {
+    if (!s || typeof s !== "object") return [];
+    const obj = s as Record<string, unknown>;
+    const pf = obj["preguntas_frecuentes"];
+    if (Array.isArray(pf)) return pf as FAQ[];
+    const fq = obj["faqs"];
+    if (Array.isArray(fq)) return fq as FAQ[];
+    return [];
+  };
+  const faqs: FAQ[] = getFaqs(servicio);
+  const faqJsonLd = Array.isArray(faqs) && faqs.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((f: FAQ) => ({
+          '@type': 'Question',
+          name: f.pregunta || f.q || '',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: f.respuesta || f.a || '',
+          },
+        })),
+      }
+    : null;
+
+  // BreadcrumbList JSON-LD
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.arcompanyjuridicos.com';
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${baseUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${baseUrl}/services` },
+      { '@type': 'ListItem', position: 3, name: servicio.nombre, item: `${baseUrl}/services/${slug}` },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-gray-50">
       <ServiceJsonLd
         servicio={servicio}
         baseUrl={process.env.NEXT_PUBLIC_BASE_URL}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
       {/* Banner del servicio integrado */}
       <section className="relative h-[40vh] sm:h-[50vh] lg:h-[60vh] overflow-hidden">
         {/* Background Image */}
