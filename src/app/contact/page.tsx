@@ -2,6 +2,7 @@ import ContactBanner from "@/components/sections/ContactBanner"
 import ContactSection from "@/components/sections/ContactSection";
 import MapSection from "@/components/sections/MapSection";
 import { Metadata } from "next";
+import BreadcrumbsJsonLd from "@/components/seo/BreadcrumbsJsonLd";
 
 export const metadata: Metadata = {
   title: "Contacto | AR Company",
@@ -37,6 +38,12 @@ export const metadata: Metadata = {
 export default function Contact() {
   return (
   <div>
+    <BreadcrumbsJsonLd
+      items={[
+        { name: "Inicio", item: "/" },
+        { name: "Contacto", item: "/contact" },
+      ]}
+    />
     <ContactBanner />
     <ContactSection />
     <MapSection />

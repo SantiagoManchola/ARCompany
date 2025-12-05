@@ -3,6 +3,7 @@ import { apiService } from "@/services/api";
 import { NewsAPI } from "@/types/api";
 import { Metadata } from "next";
 import NewsJsonLd from "@/components/seo/NewsJsonLd";
+import BreadcrumbsJsonLd from "@/components/seo/BreadcrumbsJsonLd";
 import React from "react";
 import Image from "next/image";
 
@@ -659,6 +660,13 @@ export default async function NewsPage({ params }: NewsPageProps) {
 
   return (
     <main className="min-h-screen bg-white">
+      <BreadcrumbsJsonLd
+        items={[
+          { name: "Inicio", item: "/" },
+          { name: "Noticias", item: "/news" },
+          { name: noticia.title, item: `${(process.env.NEXT_PUBLIC_BASE_URL || "").replace(/\/+$/, "")}/news/${slug}` },
+        ]}
+      />
       <NewsJsonLd
         noticia={noticia}
         baseUrl={process.env.NEXT_PUBLIC_BASE_URL}

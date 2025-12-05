@@ -5,7 +5,8 @@ import InfoSection from "@/components/sections/InfoSection";
 import NewsSection from "@/components/sections/NewsSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import { useServicios } from "@/hooks/useServicios";
-import { useNoticias } from "@/hooks/useNoticias";
+import { useNoticias } from "@/hooks/useNoticias"; 
+import BreadcrumbsJsonLd from "@/components/seo/BreadcrumbsJsonLd";
 
 export default function Home() {
   const { servicesData, loading: servicesLoading, error: servicesError } = useServicios();
@@ -13,6 +14,11 @@ export default function Home() {
 
   return (
     <div>
+      <BreadcrumbsJsonLd
+        items={[
+          { name: "Inicio", item: "/" },
+        ]}
+      />
       <SliderSection />
       <InfoSection />
       <ServicesSection

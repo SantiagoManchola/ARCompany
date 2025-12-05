@@ -5,6 +5,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { ReactNode } from "react";
 import AOSInit from "@/components/AOSInit";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
+import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="es">
       <body className="min-h-screen bg-white">
         <OrganizationJsonLd baseUrl={process.env.NEXT_PUBLIC_BASE_URL} />
+        <WebSiteJsonLd baseUrl={process.env.NEXT_PUBLIC_BASE_URL} />
         <AOSInit />
         <Header />
         <main>{children}</main>

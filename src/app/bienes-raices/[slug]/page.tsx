@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePropertyBySlug } from "@/hooks/useRealState";
+import RealEstateJsonLd from "@/components/seo/RealEstateJsonLd";
+import BreadcrumbsJsonLd from "@/components/seo/BreadcrumbsJsonLd";
 
 // Segment options se declaran en el layout (Server Component)
 
@@ -58,6 +60,17 @@ export default function PropertyPage() {
   const [rsSubmitted, setRsSubmitted] = useState(false);
   const rsTimerRef = useRef<number | null>(null);
   const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
+    const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || "").replace(/\/+$/, "");
+    const canonical = baseUrl ? `${baseUrl}/bienes-raices/${slug}` : `/bienes-raices/${slug}`;
+
+    const mainImage = property?.imagenes?.[0];
+    const reAddress = {
+      streetAddress: "",
+      addressLocality: "",
+      addressRegion: "",
+      postalCode: "",
+      addressCountry: "CO",
+    };
   const thumbsContainerRef = useRef<HTMLDivElement | null>(null);
   // Main gallery drag state (click + drag to slide)
   const galleryContainerRef = useRef<HTMLDivElement | null>(null);
@@ -85,6 +98,7 @@ export default function PropertyPage() {
     const target = elOffsetLeft - container.clientWidth / 2 + el.clientWidth / 2;
     container.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
   };
+  const priceVal = typeof property?.precio === "number" ? property.precio : 0;
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", minimumFractionDigits: 0 }).format(price);
@@ -1457,6 +1471,24 @@ export default function PropertyPage() {
           </div>
         </div>
       </div>
+      <BreadcrumbsJsonLd
+        items={[
+          { name: "Inicio", item: "/" },
+          { name: "Bienes Raíces", item: "/bienes-raices" },
+          { name: property?.titulo || slug, item: canonical },
+        ]}
+      />
+      {property && (
+        <RealEstateJsonLd
+          name={property.titulo || slug}
+          description={property.descripcion || ""}
+          url={canonical}
+          image={mainImage?.url || ""}
+          address={reAddress}
+          price={priceVal}
+          currency={"COP"}
+        />
+      )}
     </div>
   );
 }
